@@ -1,5 +1,5 @@
 # control
-Web based client interface for the music player daemon. Depends on php and mpc.
+Web based client interface for the music player daemon. Depends on php and mpc. Alpha status at the moment.
 
 A simple lighweight mobile web interface for the music player daemon (http://musicpd.org). Intended for use in conjunction with the paradigm connector to provide control from mobile data network devices over LAN-based music players.
 
