@@ -53,7 +53,6 @@ svg.toolbar {
   fill: #93A1A1;
 }
 
-
 nav { 
   display: table; 
   overflow: hidden;  
@@ -80,7 +79,10 @@ nav {
   font-size: .8em;
   line-height: 20px;
 }
- 
+ .info-container{
+  margin: 100px auto 30px auto;
+}
+
 #dn { 
   background-color: #b58900;
 }
@@ -234,10 +236,3 @@ path.confirm {
     transform: scale3d(2, 2, 2);
   }
 }
-
-/* ACCORDIAN STUFF */
-
-.ac-container{
-	margin: 100px auto 30px auto;
-}
-

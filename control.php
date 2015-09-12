@@ -49,7 +49,7 @@ if (isset($getA)) {
       }
       // Retrieve info of current track, formatted into html
       $infoQuery = $MPC . ' --format "
-	          <div class="ac-container">
+	          <div class="info-container">
 		  <h2>[[%title%]|[%file%]]</h2>
                   <p><strong>Artist:</strong> [%artist%]</p>
                   <p><strong>Album:</strong> [%album%]</p>" | head -n4';
