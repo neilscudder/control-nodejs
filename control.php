@@ -1,7 +1,7 @@
 <?php
 // CONTROL 0.1.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
-header("Access-Control-Allow-Origin: https://playnode.ca");
+
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
 
 ini_set('display_startup_errors',1);
@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $pri=$_POST["pri"];
   $sec=$_POST["sec"];
   $portAlias=$_POST["serverAlias"];
-//  $playnodeName=$_POST["serverName"];
 } else {
   $getA=$_GET["a"];
   $portAlias=$_GET["b"];
@@ -40,14 +39,14 @@ if (isset($getA)) {
     break;
     case "info":
       $cacheFile = "$cacheDir/$portAlias.cache";
-      // Retrieve previous track info from serveralias.comparison
       $comparisonFile = "$cacheDir/$portAlias.comparison";
+
       if (file_exists($comparisonFile)) {
         $previousFname = shell_exec("cat $comparisonFile");
       } else {
         $previousFname = null;
       }
-      // Retrieve info of current track, formatted into html
+
       $infoQuery = $MPC . ' --format "
 	          <div class="info-container">
 		  <h2>[[%title%]|[%file%]]</h2>
@@ -56,24 +55,18 @@ if (isset($getA)) {
 
       $fnameQuery = $MPC . ' --format %file% | head -n1';
       $currentFname = shell_exec($fnameQuery);
-      // IF the contents of comparison file are different than current info
+
       if ($currentFname != $previousFname){
-        file_put_contents($comparisonFile, $currentFname);
-        // Construct the YouTube search link markup:
-        // Retrieve artist and track titles concacenated for search
+        file_put_contents($comparisonFile, $currentFname); 
         $queryQuery = $MPC . '  --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
         $searchParams = shell_exec($queryQuery);
         $encQuery = rawurlencode($searchParams);
         $ytLink = "https://www.youtube.com/results?search_query=${encQuery}";
-
-        // Exec the info query for matted current track info
         $currentInfo=shell_exec($infoQuery);
-        // Append the YouTube link 
         $currentInfo .= "<div class='animated button'><a href='${ytLink}' target='_blank'>Find On YouTube</a></div></div>";
         echo $currentInfo;
         file_put_contents($cacheFile, $currentInfo);
       } else {
-        // RETRIEVE from cache
         include($cacheFile);
       }
     break;
