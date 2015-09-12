@@ -1,5 +1,5 @@
-//var portAlias = null;
-//var playnode = null;
+// CONTROL 0.1.2 Copyright 2015 @neilscudder
+// Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 var controlScript = "control.php";
 var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
 var PreviousInfo = null;

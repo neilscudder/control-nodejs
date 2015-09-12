@@ -1,8 +1,8 @@
 <?php
-
+// CONTROL 0.1.2 Copyright 2015 @neilscudder
+// Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
 
-// BUG error log fills when these values not provided
 $portAlias=$_GET["portAlias"];
 $playnode=$_GET["playnode"];
 ?>

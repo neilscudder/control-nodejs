@@ -1,5 +1,6 @@
 <?php
-
+// CONTROL 0.1.2 Copyright 2015 @neilscudder
+// Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 header("Access-Control-Allow-Origin: https://playnode.ca");
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
 
