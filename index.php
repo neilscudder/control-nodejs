@@ -6,6 +6,8 @@ setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshe
 
 $portAlias=$_GET["portAlias"];
 $playnode=$_GET["playnode"];
+$user=$_GET["user"];
+$hash=$_GET["hash"];
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +70,8 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
   </main>
 <div class="portAlias" id="<?php echo $portAlias; ?>"></div>
 <div class="playnode" id="<?php echo $playnode; ?>"></div>
+<div class="user" id="<?php echo $user; ?>"></div>
+<div class="hash" id="<?php echo $hash; ?>"></div>
 <script language="javascript" type="text/javascript" src="js/control.js"></script>
 </body>
 </html>
