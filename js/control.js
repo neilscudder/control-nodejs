@@ -6,19 +6,21 @@ var PreviousInfo = null;
 
 function setAlias(){
   window.portAlias = document.getElementsByClassName("portAlias")[0].id;
-  window.playnode = document.getElementsByClassName("playnode")[0].id;
+  window.playnode = document.getElementsByClassName("playnode")[0].id; 
+  window.user = document.getElementsByClassName("user")[0].id; 
+  window.hash = document.getElementsByClassName("hash")[0].id;
 }
 function getCmd(id){  
   var x = document.getElementById(id);
   xmlhttp=new XMLHttpRequest();
-  params=controlScript + "?a=" + id  + "&b=" + window.portAlias;
+  params=controlScript + "?a=" + id  + "&b=" + window.portAlias + "&u=" + window.user + "&h=" + window.hash;
   xmlhttp.open("GET",params,false);
   xmlhttp.send();
 }
 function postCmd(command,id) {
   xmlhttp=new XMLHttpRequest();
   xmlhttp.open("POST",controlScript,true);
-  params="pri=" + command + "&sec=" + id + "&serverAlias=" + window.portAlias;
+  params="pri=" + command + "&sec=" + id + "&serverAlias=" + window.portAlias + "&u=" + window.user + "&h=" + window.hash;
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.setRequestHeader("Content-length", params.length);
   xmlhttp.setRequestHeader("Connection", "close");
