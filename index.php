@@ -1,14 +1,13 @@
 <?php
-// CONTROL 0.1.3 Copyright 2015 @neilscudder
+// CONTROL 0.1.4 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
 
-$MPDPORT=$_GET["MPDPORT"];
-$MPDHOST=$_GET["MPDHOST"];
-$PASSWORD=$_GET["PASSWORD"];
-$LABEL=$_GET["LABEL"];
-$HASH=$_GET["HASH"];
+$MPDPORT=$_GET["m"];
+$MPDHOST=$_GET["h"];
+$PASSWORD=$_GET["p"];
+$LABEL=$_GET["l"];
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +72,6 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 <div class="MPDHOST" id="<?php echo $MPDHOST; ?>"></div>
 <div class="PASSWORD" id="<?php echo $PASSWORD; ?>"></div>
 <div class="LABEL" id="<?php echo $LABEL; ?>"></div>
-<div class="HASH" id="<?php echo $HASH; ?>"></div>
 <script language="javascript" type="text/javascript" src="js/control.js"></script>
 </body>
 </html>
