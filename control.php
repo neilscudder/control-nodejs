@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.1.2 Copyright 2015 @neilscudder
+// CONTROL 0.1.3 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -11,10 +11,17 @@ error_reporting(-1);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $pri=$_POST["pri"];
   $sec=$_POST["sec"];
-  $portAlias=$_POST["serverAlias"];
+  $MPDPORT=$_POST["m"];
+  $MPDHOST=$_POST["h"];
+  $PASSWORD=$_POST["p"];
+  $LABEL=$_POST["l"];
+}
 } else {
   $getA=$_GET["a"];
-  $portAlias=$_GET["b"];
+  $MPDPORT=$_GET["m"];
+  $MPDHOST=$_GET["h"];
+  $PASSWORD=$_GET["p"];
+  $LABEL=$_GET["l"];
 }
 $cacheDir="cache/";
 
@@ -24,7 +31,8 @@ function url_get_param($name) {
   return isset($vars[$name]) ? $vars[$name] : null;
 }
 
-$MPC="/usr/bin/mpc -p " . $portAlias;
+// ADD PARAMS IF SET
+$MPC="/usr/bin/mpc -h {$PASSWORD}@{$MPDHOST} -p " . $MPDPORT;
 
 if (isset($getA)) {
   switch ($getA) {
@@ -38,8 +46,8 @@ if (isset($getA)) {
       shell_exec("$MPC  next");
     break;
     case "info":
-      $cacheFile = "$cacheDir/$portAlias.cache";
-      $comparisonFile = "$cacheDir/$portAlias.comparison";
+      $cacheFile = "$cacheDir/$MPDPORT.cache";
+      $comparisonFile = "$cacheDir/$MPDPORT.comparison";
 
       if (file_exists($comparisonFile)) {
         $previousFname = shell_exec("cat $comparisonFile");
@@ -114,7 +122,7 @@ if (isset($pri)) {
 		shell_exec("$MPC clear; $MPC add " . $escaped . "; $MPC shuffle; $MPC play");
 		break;
 	case "test":
-		$testCmd=$MPC . $portAlias;
+		$testCmd=$MPC . $MPDPORT;
 		exec($testCmd,$output,$exitStatus);
 		if($exitStatus != 0) {
 			echo "error";

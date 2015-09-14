@@ -1,26 +1,37 @@
-// CONTROL 0.1.2 Copyright 2015 @neilscudder
+// CONTROL 0.1.3 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 var controlScript = "control.php";
 var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
 var PreviousInfo = null;
 
 function setAlias(){
-  window.portAlias = document.getElementsByClassName("portAlias")[0].id;
-  window.playnode = document.getElementsByClassName("playnode")[0].id; 
-  window.user = document.getElementsByClassName("user")[0].id; 
-  window.hash = document.getElementsByClassName("hash")[0].id;
+  window.MPDPORT = document.getElementsByClassName("MPDPORT")[0].id;
+  window.MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
+  window.PASSWORD = document.getElementsByClassName("PASSWORD")[0].id; 
+  window.LABEL = document.getElementsByClassName("LABEL")[0].id;  
+  window.HASH = document.getElementsByClassName("HASH")[0].id;
 }
 function getCmd(id){  
   var x = document.getElementById(id);
   xmlhttp=new XMLHttpRequest();
-  params=controlScript + "?a=" + id  + "&b=" + window.portAlias + "&u=" + window.user + "&h=" + window.hash;
+  params=controlScript 
+    + "?a=" + id  
+    + "&m=" + window.MPDPORT 
+    + "&h=" + window.MPDHOST
+    + "&p=" + window.PASSWORD 
+    + "&h=" + window.HASH;
   xmlhttp.open("GET",params,false);
   xmlhttp.send();
 }
 function postCmd(command,id) {
   xmlhttp=new XMLHttpRequest();
   xmlhttp.open("POST",controlScript,true);
-  params="pri=" + command + "&sec=" + id + "&serverAlias=" + window.portAlias + "&u=" + window.user + "&h=" + window.hash;
+  params="pri=" + command 
+    + "&sec=" + id 
+    + "&m=" + window.MPDPORT 
+    + "&h=" + window.MPDHOST
+    + "&p=" + window.PASSWORD 
+    + "&h=" + window.HASH;
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.setRequestHeader("Content-length", params.length);
   xmlhttp.setRequestHeader("Connection", "close");
@@ -29,7 +40,7 @@ function postCmd(command,id) {
 function autoRefresh(id) {
   setTimeout(function(){ autoRefresh(id) },3000);
   xmlhttp=new XMLHttpRequest();
-  params=controlScript + "?a=" + id + "&b=" + window.portAlias;
+  params=controlScript + "?a=" + id + "&b=" + window.MPDPORT;
   xmlhttp.open("GET",params,true);
   xmlhttp.send();
   xmlhttp.onreadystatechange=function() {
@@ -86,7 +97,7 @@ function playListener() {
     var x = document.getElementById(nid);
     if (x.classList.contains("confirm")) {
       postCmd("play",nid);
-      window.location.href = "index.php?portAlias=" + window.portAlias + "&playnode=" + window.playnode;
+      window.location.href = "index.php?MPDPORT=" + window.MPDPORT + "&LABEL=" + window.LABEL;
     } else {
       x.classList.add('pushed');
       x.classList.remove('released');

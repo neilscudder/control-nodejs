@@ -1,23 +1,24 @@
 <?php
-// CONTROL 0.1.2 Copyright 2015 @neilscudder
+// CONTROL 0.1.3 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
 
-$portAlias=$_GET["portAlias"];
-$playnode=$_GET["playnode"];
-$user=$_GET["user"];
-$hash=$_GET["hash"];
+$MPDPORT=$_GET["MPDPORT"];
+$MPDHOST=$_GET["MPDHOST"];
+$PASSWORD=$_GET["PASSWORD"];
+$LABEL=$_GET["LABEL"];
+$HASH=$_GET["HASH"];
 ?>
 
 <!DOCTYPE html>
 
 <head>
-<title><?php echo $playnode; ?></title>
+<title><?php echo $LABEL; ?></title>
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="css/control.css" />
-<link rel="icon" sizes="192x192" href="../sites/default/files/icon_playnode_0.png">
+<link rel="icon" sizes="192x192" href="../sites/default/files/icon_LABEL_0.png">
 </head>
 
 <body class="" ontouchstart="">
@@ -46,7 +47,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
         </svg>
       </div>
       <div id="tog" class="quarter">
-	<a href="browser.php?portAlias=<?php echo $portAlias; ?>&playnode=<?php echo $playnode; ?>">
+	<a href="browser.php?MPDPORT=<?php echo $MPDPORT; ?>&LABEL=<?php echo $LABEL; ?>">
           <svg class="toolbar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
             <path fill="none" d="M0,0h48v48H0V0z"/>
@@ -58,7 +59,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
     </div>
     <div class="row">
       <div class="banner">
-        <h3><?php echo $playnode;?></h3> 
+        <h3><?php echo $LABEL;?></h3> 
       </div>
     </div>
   </nav>    
@@ -68,10 +69,11 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
     </section>
     <!-- END Viewer -->    
   </main>
-<div class="portAlias" id="<?php echo $portAlias; ?>"></div>
-<div class="playnode" id="<?php echo $playnode; ?>"></div>
-<div class="user" id="<?php echo $user; ?>"></div>
-<div class="hash" id="<?php echo $hash; ?>"></div>
+<div class="MPDPORT" id="<?php echo $MPDPORT; ?>"></div>
+<div class="MPDHOST" id="<?php echo $MPDHOST; ?>"></div>
+<div class="PASSWORD" id="<?php echo $PASSWORD; ?>"></div>
+<div class="LABEL" id="<?php echo $LABEL; ?>"></div>
+<div class="HASH" id="<?php echo $HASH; ?>"></div>
 <script language="javascript" type="text/javascript" src="js/control.js"></script>
 </body>
 </html>
