@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.1.3 Copyright 2015 @neilscudder
+// CONTROL 0.1.4 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -14,14 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $MPDPORT=$_POST["m"];
   $MPDHOST=$_POST["h"];
   $PASSWORD=$_POST["p"];
-  $LABEL=$_POST["l"];
-}
 } else {
   $getA=$_GET["a"];
   $MPDPORT=$_GET["m"];
   $MPDHOST=$_GET["h"];
   $PASSWORD=$_GET["p"];
-  $LABEL=$_GET["l"];
 }
 $cacheDir="cache/";
 
