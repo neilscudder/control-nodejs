@@ -1,4 +1,4 @@
-// CONTROL 0.1.3 Copyright 2015 @neilscudder
+// CONTROL 0.1.4 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 var controlScript = "control.php";
 var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
@@ -9,7 +9,6 @@ function setAlias(){
   window.MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
   window.PASSWORD = document.getElementsByClassName("PASSWORD")[0].id; 
   window.LABEL = document.getElementsByClassName("LABEL")[0].id;  
-  window.HASH = document.getElementsByClassName("HASH")[0].id;
 }
 function getCmd(id){  
   var x = document.getElementById(id);
@@ -18,8 +17,7 @@ function getCmd(id){
     + "?a=" + id  
     + "&m=" + window.MPDPORT 
     + "&h=" + window.MPDHOST
-    + "&p=" + window.PASSWORD 
-    + "&h=" + window.HASH;
+    + "&p=" + window.PASSWORD; 
   xmlhttp.open("GET",params,false);
   xmlhttp.send();
 }
@@ -30,8 +28,7 @@ function postCmd(command,id) {
     + "&sec=" + id 
     + "&m=" + window.MPDPORT 
     + "&h=" + window.MPDHOST
-    + "&p=" + window.PASSWORD 
-    + "&h=" + window.HASH;
+    + "&p=" + window.PASSWORD; 
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.setRequestHeader("Content-length", params.length);
   xmlhttp.setRequestHeader("Connection", "close");
