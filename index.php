@@ -1,13 +1,25 @@
 <?php
-// CONTROL 0.1.5 Copyright 2015 @neilscudder
+// CONTROL 0.1.6 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
 
-$MPDPORT=$_GET["m"];
-$MPDHOST=$_GET["h"];
-$PASSWORD=$_GET["p"];
-$LABEL=$_GET["l"];
+if (isset($_GET["m"])) {
+  $MPDPORT=$_GET["m"];
+}
+if (isset($_GET["h"])) {
+  $MPDHOST=$_GET["h"];
+}
+if (isset($_GET["p"])) {
+  $PASSWORD=$_GET["p"];
+}
+if (isset($_GET["l"])) {
+  $LABEL=$_GET["l"];
+} elseif (isset($MPDHOST){
+  $LABEL="Music server: $MPDHOST";
+} else {
+  $LABEL="Music server: localhost";
+}
 ?>
 
 <!DOCTYPE html>

@@ -29,13 +29,13 @@ if ($_POST) {
   if (isset($_GET["a"])) {
     $GETA=$_GET["a"];
   }
-  if (isset($_GET["a"])) {
+  if (isset($_GET["m"])) {
     $MPDPORT=$_GET["m"];
   }
-  if (isset($_GET["a"])) {
+  if (isset($_GET["h"])) {
     $MPDHOST=$_GET["h"];
   }
-  if (isset($_GET["a"])) {
+  if (isset($_GET["p"])) {
     $PASSWORD=$_GET["p"];
   }
 }
