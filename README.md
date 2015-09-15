@@ -8,12 +8,11 @@ Install in web server root with shell access to mpc. This can be on the server r
 index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
 
 - p is optional
-- h is optional and defaults to 6600
-- m is optional and defaults to localhost
+- h is optional and defaults to localhost
+- m is optional and defaults to 6600
 - l is optional, and displays on the interface to identify the music zone being controlled
 
 ### API Usage
-
 GET commands<br>
 control.php?a=[COMMAND]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]
 - up - Volume Up 5
@@ -21,7 +20,7 @@ control.php?a=[COMMAND]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]
 - fw - mpc next
 
 POST commands<br>
-control.php [ a=[COMMAND]&b=[TARGET]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT] ]
+a=[COMMAND]&b=[TARGET]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]
 - play TARGET - Clears playlist, adds TARGET dir, shuffles, and plays
 
 ### Features
