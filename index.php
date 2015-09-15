@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.1.4 Copyright 2015 @neilscudder
+// CONTROL 0.1.5 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg

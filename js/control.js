@@ -1,4 +1,4 @@
-// CONTROL 0.1.4 Copyright 2015 @neilscudder
+// CONTROL 0.1.5 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 var controlScript = "control.php";
 var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
@@ -24,8 +24,8 @@ function getCmd(id){
 function postCmd(command,id) {
   xmlhttp=new XMLHttpRequest();
   xmlhttp.open("POST",controlScript,true);
-  params="pri=" + command
-    + "&sec=" + id 
+  params="a=" + command
+    + "&b=" + id 
     + "&m=" + window.MPDPORT 
     + "&h=" + window.MPDHOST
     + "&p=" + window.PASSWORD; 

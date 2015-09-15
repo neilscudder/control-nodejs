@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.1.4 Copyright 2015 @neilscudder
+// CONTROL 0.1.5 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -8,14 +8,14 @@ ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $pri=$_POST["pri"];
-  $sec=$_POST["sec"];
+if ($_POST) {
+  $POSTA=$_POST["a"];
+  $POSTB=$_POST["b"];
   $MPDPORT=$_POST["m"];
   $MPDHOST=$_POST["h"];
   $PASSWORD=$_POST["p"];
 } else {
-  $getA=$_GET["a"];
+  $GETA=$_GET["a"];
   $MPDPORT=$_GET["m"];
   $MPDHOST=$_GET["h"];
   $PASSWORD=$_GET["p"];
@@ -31,8 +31,8 @@ function url_get_param($name) {
 // ADD PARAMS IF SET
 $MPC="/usr/bin/mpc -h {$PASSWORD}@{$MPDHOST} -p " . $MPDPORT;
 
-if (isset($getA)) {
-  switch ($getA) {
+if (isset($GETA)) {
+  switch ($GETA) {
     case "dn":
       shell_exec("$MPC volume -5");
     break;
@@ -111,10 +111,10 @@ if (isset($getA)) {
   }
 }
 
-if (isset($pri)) {
-  switch ($pri) {
+if (isset($POSTA)) {
+  switch ($POSTA) {
 	case "play":
-		$target=rawurldecode($sec);
+		$target=rawurldecode($POSTB);
 		$escaped=escapeshellarg($target);
 		shell_exec("$MPC clear; $MPC add " . $escaped . "; $MPC shuffle; $MPC play");
 		break;
