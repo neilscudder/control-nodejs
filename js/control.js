@@ -5,26 +5,26 @@ var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
 var PreviousInfo = null;
 
 function setAlias(){
-  window.MPDPORT = document.getElementsByClassName("MPDPORT")[0].id;
-  window.MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
-  window.PASSWORD = document.getElementsByClassName("PASSWORD")[0].id; 
-  window.LABEL = document.getElementsByClassName("LABEL")[0].id;  
+  MPDPORT = document.getElementsByClassName("MPDPORT")[0].id;
+  MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
+  PASSWORD = document.getElementsByClassName("PASSWORD")[0].id; 
+//  LABEL = document.getElementsByClassName("LABEL")[0].id;  
 }
 function getCmd(id){  
   var x = document.getElementById(id);
   xmlhttp=new XMLHttpRequest();
-  params=controlScript 
-    + "?a=" + id  
-    + "&m=" + window.MPDPORT 
-    + "&h=" + window.MPDHOST
-    + "&p=" + window.PASSWORD; 
+  params = controlScript;
+  params += "?a=" + id;
+  params += "&m=" + MPDPORT;
+  params += "&h=" + MPDHOST;
+  params += "&p=" + PASSWORD;
   xmlhttp.open("GET",params,false);
   xmlhttp.send();
 }
 function postCmd(command,id) {
   xmlhttp=new XMLHttpRequest();
   xmlhttp.open("POST",controlScript,true);
-  params="pri=" + command 
+  params="pri=" + command
     + "&sec=" + id 
     + "&m=" + window.MPDPORT 
     + "&h=" + window.MPDHOST
@@ -37,7 +37,12 @@ function postCmd(command,id) {
 function autoRefresh(id) {
   setTimeout(function(){ autoRefresh(id) },3000);
   xmlhttp=new XMLHttpRequest();
-  params=controlScript + "?a=" + id + "&b=" + window.MPDPORT;
+//  params=controlScript + "?a=" + id + "&b=" + window.MPDPORT;
+  params = controlScript;
+  params += "?a=" + id;
+  params += "&m=" + MPDPORT;
+  params += "&h=" + MPDHOST;
+  params += "&p=" + PASSWORD;
   xmlhttp.open("GET",params,true);
   xmlhttp.send();
   xmlhttp.onreadystatechange=function() {
