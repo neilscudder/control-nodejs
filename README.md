@@ -1,5 +1,16 @@
 # control
-Web based client interface for the music player daemon. Depends on php and mpc. Alpha status at the moment.
+Web based client interface for the [music player daemon](https://github.com/MaxKellermann/MPD). Depends on php and [mpc](http://git.musicpd.org/cgit/master/mpc.git/). Alpha status.
+
+### Installation
+Install in web server root with shell access to mpc. This can be on the server running mpd, or any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is recommended.
+
+### Usage
+https://yourwebserver.tld/index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
+
+- p is optional
+- h is optional and defaults to 6600
+- m is optional and defaults to localhost
+- l is optional, and displays on the interface to identify the music zone being controlled
 
 ### Features
 
