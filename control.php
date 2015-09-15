@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.1.5 Copyright 2015 @neilscudder
+// CONTROL 0.1.6 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -7,20 +7,38 @@ setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshe
 ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
+$cacheDir="cache/";
 
 if ($_POST) {
-  $POSTA=$_POST["a"];
-  $POSTB=$_POST["b"];
-  $MPDPORT=$_POST["m"];
-  $MPDHOST=$_POST["h"];
-  $PASSWORD=$_POST["p"];
+  if (isset($_POST["a"])) {
+    $POSTA=$_POST["a"];
+  }
+  if (isset($_POST["b"])) {
+    $POSTB=$_POST["b"];
+  }
+  if (isset($_POST["m"])) {
+    $MPDPORT=$_POST["m"];
+  }
+  if (isset($_POST["h"])) {
+    $MPDHOST=$_POST["h"];
+  }
+  if (isset($_POST["p"])) {
+    $PASSWORD=$_POST["p"];
+  }
 } else {
-  $GETA=$_GET["a"];
-  $MPDPORT=$_GET["m"];
-  $MPDHOST=$_GET["h"];
-  $PASSWORD=$_GET["p"];
+  if (isset($_GET["a"])) {
+    $GETA=$_GET["a"];
+  }
+  if (isset($_GET["a"])) {
+    $MPDPORT=$_GET["m"];
+  }
+  if (isset($_GET["a"])) {
+    $MPDHOST=$_GET["h"];
+  }
+  if (isset($_GET["a"])) {
+    $PASSWORD=$_GET["p"];
+  }
 }
-$cacheDir="cache/";
 
 function url_get_param($name) {
   $url=$_SERVER['REQUEST_URI'];
@@ -28,8 +46,15 @@ function url_get_param($name) {
   return isset($vars[$name]) ? $vars[$name] : null;
 }
 
-// ADD PARAMS IF SET
-$MPC="/usr/bin/mpc -h {$PASSWORD}@{$MPDHOST} -p " . $MPDPORT;
+if (isset($PASSWORD)) {
+  $MPC="/usr/bin/mpc -h {$PASSWORD}@{$MPDHOST} -p " . $MPDPORT;
+} elseif (isset($MPDHOST)){
+  $MPC="/usr/bin/mpc -h {$MPDHOST} -p " . $MPDPORT;
+} elseif (isset($MPDPORT)){
+  $MPC="/usr/bin/mpc -p " . $MPDPORT;
+} else {
+  $MPC="/usr/bin/mpc";
+}
 
 if (isset($GETA)) {
   switch ($GETA) {
