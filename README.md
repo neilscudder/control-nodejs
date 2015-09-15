@@ -4,13 +4,25 @@ Web based client interface for the [music player daemon](https://github.com/MaxK
 ### Installation
 Install in web server root with shell access to mpc. This can be on the server running mpd, or any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is recommended.
 
-### Usage
+### Client Usage
 index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
 
 - p is optional
 - h is optional and defaults to 6600
 - m is optional and defaults to localhost
 - l is optional, and displays on the interface to identify the music zone being controlled
+
+### API Usage
+
+GET commands<br>
+control.php?a=[COMMAND]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]
+- up - Volume Up 5
+- dn - Volume Down 5
+- fw - mpc next
+
+POST commands<br>
+control.php [ a=[COMMAND]&b=[TARGET]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT] ]
+- play TARGET - Clears playlist, adds TARGET dir, shuffles, and plays
 
 ### Features
 
