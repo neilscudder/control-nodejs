@@ -15,7 +15,7 @@ if (isset($_GET["p"])) {
 }
 if (isset($_GET["l"])) {
   $LABEL=$_GET["l"];
-} elseif (isset($MPDHOST){
+} elseif (isset($MPDHOST)) {
   $LABEL="Music server: $MPDHOST";
 } else {
   $LABEL="Music server: localhost";
