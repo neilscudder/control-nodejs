@@ -159,6 +159,9 @@ nav {
   font-size: .8em;
   line-height: 20px;
 }
+.info-container{
+        margin: 100px auto 30px auto;
+}
 #dn { 
   background-color: #b58900;
 }
@@ -191,6 +194,22 @@ nav {
   width: 80px;
   float: right;
 }   
+.button { 
+  display: table-cell;  
+  width: 200px;
+  height: 60px;
+  line-height: 60px;
+  background-color: #268bd2;
+  border: 3px solid #002b36;
+  border-radius: 16px;
+  text-align: center;
+  text-decoration: none;
+}
+.button a { 
+  text-decoration: none;
+  font-weight: 800;
+  color: #002b36; 
+}
 
 .animated {
   -webkit-animation-duration: .12s;
