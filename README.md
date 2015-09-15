@@ -5,7 +5,7 @@ Web based client interface for the [music player daemon](https://github.com/MaxK
 Install in web server root with shell access to mpc. This can be on the server running mpd, or any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is recommended.
 
 ### Usage
-https://yourwebserver.tld/index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
+index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
 
 - p is optional
 - h is optional and defaults to 6600
