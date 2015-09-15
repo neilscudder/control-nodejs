@@ -66,10 +66,6 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
     <!-- Viewer -->
     <section id="info"><br><br><br><br><br><br><br><br><br>just a sec..
     </section>
-<div><?php echo $MPDPORT; ?></div>
-<div><?php echo $MPDHOST; ?></div>
-<div><?php echo $PASSWORD; ?></div>
-
     <!-- END Viewer -->    
   </main>
 <div class="MPDPORT" id="<?php echo $MPDPORT; ?>"></div>
