@@ -56,7 +56,7 @@ if (isset($getA)) {
 	          <div class="info-container">
 		  <h2>[[%title%]|[%file%]]</h2>
                   <p><strong>Artist:</strong> [%artist%]</p>
-                  <p><strong>Album:</strong> [%album%]</p>" | head -n4';
+                  <p><strong>Album:</strong> [%album%]</p>" | head -n5';
 
       $fnameQuery = $MPC . ' --format %file% | head -n1';
       $currentFname = shell_exec($fnameQuery);
