@@ -29,6 +29,7 @@ if (isset($_GET["l"])) {
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="icon" sizes="192x192" href="icon_playnode.png">
+<link rel="manifest" href="chromescreen.json">
 </head>
 
 <body class="" ontouchstart="">
@@ -81,7 +82,6 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
   </main>
 
 
-  
 <style type="text/css">
   html {   
     position: relative;    
