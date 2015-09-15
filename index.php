@@ -28,7 +28,7 @@ if (isset($_GET["l"])) {
 <title><?php echo $LABEL; ?></title>
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<link rel="icon" sizes="192x192" href="../sites/default/files/icon_LABEL_0.png">
+<link rel="icon" sizes="192x192" href="icon_playnode.png">
 </head>
 
 <body class="" ontouchstart="">
