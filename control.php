@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.2.0 Copyright 2015 @neilscudder
+// CONTROL 0.2.1 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -46,15 +46,22 @@ function url_get_param($name) {
   return isset($vars[$name]) ? $vars[$name] : null;
 }
 
-if (isset($PASSWORD)) {
-  $MPC="/usr/bin/mpc -h {$PASSWORD}@{$MPDHOST} -p " . $MPDPORT;
-} elseif (isset($MPDHOST)){
-  $MPC="/usr/bin/mpc -h {$MPDHOST} -p " . $MPDPORT;
-} elseif (isset($MPDPORT)){
-  $MPC="/usr/bin/mpc -p " . $MPDPORT;
-} else {
-  $MPC="/usr/bin/mpc";
+function getHost() {
+  if (isset($MPDHOST, $PASSWORD)) {
+    return " -h " + $PASSWORD + "@" + $MPDHOST; 
+  } elseif (isset($MPDHOST)) {
+    return " -h " + $MPDHOST;
+  }
 }
+
+function getPort() {
+  if (isset($MPDPORT)) {
+    return " -p " + $MPDPORT;
+  }
+}
+
+$MPC = "/usr/bin/mpc" + getHost() + getPort();
+
 
 if (isset($GETA)) {
   switch ($GETA) {
