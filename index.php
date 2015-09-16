@@ -162,6 +162,11 @@ nav {
 .info-container{
         margin: 100px auto 30px auto;
 }
+iframe {
+  width: 100%;
+  max-width: 700px;
+  height: 430px;
+}
 #dn { 
   background-color: #b58900;
 }

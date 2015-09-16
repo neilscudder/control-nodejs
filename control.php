@@ -26,16 +26,16 @@ if ($_POST) {
     $PASSWORD=$_POST["p"];
   }
 } else {
-  if (isset($_GET["a"])) {
+  if (!empty($_GET["a"])) {
     $GETA=$_GET["a"];
   }
-  if (isset($_GET["m"])) {
+  if (!empty($_GET["m"])) {
     $MPDPORT=$_GET["m"];
   }
-  if(isset($_GET['h']) && trim($_GET['h'])) {
+  if (!empty($_GET['h'])) {
     $MPDHOST=$_GET['h'];
   }
-  if (isset($_GET["p"])) {
+  if (!empty($_GET["p"])) {
     $PASSWORD=$_GET["p"];
   }
 }
@@ -90,18 +90,25 @@ if (isset($GETA)) {
 
       if ($currentFname != $previousFname){
         file_put_contents($comparisonFile, $currentFname); 
-        $queryQuery = $MPC . '  --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
+//        $queryQuery = $MPC . '  --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
+//        $searchParams = shell_exec($queryQuery);
+//        $encQuery = rawurlencode($searchParams);
+//        $ytLink = "https://www.youtube.com/results?search_query=${encQuery}";
+        $queryQuery = $MPC . ' --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
         $searchParams = shell_exec($queryQuery);
         $encQuery = rawurlencode($searchParams);
-        $ytLink = "https://www.youtube.com/results?search_query=${encQuery}";
+        $ytLink = "https://www.youtube.com/embed?fs=0&controls=0&listType=search&list=${encQuery}";
+
         $currentInfo=shell_exec($infoQuery);
-        $currentInfo .= "
-            <div class='animated button'>
-              <a href='${ytLink}' target='_blank'>
-              Find On YouTube
-              </a>
-            </div>
-          </div>";
+        $currentInfo .= "<p>Preview:</p><iframe src=\"${ytLink}\" frameborder=\"0\"></iframe>";      
+
+//        $currentInfo .= "
+//            <div class='animated button'>
+//              <a href='${ytLink}' target='_blank'>
+//              Find On YouTube
+//              </a>
+//            </div>
+//          </div>";
         echo $currentInfo;
         file_put_contents($cacheFile, $currentInfo);
       } else {
