@@ -46,22 +46,21 @@ function url_get_param($name) {
   return isset($vars[$name]) ? $vars[$name] : null;
 }
 
-function getHost() {
-  if (isset($MPDHOST, $PASSWORD)) {
-    return " -h " + $PASSWORD + "@" + $MPDHOST; 
-  } elseif (isset($MPDHOST)) {
-    return " -h " + $MPDHOST;
-  }
+$MPC = "/usr/bin/mpc";
+if (isset($MPDHOST,$PASSWORD)) {
+  $MPC .= " -h {$PASSWORD}@{$MPDHOST}"; 
+} elseif (isset($MPDHOST)) {
+  $MPC .= " -h $MPDHOST";
+} elseif (isset($PASSWORD)) {
+  $MPC .= " -h {$PASSWORD}@localhost";
 }
 
-function getPort() {
-  if (isset($MPDPORT)) {
-    return " -p " + $MPDPORT;
-  }
+if (isset($MPDPORT)) {
+  $MPC .= " -p $MPDPORT";
 }
 
-$MPC = "/usr/bin/mpc" + getHost() + getPort();
-
+echo $MPC;
+echo $MPDHOST;
 
 if (isset($GETA)) {
   switch ($GETA) {
