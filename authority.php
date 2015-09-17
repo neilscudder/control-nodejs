@@ -1,13 +1,13 @@
 <?php 
-// CONTROL 0.2.3 Copyright 2015 @neilscudder
+// AUTHORITY 0.1.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 
-if (!empty($_GET["r"])) { 
-  resetKeys($_GET["r"]);
+if (!empty($_GET['r'])) { 
+  resetKeys($_GET['r']);
 }
-if (!empty($_GET["e"])) { 
-  setKeys($_GET["e"]);
+if (!empty($_GET['EMAIL'])) { 
+  setKeys($_GET['EMAIL']);
 }
 ?>
 
@@ -19,22 +19,22 @@ if (!empty($_GET["e"])) {
   autocomplete="off" 
   novalidate>
   Playnode label:<br>
-  <input type="text" name="l">
+  <input type="text" name="LABEL">
   <br>
   User email:<br>
-  <input type="text" name="e" value="Not optional">
+  <input type="text" name="EMAIL" value="Not optional">
   <br>
   MPD port:<br>
-  <input type="text" name="m" value="6600">
+  <input type="text" name="MPDPORT" value="6600">
   <br>
   MPD host:<br>
-  <input type="text" name="h" value="localhost">
+  <input type="text" name="MPDHOST" value="localhost">
   <br>
   MPD password:<br>
-  <input type="text" name="p">
+  <input type="text" name="MPDPASS">
   <br>
   Server:<br>
-  <input type="text" name="s">
+  <input type="text" name="CONTROLSERVER">
   <br><br>
   <input type="submit" value="Submit">
 </form>
@@ -43,8 +43,9 @@ if (!empty($_GET["e"])) {
 
 function setKeys($userEmail){
  
-  $controlURL = $_GET['SERVER'] . "control.php?m=" . $_GET['MPDPORT'];
+  $controlURL = $_GET['CONTROLSERVER'] . "control.php?m=" . $_GET['MPDPORT'];
   $authRow = array( "MPDPORT" => $_GET['MPDPORT'] );
+  $authRow['EMAIL'] = $userEmail;
 
   if (!empty($_GET['MPDPASS'])) {
     $controlURL .= "&p=" . $_GET['MPDPASS'];
@@ -63,7 +64,7 @@ function setKeys($userEmail){
   $authRow['RPASS'] = passGenerator();
 
   $controlURL .= "&k=" . $authRow['KPASS'];
-  $resetURL = $_GET['SERVER'] . "authority.php?r=" . $authRow['RPASS'];
+  $resetURL = $_GET['CONTROLSERVER'] . "authority.php?r=" . $authRow['RPASS'];
 
   $m = new MongoClient();
   $collection = $m->authority->keys;
