@@ -12,17 +12,22 @@ index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
 - m is optional and defaults to 6600
 - l is optional, and displays on the interface to identify the music zone being controlled
 
-### API Usage
-GET commands<br>
-control.php?a=[COMMAND]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]
+### Control API Usage
+GET<br>
+?a=[COMMAND]
 - up - Volume Up 5
 - dn - Volume Down 5
 - fw - mpc next
 - info - returns HTML formatted song info with youtube search link
 
-POST commands<br>
-a=[COMMAND]&b=[TARGET]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]
+POST<br>
+a=[COMMAND], b=[TARGET]
 - play TARGET - Clears playlist, adds TARGET dir, shuffles, and plays
+
+COMMON PARAMETERS<br>
+p=[MPDPASSWORD]<br>
+h=[MPDHOST]<br>
+m=[MPDPORT]<br>
 
 ### Features
 
@@ -31,8 +36,9 @@ a=[COMMAND]&b=[TARGET]&p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]
 * minimal http requests
 * portability / compatibility first
 * basic controls / advanced reliability
+* anticipates a broken network
 
-A simple lighweight mobile web interface for the music player daemon (http://musicpd.org). Intended for use in conjunction with the paradigm connector to provide control from mobile data network devices over LAN-based music players.
+A simple lighweight mobile web interface for the music player daemon (http://musicpd.org). Intended for use in conjunction with the [paradigm connector](https://github.com/neilscudder/paradigm) to provide control from mobile data network devices over LAN-based music players.
 
 Intended for a multi-user environment, where controls with varying permissions may be granted and revoked by a separate web based control panel. This control is part of the project at www.playnode.ca providing a platform for DJs to serve background music in commercial establishments.
 
