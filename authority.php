@@ -6,7 +6,7 @@
 <head>
 <title>Playnode Control Authority</title>
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+content="width=device-width, initial-scale=1.5, maximum-scale=1.5, user-scalable=no" />
 </head>
 <body>
 <form 
@@ -66,10 +66,9 @@ function setKeys($userEmail){
   $controlURL .= "&k=" . $authRow['KPASS'];
   $resetURL = $_GET['CONTROLSERVER'] . "authority.php?r=" . $authRow['RPASS'];
 
-  $m = new MongoClient();
-  $collection = $m->authority->keys;
-  $collection->insert($authRow);
-
+//  $m = new MongoClient();
+//  $collection = $m->authority->keys;
+//  $collection->insert($authRow);
   printURL($controlURL);
   printURL($resetURL);
 }
