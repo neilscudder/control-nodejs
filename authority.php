@@ -69,21 +69,20 @@ function setKeys($userEmail){
 //  $m = new MongoClient();
 //  $collection = $m->authority->keys;
 //  $collection->insert($authRow);
-  printURL($controlURL);
-  printURL($resetURL);
+  printURL($controlURL, "Control Link");
+  printURL($resetURL, "Reset Link");
 }
 
 function passGenerator() {
   // http://stackoverflow.com/q/19017694/5045643 :
   $pass=substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1).substr(md5(time()),1);
-  // is it unique?
   return $pass;
 }
 
-function printURL($URL){
+function printURL($url, $name){
   echo "
     <p>
-      <a href='{$URL}'>{$URL}</a>
+      <a href='{$name}'>{$url}</a>
     </p>
   ";
 }
