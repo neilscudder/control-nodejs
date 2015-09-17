@@ -9,8 +9,18 @@ error_reporting(-1);
 <html>
 <head>
 <title>Playnode Control Authority</title>
-<meta name="viewport"
-content="width=device-width, initial-scale=1.5, maximum-scale=1.5, user-scalable=no" />
+<meta 
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<style type="text/css">
+body{
+  background-color: #002b36;
+  font-family: sans-serif;
+}
+input{
+  font-size: 2em;
+}
+</style>
 </head>
 <body>
 <form 
