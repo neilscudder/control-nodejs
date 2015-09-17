@@ -1,16 +1,14 @@
 <?php 
 // AUTHORITY 0.1.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
-
-
-if (!empty($_GET['r'])) { 
-  resetKeys($_GET['r']);
-}
-if (!empty($_GET['EMAIL'])) { 
-  setKeys($_GET['EMAIL']);
-}
 ?>
-
+<html>
+<head>
+<title>Playnode Control Authority</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
 <form 
   action="authority.php" 
   method="get" 
@@ -38,6 +36,8 @@ if (!empty($_GET['EMAIL'])) {
   <br><br>
   <input type="submit" value="Submit">
 </form>
+</body>
+</html>
 
 <?php
 
@@ -87,6 +87,13 @@ function printURL($URL){
       <a href='{$URL}'>{$URL}</a>
     </p>
   ";
+}
+
+if (!empty($_GET['r'])) { 
+  resetKeys($_GET['r']);
+}
+if (!empty($_GET['EMAIL'])) { 
+  setKeys($_GET['EMAIL']);
 }
 
 ?>
