@@ -1,6 +1,7 @@
 <?php 
 // AUTHORITY 0.1.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
+setlocale(LC_CTYPE, "en_US.UTF-8"); 
 ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
@@ -72,13 +73,12 @@ function setKeys($userEmail){
   printURL($controlURL, "Control Link");
   printURL($resetURL, "Reset Link");
 
-  var_dump($authRow);
-
   $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
   $db = $m->authority;
   $collection = $db->keys;
   $collection->insert($authRow);
 
+  var_dump($authRow);
   echo "PHEW";
 }
 
