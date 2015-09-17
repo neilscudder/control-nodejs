@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.2.1 Copyright 2015 @neilscudder
+// CONTROL 0.2.3 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -10,20 +10,20 @@ error_reporting(-1);
 $cacheDir="cache/";
 
 if ($_POST) {
-  if (isset($_POST["a"])) {
+  if (!empty($_POST["a"])) {
     $POSTA=$_POST["a"];
   }
-  if (isset($_POST["b"])) {
+  if (!empty($_POST["b"])) {
     $POSTB=$_POST["b"];
   }
-  if (isset($_POST["m"])) {
+  if (!empty($_POST["m"])) {
     $MPDPORT=$_POST["m"];
   }
-  if (isset($_POST["h"])) {
+  if (!empty($_POST["h"])) {
     $MPDHOST=$_POST["h"];
   }
-  if (isset($_POST["p"])) {
-    $PASSWORD=$_POST["p"];
+  if (!empty($_POST["p"])) {
+    $MPDPASS=$_POST["p"];
   }
 } else {
   if (!empty($_GET["a"])) {
@@ -36,23 +36,17 @@ if ($_POST) {
     $MPDHOST=$_GET['h'];
   }
   if (!empty($_GET["p"])) {
-    $PASSWORD=$_GET["p"];
+    $MPDPASS=$_GET["p"];
   }
 }
 
-function url_get_param($name) {
-  $url=$_SERVER['REQUEST_URI'];
-  parse_str(parse_url($url, PHP_URL_QUERY), $vars);
-  return isset($vars[$name]) ? $vars[$name] : null;
-}
-
 $MPC = "/usr/bin/mpc";
-if (isset($MPDHOST,$PASSWORD)) {
-  $MPC .= " -h {$PASSWORD}@{$MPDHOST}"; 
+if (isset($MPDHOST,$MPDPASS)) {
+  $MPC .= " -h {$MPDPASS}@{$MPDHOST}"; 
 } elseif (isset($MPDHOST)) {
   $MPC .= " -h $MPDHOST";
-} elseif (isset($PASSWORD)) {
-  $MPC .= " -h {$PASSWORD}@localhost";
+} elseif (isset($MPDPASS)) {
+  $MPC .= " -h {$MPDPASS}@localhost";
 }
 
 if (isset($MPDPORT)) {
@@ -68,7 +62,7 @@ if (isset($GETA)) {
       shell_exec("$MPC volume +5");
     break;
     case "fw":
-      shell_exec("$MPC  next");
+      shell_exec("$MPC next");
     break;
     case "info":
       $cacheFile = "$cacheDir/$MPDPORT.cache";
@@ -90,9 +84,6 @@ if (isset($GETA)) {
 
       if ($currentFname != $previousFname){
         file_put_contents($comparisonFile, $currentFname); 
-//        $queryQuery = $MPC . '  --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
-//        $searchParams = shell_exec($queryQuery);
-//        $encQuery = rawurlencode($searchParams);
 //        $ytLink = "https://www.youtube.com/results?search_query=${encQuery}";
         $queryQuery = $MPC . ' --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
         $searchParams = shell_exec($queryQuery);
@@ -100,8 +91,10 @@ if (isset($GETA)) {
         $ytLink = "https://www.youtube.com/embed?fs=0&controls=0&listType=search&list=${encQuery}";
 
         $currentInfo=shell_exec($infoQuery);
-        $currentInfo .= "<p>Preview:</p><iframe src=\"${ytLink}\" frameborder=\"0\"></iframe>";      
-
+        $currentInfo .= "
+              <p>Preview:</p>
+              <iframe src=\"${ytLink}\" frameborder=\"0\"></iframe>
+            </div>";      
 //        $currentInfo .= "
 //            <div class='animated button'>
 //              <a href='${ytLink}' target='_blank'>
