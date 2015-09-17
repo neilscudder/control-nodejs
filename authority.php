@@ -43,7 +43,7 @@ content="width=device-width, initial-scale=1.5, maximum-scale=1.5, user-scalable
 
 function setKeys($userEmail){
  
-  $controlURL = $_GET['CONTROLSERVER'] . "control.php?m=" . $_GET['MPDPORT'];
+  $controlURL = $_GET['CONTROLSERVER'] . "?m=" . $_GET['MPDPORT'];
   $authRow = array( "MPDPORT" => $_GET['MPDPORT'] );
   $authRow['EMAIL'] = $userEmail;
 
@@ -52,7 +52,7 @@ function setKeys($userEmail){
     $authRow['MPDPASS'] = $_GET['MPDPASS'];
   }
   if (!empty($_GET['MPDHOST'])) {
-    $controlURL .= "&m=" . $_GET['MPDHOST'];
+    $controlURL .= "&h=" . $_GET['MPDHOST'];
     $authRow['MPDHOST'] = $_GET['MPDHOST'];
   }
   if (!empty($_GET['LABEL'])) {
