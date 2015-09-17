@@ -16,10 +16,21 @@ error_reporting(-1);
 body{
   background-color: #002b36;
   font-family: sans-serif;
+  color: #93a1a1;
 }
 input{
-  font-size: 2em;
+  font-size: 1.3em;
+  color: #002b36;
+  background-color: #eee8d5;
+  width: 100%;
 }
+h4{
+  margin: 5px 0 5px 0;
+}
+a{
+  color: #eee8d5;
+}
+
 </style>
 </head>
 <body>
@@ -30,23 +41,18 @@ input{
   enctype="application/x-www-form-urlencoded" 
   autocomplete="off" 
   novalidate>
-  Playnode label:<br>
-  <input type="text" name="LABEL">
-  <br>
-  User email:<br>
-  <input type="text" name="EMAIL" value="Not optional">
-  <br>
-  MPD port:<br>
-  <input type="text" name="MPDPORT" value="6600">
-  <br>
-  MPD host:<br>
+  <h4>Playnode label:</h4>
+  <input type="text" name="LABEL" value="Office">
+  <h4>User email:</h4>
+  <input type="text" name="EMAIL" value="dude@my.car">
+  <h4>MPD port:</h4>
+  <input type="text" name="MPDPORT" value="1027">
+  <h4>MPD host:</h4>
   <input type="text" name="MPDHOST" value="localhost">
-  <br>
-  MPD password:<br>
-  <input type="text" name="MPDPASS">
-  <br>
-  Server:<br>
-  <input type="text" name="CONTROLSERVER">
+  <h4>MPD password:</h4>
+  <input type="text" name="MPDPASS" value="user">
+  <h4>Server:</h4>
+  <input type="text" name="CONTROLSERVER" value="https://playnode.ca/control/">
   <br><br>
   <input type="submit" value="Submit">
 </form>
