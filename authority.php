@@ -66,11 +66,17 @@ function setKeys($userEmail){
   $controlURL .= "&k=" . $authRow['KPASS'];
   $resetURL = $_GET['CONTROLSERVER'] . "authority.php?r=" . $authRow['RPASS'];
 
-//  $m = new MongoClient();
-//  $collection = $m->authority->keys;
-//  $collection->insert($authRow);
   printURL($controlURL, "Control Link");
   printURL($resetURL, "Reset Link");
+
+  var_dump($authRow);
+
+  $m = new MongoClient();
+  $db = $m->authority;
+  $collection = $db->keys;
+  $collection->insert($authRow);
+
+  echo "PHEW";
 }
 
 function passGenerator() {
@@ -82,7 +88,7 @@ function passGenerator() {
 function printURL($url, $name){
   echo "
     <p>
-      <a href='{$name}'>{$url}</a>
+      <a href='{$url}'>{$name}</a>
     </p>
   ";
 }
