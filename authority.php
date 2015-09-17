@@ -1,6 +1,9 @@
 <?php 
 // AUTHORITY 0.1.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
+ini_set('display_startup_errors',1);
+ini_set('display_errors',1);
+error_reporting(-1);
 ?>
 <html>
 <head>
@@ -71,7 +74,7 @@ function setKeys($userEmail){
 
   var_dump($authRow);
 
-  $m = new MongoClient();
+  $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
   $db = $m->authority;
   $collection = $db->keys;
   $collection->insert($authRow);
