@@ -1,5 +1,5 @@
 <?php 
-// AUTHORITY 0.1.2 Copyright 2015 @neilscudder
+// AUTHORITY 0.1.3 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 setlocale(LC_CTYPE, "en_US.UTF-8"); 
 ini_set('display_startup_errors',1);
@@ -22,7 +22,7 @@ input{
   font-size: 1.3em;
   color: #002b36;
   background-color: #eee8d5;
-  width: 100%;
+  width: 90%;
 }
 h4{
   margin: 5px 0 5px 0;
@@ -91,10 +91,16 @@ function setKeys($userEmail){
 
   $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
   $db = $m->authority;
-  $collection = $db->keys;
-  $collection->insert($authRow);
+  $c = $db->playnodeca;
+//  $c->insert($authRow);
+  $c->update(
+    array( "MPDPORT" => $_GET['MPDPORT'] ),
+    $authRow,
+    array( "upsert" => true )
+  );
 
-  var_dump($authRow);
+  var_dump($c->findOne());
+//  var_dump($authRow);
   echo "PHEW";
 }
 
