@@ -7,6 +7,19 @@ setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshe
 ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
+
+  $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
+  $db = $m->authority;
+  $c = $db->playnodeca;
+  $k = $_GET['k'];
+  $d = $_GET['m'];
+  $key = $c->find(array("KPASS" => "{$k}"));
+//  echo "<br><br><br><br><br><br><br><br><br>";
+//  var_dump($key);
+if (empty($key)) {
+  exit("access denied");
+}
+
 $cacheDir="cache/";
 
 if ($_POST) {
