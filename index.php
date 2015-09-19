@@ -13,6 +13,9 @@ if (isset($_GET["h"])) {
 if (isset($_GET["p"])) {
   $PASSWORD=$_GET["p"];
 }
+if (isset($_GET["k"])) {
+  $KPASS=$_GET["k"];
+}
 if (isset($_GET["l"])) {
   $LABEL=$_GET["l"];
 } elseif (isset($MPDHOST)){
@@ -317,7 +320,7 @@ path.confirm {
 <div class="MPDHOST" id="<?php echo $MPDHOST; ?>"></div>
 <div class="PASSWORD" id="<?php echo $PASSWORD; ?>"></div>
 <div class="LABEL" id="<?php echo $LABEL; ?>"></div>
-
+<div class="KPASS" id="<?php echo $KPASS; ?>"></div>
 
 
 <script language="javascript" type="text/javascript">
@@ -328,7 +331,8 @@ var PreviousInfo = null;
 function setAlias(){
   MPDPORT = document.getElementsByClassName("MPDPORT")[0].id;
   MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
-  PASSWORD = document.getElementsByClassName("PASSWORD")[0].id; 
+  PASSWORD = document.getElementsByClassName("PASSWORD")[0].id;
+  KPASS = document.getElementsByClassName("KPASS")[0].id; 
 }
 function getCmd(id){  
   var x = document.getElementById(id);
@@ -338,6 +342,7 @@ function getCmd(id){
   params += "&m=" + MPDPORT;
   params += "&h=" + MPDHOST;
   params += "&p=" + PASSWORD;
+  params += "&k=" + KPASS;
   xmlhttp.open("GET",params,false);
   xmlhttp.send();
 }
@@ -348,7 +353,8 @@ function postCmd(command,id) {
     + "&b=" + id 
     + "&m=" + window.MPDPORT 
     + "&h=" + window.MPDHOST
-    + "&p=" + window.PASSWORD; 
+    + "&p=" + window.PASSWORD
+    + "&k=" + KPASS;
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.setRequestHeader("Content-length", params.length);
   xmlhttp.setRequestHeader("Connection", "close");
@@ -363,6 +369,7 @@ function autoRefresh(id) {
   params += "&m=" + MPDPORT;
   params += "&h=" + MPDHOST;
   params += "&p=" + PASSWORD;
+  params += "&k=" + KPASS;
   xmlhttp.open("GET",params,true);
   xmlhttp.send();
   xmlhttp.onreadystatechange=function() {
