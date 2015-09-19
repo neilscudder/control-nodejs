@@ -61,14 +61,12 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
         </svg>
       </div>
       <div id="tog" class="quarter">
-	<a href="browser.php?MPDPORT=<?php echo $MPDPORT; ?>&LABEL=<?php echo $LABEL; ?>">
           <svg class="toolbar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
             <path fill="none" d="M0,0h48v48H0V0z"/>
             <path fill="#002B36" d="M30,12H6v4h24V12z M30,20H6v4h24V20z M6,32h16v-4H6V32z M34,12v16.359C33.38,28.141,32.7,28,32,28
               c-3.32,0-6,2.68-6,6s2.68,6,6,6s6-2.68,6-6V16h6v-4H34z"/>
           </svg>
-        </a>
       </div> 
     </div>
     <div class="row">
