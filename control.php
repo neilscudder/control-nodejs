@@ -17,8 +17,8 @@ function authenticate() {
   $key = $c->findOne(array("KPASS" => "{$k}"));
 //  $key = $c->findOne(array("KPASS" => "c69f85356f8ddfdb3ce8b7721fe9ec2e"));
 //  $key = $c->findOne(array("MPDPORT" => "1027"));
-  echo "<br><br><br><br><br><br><br><br><br>";
-  var_dump($key);
+//  echo "<br><br><br><br><br><br><br><br><br>";
+// var_dump($key);
   if (empty($key['KPASS'])) {
     echo "no";
     return false;
@@ -89,7 +89,7 @@ if (isset($GETA)) {
       shell_exec("$MPC next");
     break;
     case "info":
-      authenticate() or die();
+//      authenticate() or die();
       $cacheFile = "$cacheDir/$MPDPORT.cache";
       $comparisonFile = "$cacheDir/$MPDPORT.comparison";
 
