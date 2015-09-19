@@ -12,13 +12,19 @@ function authenticate() {
   $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
   $db = $m->authority;
   $c = $db->playnodeca;
-  $k = $_GET['k'];
-  $d = $_GET['m'];
-  $key = $c->find(array("KPASS" => "{$k}"));
-  //  echo "<br><br><br><br><br><br><br><br><br>";
-  //  var_dump($key);
-  if (empty($key)) {
-    exit("access denied");
+  $k = $_GET["k"];
+//  $d = $_GET['m'];
+  $key = $c->findOne(array("KPASS" => "{$k}"));
+//  $key = $c->findOne(array("KPASS" => "c69f85356f8ddfdb3ce8b7721fe9ec2e"));
+//  $key = $c->findOne(array("MPDPORT" => "1027"));
+  echo "<br><br><br><br><br><br><br><br><br>";
+  var_dump($key);
+  if (empty($key['KPASS'])) {
+    echo "no";
+    return false;
+  } else {
+    echo "yes";
+    return true;
   }
 }
 
@@ -79,10 +85,11 @@ if (isset($GETA)) {
       shell_exec("$MPC volume +5");
     break;
     case "fw":
-      authenticate();
+      authenticate() or die("access denied");
       shell_exec("$MPC next");
     break;
     case "info":
+      authenticate() or die();
       $cacheFile = "$cacheDir/$MPDPORT.cache";
       $comparisonFile = "$cacheDir/$MPDPORT.comparison";
 
