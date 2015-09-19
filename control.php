@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.2.3 Copyright 2015 @neilscudder
+// CONTROL 0.2.5 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -8,16 +8,18 @@ ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
 
+function authenticate() {
   $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
   $db = $m->authority;
   $c = $db->playnodeca;
   $k = $_GET['k'];
   $d = $_GET['m'];
   $key = $c->find(array("KPASS" => "{$k}"));
-//  echo "<br><br><br><br><br><br><br><br><br>";
-//  var_dump($key);
-if (empty($key)) {
-  exit("access denied");
+  //  echo "<br><br><br><br><br><br><br><br><br>";
+  //  var_dump($key);
+  if (empty($key)) {
+    exit("access denied");
+  }
 }
 
 $cacheDir="cache/";
@@ -69,12 +71,15 @@ if (isset($MPDPORT)) {
 if (isset($GETA)) {
   switch ($GETA) {
     case "dn":
+//      authenticate();
       shell_exec("$MPC volume -5");
     break;
     case "up":
+//      authenticate();
       shell_exec("$MPC volume +5");
     break;
     case "fw":
+      authenticate();
       shell_exec("$MPC next");
     break;
     case "info":
@@ -168,6 +173,7 @@ if (isset($GETA)) {
 if (isset($POSTA)) {
   switch ($POSTA) {
 	case "play":
+		authenticate();
 		$target=rawurldecode($POSTB);
 		$escaped=escapeshellarg($target);
 		shell_exec("$MPC clear; $MPC add " . $escaped . "; $MPC shuffle; $MPC play");
