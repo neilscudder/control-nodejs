@@ -1,5 +1,14 @@
 # control
-Web based client interface for the [music player daemon](https://github.com/MaxKellermann/MPD). Depends on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/). This is a Proof-of-Concept application, for the demonstration of a high speed mobile web interface for use on old phones and congested networks. Minimal file sizes, minimal http requests and zero graphics make a GUI <10kb  possible.
+A remote control for music systems in a commercial setting where physical access to the audio equipment is often obstructed.
+
+Web based client interface for the [music player daemon](https://github.com/MaxKellermann/MPD).  This is a Proof-of-Concept application, for the demonstration of a high speed mobile web interface for use in commercial background music, compatible with old phones and congested networks. 
+
+A minimum-security authentication framework provides an end user with a URL with embedded credentials that they may re-generate themselves. For each control URL there is a mathing Reset URL, which will re-generate both links. See notes on authentication, below.
+
+Minimal file sizes, 2 http requests and 0 bitmap graphics. *Currently loads in 0.8s.* Depends on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/).
+
+### Status
+Alpha stage. Still flushing out the broad strokes of key features. Testers needed.
 
 ### Installation
 Install in web server root with shell access to mpc. This can be on the server running mpd, or any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is recommended.
