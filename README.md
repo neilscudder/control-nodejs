@@ -1,5 +1,16 @@
 # control
-Web based client interface for the [music player daemon](https://github.com/MaxKellermann/MPD). Depends on php and [mpc](http://git.musicpd.org/cgit/master/mpc.git/). This is a Proof-of-Concept application, for the demonstration of a high speed mobile web interface for use on old phones and congested networks. Minimal file sizes, minimal http requests and zero graphics make a GUI <10kb  possible.
+A remote control for music systems in a commercial setting where physical access to the audio equipment is often obstructed. Intended for use in conjunction with the [paradigm connector](https://github.com/neilscudder/paradigm) to provide control from mobile data network devices over LAN-based music players. A high speed mobile web interface for use in commercial background music, compatible with old phones and congested networks.
+
+This is a web based client interface for the [music player daemon](https://github.com/MaxKellermann/MPD), dependant on on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/).
+
+A minimum-security authentication framework provides an means of quickly sharing passwordd-less login. An end user is provided a URL with embedded credentials granting them access to certain controls. For each Control URL there is a matching Reset URL, which will re-generate both links. See notes on authentication below.
+
+GUI download size: 3.74kb<br>
+Requests: 2<br>
+Loading time: 0.8ms
+
+### Status
+This is a Proof-of-Concept application. Alpha stage. Still flushing out the broad strokes of key features. Contributors welcomed.
 
 ### Installation
 Install in web server root with shell access to mpc. This can be on the server running mpd, or any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is recommended.
@@ -7,10 +18,12 @@ Install in web server root with shell access to mpc. This can be on the server r
 ### Client Usage
 index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
 
-- p is optional
+- p is optional, requires host to be set also
 - h is optional and defaults to localhost
 - m is optional and defaults to 6600
 - l is optional, and displays on the interface to identify the music zone being controlled
+ 
+Missing parameters will fall back to the defaults in your mpc instance (MPD environment vars), with one exception: if you set 'p=VALUE' but not 'h' then 'localhost' will be substituted in the API, before the mpc call.
 
 ### Control API Usage
 GET<br>
@@ -31,14 +44,14 @@ m=[MPDPORT]<br>
 
 ### Features
 
-* no js frameworks
-* maximum usability/readability 
-* minimal http requests
+* as fast and light as possible
+* easy to read, hard to make mistakes
+* limited control for continuous loop environments
+* easily managed security
 * portability / compatibility first
-* basic controls / advanced reliability
 * anticipates a broken network
-
-A simple lighweight mobile web interface for the music player daemon (http://musicpd.org). Intended for use in conjunction with the [paradigm connector](https://github.com/neilscudder/paradigm) to provide control from mobile data network devices over LAN-based music players.
+* user activity is logged
+* server auto-revokes abused accounts
 
 Intended for a multi-user environment, where controls with varying permissions may be granted and revoked by a separate web based control panel. This control is part of the project at www.playnode.ca providing a platform for DJs to serve background music in commercial establishments.
 
