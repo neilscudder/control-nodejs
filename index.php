@@ -43,8 +43,7 @@ if (isset($_GET["l"])) {
       <div id="dn" class="animated quarter">
         <svg 
           class="toolbar" 
-          id="dn" 
-          id="Layer_1" 
+          id="dn"
           x="0px" 
           y="0px"
           viewBox="0 0 24 24" 
@@ -61,24 +60,53 @@ if (isset($_GET["l"])) {
           />
         </svg>
       </div>  
-      <div id="up" class="animated quarter">
-        <svg class="toolbar" id="up" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-          viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+      <div 
+        id="up" 
+        class="animated quarter">
+        <svg 
+          class="toolbar" 
+          id="up" 
+          x="0px" 
+          y="0px"
+          viewBox="0 0 48 48" 
+          enable-background="new 0 0 48 48" 
+          xml:space="preserve">
           <path fill="#002B36" d="M6,18v12h8l10,10V8L14,18H6z M33,24c0-3.54-2.04-6.58-5-8.06v16.1C30.96,30.58,33,27.54,33,24z M28,6.46
-            v4.12C33.779,12.3,38,17.66,38,24s-4.221,11.7-10,13.42v4.12c8.02-1.82,14-8.979,14-17.54C42,15.44,36.02,8.28,28,6.46z"/>
-          <path fill="none" d="M0,0h48v48H0V0z"/>
+            v4.12C33.779,12.3,38,17.66,38,24s-4.221,11.7-10,13.42v4.12c8.02-1.82,14-8.979,14-17.54C42,15.44,36.02,8.28,28,6.46z" />
+          <path 
+            fill="none" 
+            d="M0,0h48v48H0V0z"
+          />
         </svg>
       </div>   
-      <div id="fw" class="animated quarter">
-        <svg class="toolbar" id="fw" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-          viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
-          <path fill="#002B36" d="M12,36l17-12L12,12V36z M32,12v24h4V12H32z"/>
-          <path fill="none" d="M0,0h48v48H0V0z"/>
+      <div 
+        id="fw" 
+        class="animated quarter">
+        <svg 
+          class="toolbar" 
+          id="fw" 
+          x="0px" 
+          y="0px"
+          viewBox="0 0 48 48" 
+          enable-background="new 0 0 48 48" 
+          xml:space="preserve">
+          <path 
+            fill="#002B36" d="M12,36l17-12L12,12V36z M32,12v24h4V12H32z" />
+          <path 
+            fill="none" 
+            d="M0,0h48v48H0V0z"/>
         </svg>
       </div>
-      <div id="tog" class="quarter">
-          <svg class="toolbar" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+      <div 
+        id="tog" 
+        class="quarter">
+          <svg 
+          class="toolbar"
+          x="0px" 
+          y="0px"
+          viewBox="0 0 48 48" 
+          enable-background="new 0 0 48 48" 
+          xml:space="preserve">
             <path fill="none" d="M0,0h48v48H0V0z"/>
             <path fill="#002B36" d="M30,12H6v4h24V12z M30,20H6v4h24V20z M6,32h16v-4H6V32z M34,12v16.359C33.38,28.141,32.7,28,32,28
               c-3.32,0-6,2.68-6,6s2.68,6,6,6s6-2.68,6-6V16h6v-4H34z"/>
@@ -93,7 +121,7 @@ if (isset($_GET["l"])) {
   </nav>    
   <main>
     <!-- Viewer -->
-    <section id="info"><br><br><br><br><br><br><br><br><br>just a sec..
+    <section id="info">just a sec..
     </section>
     <!-- END Viewer -->    
   </main>
@@ -176,8 +204,11 @@ nav {
   font-size: .8em;
   line-height: 20px;
 }
+#info{
+  padding-top: 100px;
+}
 .info-container{
-        margin: 100px auto 30px auto;
+        margin: 0px auto 30px auto;
 }
 iframe {
   width: 100%;
