@@ -16,10 +16,12 @@ Install in web server root with shell access to mpc. This can be on the server r
 ### Client Usage
 index.php?p=[MPDPASSWORD]&h=[MPDHOST]&m=[MPDPORT]&l=[LABEL]
 
-- p is optional
+- p is optional, requires host to be set also
 - h is optional and defaults to localhost
 - m is optional and defaults to 6600
 - l is optional, and displays on the interface to identify the music zone being controlled
+ 
+Missing parameters will fall back to the defaults in your mpc instance (MPD environment vars), with one exception: if you set 'p=VALUE' but not 'h' then 'localhost' will be substituted in the API, before the mpc call.
 
 ### Control API Usage
 GET<br>
