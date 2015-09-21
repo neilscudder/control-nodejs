@@ -33,8 +33,8 @@ if (isset($_GET["l"])) {
   name="viewport"
   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" 
 />
-<link rel="icon" sizes="192x192" href="icon_playnode.png">
-<link rel="manifest" href="chromescreen.json">
+<link rel="icon" sizes="192x192" href="res/icon_playnode.png">
+<link rel="manifest" href="res/chromescreen.json">
 </head>
 
 <body class="" ontouchstart="">
@@ -59,7 +59,7 @@ if (isset($_GET["l"])) {
             d="M0,0h24v24H0V0z"
           />
           <image 
-            src="pca_volDn_fallback.png" 
+            src="res/pca_volDn_fallback.png" 
             xlink:href="">
         </svg>
       </div>  
