@@ -1,18 +1,16 @@
 # control
-A remote control for music systems in a commercial setting where physical access to the audio equipment is often obstructed.
+A remote control for music systems in a commercial setting where physical access to the audio equipment is often obstructed. Intended for use in conjunction with the [paradigm connector](https://github.com/neilscudder/paradigm) to provide control from mobile data network devices over LAN-based music players. A high speed mobile web interface for use in commercial background music, compatible with old phones and congested networks.
 
-Web based client interface for the [music player daemon](https://github.com/MaxKellermann/MPD).  This is a Proof-of-Concept application, for the demonstration of a high speed mobile web interface for use in commercial background music, compatible with old phones and congested networks. 
+This is a web based client interface for the [music player daemon](https://github.com/MaxKellermann/MPD), dependant on on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/).
 
-A minimum-security authentication framework provides an end user with a URL with embedded credentials that they may re-generate themselves. For each control URL there is a mathing Reset URL, which will re-generate both links. See notes on authentication, below.
-
-Minimal file sizes and http requests. Depends on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/).
+A minimum-security authentication framework provides an means of quickly sharing passwordd-less login. An end user is provided a URL with embedded credentials granting them access to certain controls. For each Control URL there is a matching Reset URL, which will re-generate both links. See notes on authentication below.
 
 GUI download size: 3.74kb<br>
 Requests: 2<br>
 Loading time: 0.8ms
 
 ### Status
-Alpha stage. Still flushing out the broad strokes of key features. Testers needed.
+This is a Proof-of-Concept application. Alpha stage. Still flushing out the broad strokes of key features. Contributors welcomed.
 
 ### Installation
 Install in web server root with shell access to mpc. This can be on the server running mpd, or any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is recommended.
