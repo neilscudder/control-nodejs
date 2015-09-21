@@ -7,7 +7,9 @@ A minimum-security authentication framework provides an end user with a URL with
 
 Minimal file sizes, 2 http requests and 0 bitmap graphics. Depends on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/).
 
-GUI download size: 3.74kb. Requests: 2. Loading time 0.8ms.
+GUI download size: 3.74kb<br>
+Requests: 2<br>
+Loading time 0.8ms
 
 ### Status
 Alpha stage. Still flushing out the broad strokes of key features. Testers needed.
