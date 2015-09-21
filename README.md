@@ -9,7 +9,7 @@ Minimal file sizes, 2 http requests and 0 bitmap graphics. Depends on php, mongo
 
 GUI download size: 3.74kb<br>
 Requests: 2<br>
-Loading time 0.8ms
+Loading time: 0.8ms
 
 ### Status
 Alpha stage. Still flushing out the broad strokes of key features. Testers needed.
