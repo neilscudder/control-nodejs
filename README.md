@@ -5,7 +5,7 @@ Web based client interface for the [music player daemon](https://github.com/MaxK
 
 A minimum-security authentication framework provides an end user with a URL with embedded credentials that they may re-generate themselves. For each control URL there is a mathing Reset URL, which will re-generate both links. See notes on authentication, below.
 
-Minimal file sizes, 2 http requests and 0 bitmap graphics. Depends on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/).
+Minimal file sizes and http requests. Depends on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/).
 
 GUI download size: 3.74kb<br>
 Requests: 2<br>
