@@ -29,8 +29,10 @@ if (isset($_GET["l"])) {
 
 <head>
 <title><?php echo $LABEL; ?></title>
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta 
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" 
+/>
 <link rel="icon" sizes="192x192" href="icon_playnode.png">
 <link rel="manifest" href="chromescreen.json">
 </head>
@@ -39,10 +41,27 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
   <nav>
     <div class="row">
       <div id="dn" class="animated quarter">
-        <svg class="toolbar" id="dn" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-          viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-          <path fill="#002B36" d="M18.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C17.48,15.29,18.5,13.77,18.5,12z M5,9v6h4l5,5V4L9,9H5z"/>
-          <path fill="none" d="M0,0h24v24H0V0z"/>
+        <svg 
+          class="toolbar" 
+          id="dn" 
+          version="1.1" 
+          id="Layer_1" 
+          xmlns="http://www.w3.org/2000/svg" 
+          xmlns:xlink="http://www.w3.org/1999/xlink" 
+          x="0px" 
+          y="0px"
+          viewBox="0 0 24 24" 
+          enable-background="new 0 0 24 24" 
+          xml:space="preserve"
+        >
+          <path 
+            fill="#002B36" 
+            d="M18.5,12c0-1.77-1.02-3.29-2.5-4.03v8.05C17.48,15.29,18.5,13.77,18.5,12z M5,9v6h4l5,5V4L9,9H5z"
+          />
+          <path 
+            fill="none" 
+            d="M0,0h24v24H0V0z"
+          />
         </svg>
       </div>  
       <div id="up" class="animated quarter">
