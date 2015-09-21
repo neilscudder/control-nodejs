@@ -44,17 +44,14 @@ m=[MPDPORT]<br>
 
 ### Features
 
-* no js frameworks
-* maximum usability/readability 
-* minimal http requests
+* as fast and light as possible
+* easy to read, hard to make mistakes
+* limited control for continuous loop environments
+* easily managed security
 * portability / compatibility first
-* basic controls / advanced reliability
 * anticipates a broken network
-* network status/error status indicators
-* password-less access control
-* temporary, revokable authentication
-
-A simple lighweight mobile web interface for the music player daemon (http://musicpd.org). Intended for use in conjunction with the [paradigm connector](https://github.com/neilscudder/paradigm) to provide control from mobile data network devices over LAN-based music players.
+* user activity is logged
+* server auto-revokes abused accounts
 
 Intended for a multi-user environment, where controls with varying permissions may be granted and revoked by a separate web based control panel. This control is part of the project at www.playnode.ca providing a platform for DJs to serve background music in commercial establishments.
 
