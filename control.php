@@ -110,16 +110,16 @@ if (isset($GETA)) {
       if ($currentFname != $previousFname){
         file_put_contents($comparisonFile, $currentFname); 
 //        $ytLink = "https://www.youtube.com/results?search_query=${encQuery}";
-        $queryQuery = $MPC . ' --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
-        $searchParams = shell_exec($queryQuery);
-        $encQuery = rawurlencode($searchParams);
-        $ytLink = "https://www.youtube.com/embed?fs=0&controls=0&listType=search&list=${encQuery}";
+//        $queryQuery = $MPC . ' --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
+//        $searchParams = shell_exec($queryQuery);
+//        $encQuery = rawurlencode($searchParams);
+//        $ytLink = "https://www.youtube.com/embed?fs=0&controls=0&listType=search&list=${encQuery}";
 
         $currentInfo=shell_exec($infoQuery);
-        $currentInfo .= "
-              <p>Preview:</p>
-              <iframe src=\"${ytLink}\" frameborder=\"0\"></iframe>
-            </div>";      
+//        $currentInfo .= "
+//              <p>Preview:</p>
+//              <iframe src=\"${ytLink}\" frameborder=\"0\"></iframe>
+//            </div>";      
 //        $currentInfo .= "
 //            <div class='animated button'>
 //              <a href='${ytLink}' target='_blank'>
