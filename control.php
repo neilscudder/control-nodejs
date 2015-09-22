@@ -8,7 +8,7 @@ ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
 
-$cacheDir="cache/";
+$CACHEDIR="cache/";
 
 function authenticate() {
   $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
@@ -24,26 +24,23 @@ function authenticate() {
 }
 
 function showInfo(){
-  global $cacheDir, $MPC, $MPDPORT;
-  $cacheFile = "$cacheDir/$MPDPORT.cache";
-  $comparisonFile = "$cacheDir/$MPDPORT.comparison";
-
+  global $CACHEDIR, $MPC, $MPDPORT;
+  $cacheFile = "$CACHEDIR/$MPDPORT.cache";
+  $comparisonFile = "$CACHEDIR/$MPDPORT.comparison";
   if (file_exists($comparisonFile)) {
     $previousFname = shell_exec("cat $comparisonFile");
   } else {
     $previousFname = null;
   }
-
-  $infoQuery = $MPC . ' --format "
-        <div class="info-container">
-          <h2>[[%title%]|[%file%]]</h2>
-          <p><strong>Artist:</strong> [%artist%]</p>
-          <p><strong>Album:</strong> [%album%]</p>" | head -n5';
   $fnameQuery = $MPC . ' --format %file% | head -n1';
   $currentFname = shell_exec($fnameQuery);
-
   if ($currentFname != $previousFname){
     file_put_contents($comparisonFile, $currentFname); 
+    $infoQuery = $MPC . ' --format "
+      <div class="info-container">
+        <h2>[[%title%]|[%file%]]</h2>
+        <p><strong>Artist:</strong> [%artist%]</p>
+        <p><strong>Album:</strong> [%album%]</p>" | head -n5';
     $currentInfo=shell_exec($infoQuery);
     echo $currentInfo;
     file_put_contents($cacheFile, $currentInfo);
@@ -53,7 +50,7 @@ function showInfo(){
 }
 
 function showBrowser(){
-  global $cacheDir, $MPC, $MPDPORT;
+  global $CACHEDIR, $MPC, $MPDPORT;
   $output = shell_exec($MPC . ' ls | sort');
   $results = preg_split('/[\r\n]+/', $output, -1, PREG_SPLIT_NO_EMPTY);
   echo "<ul>";
