@@ -11,9 +11,9 @@ error_reporting(-1);
 $CACHEDIR="cache/";
 
 function authenticate() {
-  $m = new MongoClient("mongodb://webserver:webmunster@localhost/authority");
-  $db = $m->authority;
-  $c = $db->playnodeca;
+  $db_ini = parse_ini_file("res/db.ini");
+  $m = new MongoClient($db_ini['dbConnectionString']);
+  $c = $m->$db_ini['db']->$db_ini['collection'];
   $k = $_GET["k"];
   $key = $c->findOne(array("KPASS" => "{$k}"));
   if (empty($key['KPASS'])) {
