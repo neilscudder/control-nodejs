@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.2.1 Copyright 2015 @neilscudder
+// CONTROL 0.2.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -386,11 +386,11 @@ function getCmd(id){
   var x = document.getElementById(id);
   xmlhttp=new XMLHttpRequest();
   params = controlScript;
-  params += "?a=" + id;
-  params += "&m=" + MPDPORT;
-  params += "&h=" + MPDHOST;
-  params += "&p=" + PASSWORD;
-  params += "&k=" + KPASS;
+  params += "?a=" + id
+    + "&m=" + MPDPORT 
+    + "&h=" + MPDHOST
+    + "&p=" + PASSWORD
+    + "&k=" + KPASS;
   xmlhttp.open("GET",params,false);
   xmlhttp.send();
 }
@@ -399,9 +399,9 @@ function postCmd(command,id) {
   xmlhttp.open("POST",controlScript,true);
   params="a=" + command
     + "&b=" + id 
-    + "&m=" + window.MPDPORT 
-    + "&h=" + window.MPDHOST
-    + "&p=" + window.PASSWORD
+    + "&m=" + MPDPORT 
+    + "&h=" + MPDHOST
+    + "&p=" + PASSWORD
     + "&k=" + KPASS;
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.setRequestHeader("Content-length", params.length);
@@ -413,11 +413,11 @@ function autoRefresh(id) {
   xmlhttp=new XMLHttpRequest();
 //  params=controlScript + "?a=" + id + "&b=" + window.MPDPORT;
   params = controlScript;
-  params += "?a=" + id;
-  params += "&m=" + MPDPORT;
-  params += "&h=" + MPDHOST;
-  params += "&p=" + PASSWORD;
-  params += "&k=" + KPASS;
+  params += "?a=" + id
+    + "&m=" + MPDPORT 
+    + "&h=" + MPDHOST
+    + "&p=" + PASSWORD
+    + "&k=" + KPASS;
   xmlhttp.open("GET",params,true);
   xmlhttp.send();
   xmlhttp.onreadystatechange=function() {
