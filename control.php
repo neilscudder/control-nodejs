@@ -24,6 +24,7 @@ function authenticate() {
 }
 
 function showInfo(){
+  global $cacheDir, $MPC, $MPDPORT;
   $cacheFile = "$cacheDir/$MPDPORT.cache";
   $comparisonFile = "$cacheDir/$MPDPORT.comparison";
 
@@ -52,6 +53,7 @@ function showInfo(){
 }
 
 function showBrowser(){
+  global $cacheDir, $MPC, $MPDPORT;
   $output = shell_exec($MPC . ' ls | sort');
   $results = preg_split('/[\r\n]+/', $output, -1, PREG_SPLIT_NO_EMPTY);
   echo "<ul>";
@@ -146,7 +148,7 @@ if (isset($GETA)) {
     break;
     case "browser":
 //    authenticate() or die("access denied");
-      showBrowser()
+      showBrowser();
     break;
     case "test":
       $testCmd=$MPC ;
