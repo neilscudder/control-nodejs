@@ -13,17 +13,10 @@ function authenticate() {
   $db = $m->authority;
   $c = $db->playnodeca;
   $k = $_GET["k"];
-//  $d = $_GET['m'];
   $key = $c->findOne(array("KPASS" => "{$k}"));
-//  $key = $c->findOne(array("KPASS" => "c69f85356f8ddfdb3ce8b7721fe9ec2e"));
-//  $key = $c->findOne(array("MPDPORT" => "1027"));
-//  echo "<br><br><br><br><br><br><br><br><br>";
-// var_dump($key);
   if (empty($key['KPASS'])) {
-    echo "no";
     return false;
   } else {
-    echo "yes";
     return true;
   }
 }
@@ -77,11 +70,11 @@ if (isset($MPDPORT)) {
 if (isset($GETA)) {
   switch ($GETA) {
     case "dn":
-//      authenticate();
+      authenticate() or die("access denied");
       shell_exec("$MPC volume -5");
     break;
     case "up":
-//      authenticate();
+      authenticate() or die("access denied");
       shell_exec("$MPC volume +5");
     break;
     case "fw":
@@ -89,7 +82,7 @@ if (isset($GETA)) {
       shell_exec("$MPC next");
     break;
     case "info":
-//      authenticate() or die();
+//    authenticate() or die("access denied");
       $cacheFile = "$cacheDir/$MPDPORT.cache";
       $comparisonFile = "$cacheDir/$MPDPORT.comparison";
 
@@ -109,24 +102,7 @@ if (isset($GETA)) {
 
       if ($currentFname != $previousFname){
         file_put_contents($comparisonFile, $currentFname); 
-//        $ytLink = "https://www.youtube.com/results?search_query=${encQuery}";
-//        $queryQuery = $MPC . ' --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
-//        $searchParams = shell_exec($queryQuery);
-//        $encQuery = rawurlencode($searchParams);
-//        $ytLink = "https://www.youtube.com/embed?fs=0&controls=0&listType=search&list=${encQuery}";
-
         $currentInfo=shell_exec($infoQuery);
-//        $currentInfo .= "
-//              <p>Preview:</p>
-//              <iframe src=\"${ytLink}\" frameborder=\"0\"></iframe>
-//            </div>";      
-//        $currentInfo .= "
-//            <div class='animated button'>
-//              <a href='${ytLink}' target='_blank'>
-//              Find On YouTube
-//              </a>
-//            </div>
-//          </div>";
         echo $currentInfo;
         file_put_contents($cacheFile, $currentInfo);
       } else {
@@ -143,11 +119,9 @@ if (isset($GETA)) {
           <li class='full'>
             $result
             <div class='playbtn'>
-              <svg version='1.1' 
+              <svg
                 class='animated play' 
                 id='$resultEncoded' 
-                xmlns='http://www.w3.org/2000/svg' 
-                xmlns:xlink='http://www.w3.org/1999/xlink' 
                 x='0px' 
                 y='0px'
                 viewBox='0 0 512 512' 
@@ -197,5 +171,25 @@ if (isset($POSTA)) {
 		break;
   }
 }
+
+
+
+// A mess of code, some makes a youtube button, some makes an iframe:
+//        $ytLink = "https://www.youtube.com/results?search_query=${encQuery}";
+//        $queryQuery = $MPC . ' --format "[%artist%] [[%title%]|[%file%]]" | head -n1';
+//        $searchParams = shell_exec($queryQuery);
+//        $encQuery = rawurlencode($searchParams);
+//        $ytLink = "https://www.youtube.com/embed?fs=0&controls=0&listType=search&list=${encQuery}";
+//        $currentInfo .= "
+//              <p>Preview:</p>
+//              <iframe src=\"${ytLink}\" frameborder=\"0\"></iframe>
+//            </div>";      
+//        $currentInfo .= "
+//            <div class='animated button'>
+//              <a href='${ytLink}' target='_blank'>
+//              Find On YouTube
+//              </a>
+//            </div>
+//          </div>";
 
 ?>
