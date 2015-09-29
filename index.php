@@ -1,5 +1,5 @@
 <?php
-// CONTROL 0.2.2 Copyright 2015 @neilscudder
+// GUI 0.3.0 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 setlocale(LC_CTYPE, "en_US.UTF-8"); // Fixes non ascii characters with escapeshellarg
@@ -454,6 +454,27 @@ function pushed(id){
 }
 function toolbarListener() {
   var classname = document.getElementsByClassName("quarter");
+  function pusher(e){
+    var id = e.currentTarget.id;
+    pushed(id);
+  }
+  function released(e){
+    var id = e.currentTarget.id;
+    var x = document.getElementById(id);
+    if (x.classList.contains("pushed")) {
+      document.getElementById(id).classList.add('released');
+      document.getElementById(id).classList.remove('pushed');
+      getCmd(id);
+    }
+  }
+  for(var i=0; i<classname.length; i++) {
+      classname[i].addEventListener(clickEventType, pusher, false);
+      classname[i].addEventListener("animationend", released, false);
+      classname[i].addEventListener("webkitAnimationEnd", released, false);
+  }
+}
+function tempListener() {
+  var classname = document.getElementsByClassName("button");
   function pusher(e){
     var id = e.currentTarget.id;
     pushed(id);
