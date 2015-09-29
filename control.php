@@ -41,7 +41,9 @@ function showInfo(){
         <h2>[[%title%]|[%file%]]</h2>
         <p><strong>Artist:</strong> [%artist%]</p>
         <p><strong>Album:</strong> [%album%]</p>
-
+        <div class='animated button' id='insertNextTwo'>
+            Insert Next Two
+        </div>
       </div>" | head -n5';
     $currentInfo=shell_exec($infoQuery);
     echo $currentInfo;
@@ -53,6 +55,7 @@ function showInfo(){
 
 function insertNextTwo(){
   global $MPC;
+  // Check to see that two tracks can be found. Counts lines of output, returns error code string
   $query = '[ $(' . $MPC . ' --format %file% search album "$(' . $MPC . ' --format %album% | head -n1)" | grep -A2 "$(' . $MPC . ' --format %file%)" | wc -l) -gt 2 ] && echo 0 || echo 1';
   $result = shell_exec($query);
   if ( $result == "0" ){
