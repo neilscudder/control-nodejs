@@ -41,9 +41,7 @@ function showInfo(){
         <h2>[[%title%]|[%file%]]</h2>
         <p><strong>Artist:</strong> [%artist%]</p>
         <p><strong>Album:</strong> [%album%]</p>
-        <div class="animated button" id="insertNextTwo">
-            Insert Next Two
-        </div>
+        <div class="animated button" id="insertNextTwo">Insert Next Two</div>
       </div>" | head -n5';
     $currentInfo=shell_exec($infoQuery);
     echo $currentInfo;
