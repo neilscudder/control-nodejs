@@ -40,12 +40,26 @@ function showInfo(){
       <div class="info-container">
         <h2>[[%title%]|[%file%]]</h2>
         <p><strong>Artist:</strong> [%artist%]</p>
-        <p><strong>Album:</strong> [%album%]</p>" | head -n5';
+        <p><strong>Album:</strong> [%album%]</p>
+
+      </div>" | head -n5';
     $currentInfo=shell_exec($infoQuery);
     echo $currentInfo;
     file_put_contents($cacheFile, $currentInfo);
   } else {
     include($cacheFile);
+  }
+}
+
+function insertNextTwo(){
+  global $MPC;
+  $query = '[ $(' . $MPC . ' --format %file% search album "$(' . $MPC . ' --format %album% | head -n1)" | grep -A2 "$(' . $MPC . ' --format %file%)" | wc -l) -gt 2 ] && echo 0 || echo 1';
+  $result = shell_exec($query);
+  if ( $result == "0" ){
+    $action = $MPC . ' --format %file% search album "$(' . $MPC . ' --format %album% | head -n1)" | grep -A2 "$(' . $MPC . ' --format %file%)" | tail -n2 | mpc insert';
+    shell_exec($action);
+  } else {
+    // yo momma
   }
 }
 
@@ -140,11 +154,10 @@ if (isset($GETA)) {
       shell_exec("$MPC next");
     break;
     case "info":
-//    authenticate() or die("access denied");
       showInfo();
     break;
     case "browser":
-//    authenticate() or die("access denied");
+      authenticate() or die("access denied");
       showBrowser();
     break;
     case "test":
