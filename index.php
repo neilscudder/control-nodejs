@@ -59,7 +59,7 @@ if (isset($_GET["l"])) {
             d="M0,0h24v24H0V0z"
           />
           <image 
-            src="res/pca_volDn_fallback.png" 
+            src="res/volDn_colour.png" 
             xlink:href="">
         </svg>
       </div>  
@@ -80,6 +80,9 @@ if (isset($_GET["l"])) {
             fill="none" 
             d="M0,0h48v48H0V0z"
           />
+          <image 
+            src="res/volUp_colour.png" 
+            xlink:href=""> 
         </svg>
       </div>   
       <div 
@@ -98,6 +101,9 @@ if (isset($_GET["l"])) {
           <path 
             fill="none" 
             d="M0,0h48v48H0V0z"/>
+          <image 
+            src="res/fw_colour.png" 
+            xlink:href=""> 
         </svg>
       </div>
       <div 
