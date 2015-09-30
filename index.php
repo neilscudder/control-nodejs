@@ -435,6 +435,7 @@ function autoRefresh(id) {
         infoWin.innerHTML = CurrentInfo;
         window.PreviousInfo = CurrentInfo;
         playListener();
+        animatedButtonListener();
       }
     }
   }
@@ -446,14 +447,18 @@ function initialise() {
   setAlias();
   var id = document.getElementsByTagName('section')[0].id;
   autoRefresh(id);
-  toolbarListener();
+  animatedButtonListener();
 }
+
+//
+// LISTENERS
+//
 function pushed(id){
     document.getElementById(id).classList.add('pushed');
     document.getElementById(id).classList.remove('released');
 }
-function toolbarListener() {
-  var classname = document.getElementsByClassName("quarter");
+function animatedButtonListener() {
+  var classname = document.getElementsByClassName("animated");
   function pusher(e){
     var id = e.currentTarget.id;
     pushed(id);
