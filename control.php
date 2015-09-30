@@ -55,14 +55,12 @@ function showInfo(){
 
 function insertNextTwo(){
   global $MPC;
-  // Check to see that two tracks can be found. Counts lines of output, returns error code string
-  $query = '[ $(' . $MPC . ' --format %file% search album "$(' . $MPC . ' --format %album% | head -n1)" | grep -A2 "$(' . $MPC . ' --format %file%)" | wc -l) -gt 2 ] && echo 0 || echo 1';
-  $result = shell_exec($query);
+  $shellCmd = "insertNextTwo.sh '$MPC'";
+  $result = shell_exec($shellCmd);
   if ( $result == "0" ){
-    $action = $MPC . ' --format %file% search album "$(' . $MPC . ' --format %album% | head -n1)" | grep -A2 "$(' . $MPC . ' --format %file%)" | tail -n2 | mpc insert';
-    shell_exec($action);
+    shell_exec("$MPC next");
   } else {
-    // yo momma
+     // Debug:
   }
 }
 
@@ -159,6 +157,11 @@ if (isset($GETA)) {
     case "info":
       showInfo();
     break;
+    case "insertNextTwo":
+      authenticate() or die("access denied");
+      insertNextTwo();
+    break;
+
     case "browser":
       authenticate() or die("access denied");
       showBrowser();
