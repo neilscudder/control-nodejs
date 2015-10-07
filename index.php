@@ -378,8 +378,8 @@ path.confirm {
 
 
 <script language="javascript" type="text/javascript">
-var controlScript = "control.php";
-var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
+var controlScript = "control.php"
+var clickEventType=((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
 var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
@@ -387,16 +387,16 @@ var PASSWORD = document.getElementsByClassName("PASSWORD")[0].id
 var KPASS = document.getElementsByClassName("KPASS")[0].id
 
 function getCmd(id){  
-  var x = document.getElementById(id);
-  xmlhttp=new XMLHttpRequest();
-  params = controlScript;
+  var x = document.getElementById(id)
+  xmlhttp=new XMLHttpRequest()
+  params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xmlhttp.open("GET",params,false);
-  xmlhttp.send();
+  xmlhttp.open("GET",params,false)
+  xmlhttp.send()
 }
 function postCmd(command,id) {
   xmlhttp=new XMLHttpRequest();
@@ -413,110 +413,106 @@ function postCmd(command,id) {
   xmlhttp.send(params);
 }
 function autoRefresh(id) {
-  setTimeout(function(){ autoRefresh(id) },3000);
-  xmlhttp=new XMLHttpRequest();
-//  params=controlScript + "?a=" + id + "&b=" + window.MPDPORT;
-  params = controlScript;
+  setTimeout(function(){ autoRefresh(id) },3000)
+  xmlhttp=new XMLHttpRequest()
+  params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xmlhttp.open("GET",params,true);
-  xmlhttp.send();
+  xmlhttp.open("GET",params,true)
+  xmlhttp.send()
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
       var CurrentInfo = xmlhttp.responseText;
-      // Compare new text with stored one
       if(CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
-        var infoWin = document.getElementById(id);
-        infoWin.innerHTML = CurrentInfo;
-        window.PreviousInfo = CurrentInfo;
-        playListener();
-        animatedButtonListener();
+        var infoWin = document.getElementById(id)
+        infoWin.innerHTML = CurrentInfo
+        window.PreviousInfo = CurrentInfo
+        playListener()
+        animatedButtonListener()
       }
     }
   }
 }
 function isEmpty(str) {
-    return (!str || 0 === str.length);
+    return (!str || 0 === str.length)
 }
 function initialise() {
-  var id = document.getElementsByTagName('section')[0].id;
-  autoRefresh(id);
-  animatedButtonListener();
+  var id = document.getElementsByTagName('section')[0].id
+  autoRefresh(id)
+  animatedButtonListener()
 }
 
 //
 // LISTENERS
 //
 function pushed(id){
-    document.getElementById(id).classList.add('pushed');
-    document.getElementById(id).classList.remove('released');
+    document.getElementById(id).classList.add('pushed')
+    document.getElementById(id).classList.remove('released')
 }
 function animatedButtonListener() {
-  var classname = document.getElementsByClassName("animated");
+  var classname = document.getElementsByClassName("animated")
   function pusher(e){
-    var id = e.currentTarget.id;
-    pushed(id);
+    var id = e.currentTarget.id
+    pushed(id)
   }
   function released(e){
-    var id = e.currentTarget.id;
-    var x = document.getElementById(id);
+    var id = e.currentTarget.id
+    var x = document.getElementById(id)
     if (x.classList.contains("pushed")) {
-      document.getElementById(id).classList.add('released');
-      document.getElementById(id).classList.remove('pushed');
-      getCmd(id);
+      document.getElementById(id).classList.add('released')
+      document.getElementById(id).classList.remove('pushed')
+      getCmd(id)
     }
   }
   for(var i=0; i<classname.length; i++) {
-      classname[i].addEventListener(clickEventType, pusher, false);
-      classname[i].addEventListener("animationend", released, false);
-      classname[i].addEventListener("webkitAnimationEnd", released, false);
+      classname[i].addEventListener(clickEventType, pusher, false)
+      classname[i].addEventListener("animationend", released, false)
+      classname[i].addEventListener("webkitAnimationEnd", released, false)
   }
 }
 function playListener() {
-  var playButton = document.getElementsByClassName("play");
+  var playButton = document.getElementsByClassName("play")
   function otherPusher(e) {
-    var nid = e.currentTarget.id;
-    var x = document.getElementById(nid);
+    var nid = e.currentTarget.id
+    var x = document.getElementById(nid)
     if (x.classList.contains("confirm")) {
-      postCmd("play",nid);
-      window.location.href = "index.php?MPDPORT=" + window.MPDPORT + "&LABEL=" + window.LABEL;
+      postCmd("play",nid)
+      window.location.href = "index.php?MPDPORT=" + window.MPDPORT + "&LABEL=" + window.LABEL
     } else {
-      x.classList.add('pushed');
-      x.classList.remove('released');
+      x.classList.add('pushed')
+      x.classList.remove('released')
     }
   }
   function confirmer(e) { 
-    var id = e.currentTarget.id;
-    var x = document.getElementById(id);
+    var id = e.currentTarget.id
+    var x = document.getElementById(id)
     if (x.classList.contains("pushed")) {
-        // Fires after push, 
-        x.classList.add('confirm');
-        var shapes = x.getElementsByClassName("playPath");
-        shapes[0].style.fill = "#eee8d5";
-        x.classList.remove('pushed');
+        x.classList.add('confirm')
+        var shapes = x.getElementsByClassName("playPath")
+        shapes[0].style.fill = "#eee8d5"
+        x.classList.remove('pushed')
     } else if (x.classList.contains("confirm")) {
-//        x.classList.remove('confirm');
-        setTimeout(function(){ buttonTimeout(id) },2200);
+        setTimeout(function(){ buttonTimeout(id) },2200)
     } else {
-        x.classList.add('released');
-        var shapes = x.getElementsByClassName("playPath");
-        shapes[0].style.fill = "#93A1A1";
+        x.classList.add('released')
+        var shapes = x.getElementsByClassName("playPath")
+        shapes[0].style.fill = "#93A1A1"
     }
   }
   function buttonTimeout(id) {
-    document.getElementById(id).classList.remove("confirm");
-    document.getElementById(id).classList.add('released');
+    document.getElementById(id).classList.remove("confirm")
+    document.getElementById(id).classList.add('released')
   }
   for(var i=0; i<playButton.length; i++) {
-      playButton[i].addEventListener(clickEventType, otherPusher, false);
-      playButton[i].addEventListener("animationend", confirmer, false);
-      playButton[i].addEventListener("webkitAnimationEnd", confirmer, false);
+      playButton[i].addEventListener(clickEventType, otherPusher, false)
+      playButton[i].addEventListener("animationend", confirmer, false)
+      playButton[i].addEventListener("webkitAnimationEnd", confirmer, false)
   }
 }
-initialise();
+initialise()
 </script>
 </body>
 </html>
