@@ -381,13 +381,11 @@ path.confirm {
 var controlScript = "control.php";
 var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
 var PreviousInfo = null;
+var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id;
+var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
+var PASSWORD = document.getElementsByClassName("PASSWORD")[0].id;
+var KPASS = document.getElementsByClassName("KPASS")[0].id; 
 
-function setAlias(){
-  MPDPORT = document.getElementsByClassName("MPDPORT")[0].id;
-  MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
-  PASSWORD = document.getElementsByClassName("PASSWORD")[0].id;
-  KPASS = document.getElementsByClassName("KPASS")[0].id; 
-}
 function getCmd(id){  
   var x = document.getElementById(id);
   xmlhttp=new XMLHttpRequest();
@@ -444,7 +442,6 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 function initialise() {
-  setAlias();
   var id = document.getElementsByTagName('section')[0].id;
   autoRefresh(id);
   animatedButtonListener();
