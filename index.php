@@ -379,7 +379,7 @@ path.confirm {
 
 <script language="javascript" type="text/javascript">
 var controlScript = "control.php"
-var clickEventType=((document.ontouchstart!==null)?'click':'touchstart')
+var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
 var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
@@ -388,7 +388,7 @@ var KPASS = document.getElementsByClassName("KPASS")[0].id
 
 function getCmd(id){  
   var x = document.getElementById(id)
-  xmlhttp=new XMLHttpRequest()
+  xmlhttp = new XMLHttpRequest()
   params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
@@ -397,6 +397,11 @@ function getCmd(id){
     + "&k=" + KPASS;
   xmlhttp.open("GET",params,false)
   xmlhttp.send()
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      
+    }
+  }
 }
 function postCmd(command,id) {
   xmlhttp=new XMLHttpRequest();
@@ -414,7 +419,7 @@ function postCmd(command,id) {
 }
 function autoRefresh(id) {
   setTimeout(function(){ autoRefresh(id) },3000)
-  xmlhttp=new XMLHttpRequest()
+  xmlhttp = new XMLHttpRequest()
   params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
@@ -423,8 +428,8 @@ function autoRefresh(id) {
     + "&k=" + KPASS;
   xmlhttp.open("GET",params,true)
   xmlhttp.send()
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status==200) {
       var CurrentInfo = xmlhttp.responseText;
       if(CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var infoWin = document.getElementById(id)
@@ -467,7 +472,7 @@ function animatedButtonListener() {
       getCmd(id)
     }
   }
-  for(var i=0; i<classname.length; i++) {
+  for(var i = 0; i<classname.length; i++) {
       classname[i].addEventListener(clickEventType, pusher, false)
       classname[i].addEventListener("animationend", released, false)
       classname[i].addEventListener("webkitAnimationEnd", released, false)
