@@ -380,11 +380,11 @@ path.confirm {
 <script language="javascript" type="text/javascript">
 var controlScript = "control.php";
 var clickEventType=((document.ontouchstart!==null)?'click':'touchstart');
-var PreviousInfo = null;
-var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id;
-var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id;
-var PASSWORD = document.getElementsByClassName("PASSWORD")[0].id;
-var KPASS = document.getElementsByClassName("KPASS")[0].id; 
+var PreviousInfo
+var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
+var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
+var PASSWORD = document.getElementsByClassName("PASSWORD")[0].id
+var KPASS = document.getElementsByClassName("KPASS")[0].id
 
 function getCmd(id){  
   var x = document.getElementById(id);
