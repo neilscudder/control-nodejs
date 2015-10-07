@@ -386,10 +386,10 @@ var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
 var PASSWORD = document.getElementsByClassName("PASSWORD")[0].id
 var KPASS = document.getElementsByClassName("KPASS")[0].id
 
-function getCmd(id){  
+function getCmd(id){ 
   var x = document.getElementById(id)
-  xmlhttp = new XMLHttpRequest()
-  params = controlScript
+  var xmlhttp = new XMLHttpRequest()
+  var params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
@@ -419,8 +419,8 @@ function postCmd(command,id) {
 }
 function autoRefresh(id) {
   setTimeout(function(){ autoRefresh(id) },3000)
-  xmlhttp = new XMLHttpRequest()
-  params = controlScript
+  var xmlhttp = new XMLHttpRequest()
+  var params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
