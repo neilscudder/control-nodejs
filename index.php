@@ -293,6 +293,10 @@ iframe {
   -webkit-animation-name: releaser;
   animation-name: releaser;
 }
+.denied {
+  -webkit-animation-name: denier;
+  animation-name: denier;
+}
 .confirm {
   -webkit-animation-name: confirmer;
   animation-name: confirmer;
@@ -344,6 +348,31 @@ path.confirm {
   100% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
+  }
+}
+@-webkit-keyframes denier {
+  0% {
+    -webkit-transform: scale3d(0, 1, 1);
+    transform: scale3d(0, 1, 1);
+    opacity: 0.1;
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes denier {
+  0% {
+    -webkit-transform: scale3d(0, 1, 1);
+    transform: scale3d(0, 1, 1);
+    opacity: 0.1;
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    opacity: 0.5;
   }
 }
 @-webkit-keyframes confirmer {
@@ -402,8 +431,8 @@ function getCmd(id){
       x.classList.add('released')
       x.classList.remove('pushed')
     } else if (xhr.responseText && xhr.readyState === 4 && x.classList.contains("pushed")) {
-      alert(xhr.responseText)
-      x.classList.add('failed')
+//      alert(xhr.responseText)
+      x.classList.add('denied')
       x.classList.remove('pushed')
     } else {
       // Nothing
