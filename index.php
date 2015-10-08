@@ -40,7 +40,7 @@ if (isset($_GET["l"])) {
 <body class="" ontouchstart="">
   <nav>
     <div class="row">
-      <div id="dn" class="animated quarter">
+      <div id="dn" class="animated quarter released">
         <svg 
           class="toolbar" 
           id="dn"
@@ -65,7 +65,7 @@ if (isset($_GET["l"])) {
       </div>  
       <div 
         id="up" 
-        class="animated quarter">
+        class="animated quarter released">
         <svg 
           class="toolbar" 
           id="up" 
@@ -87,7 +87,7 @@ if (isset($_GET["l"])) {
       </div>   
       <div 
         id="fw" 
-        class="animated quarter">
+        class="animated quarter released">
         <svg 
           class="toolbar" 
           id="fw" 
@@ -108,7 +108,7 @@ if (isset($_GET["l"])) {
       </div>
       <div 
         id="tog" 
-        class="quarter">
+        class="animated quarter">
           <svg 
           class="toolbar"
           x="0px" 
@@ -439,20 +439,7 @@ function getCmd(id){
     }
   }
 }
-function postCmd(command,id) {
-  xhr=new XMLHttpRequest();
-  xhr.open("POST",controlScript,true);
-  params="a=" + command
-    + "&b=" + id 
-    + "&m=" + MPDPORT 
-    + "&h=" + MPDHOST
-    + "&p=" + PASSWORD
-    + "&k=" + KPASS;
-  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  xhr.setRequestHeader("Content-length", params.length);
-  xhr.setRequestHeader("Connection", "close");
-  xhr.send(params);
-}
+
 function autoRefresh(id) {
   setTimeout(function(){ autoRefresh(id) },3000)
   var xhr = new XMLHttpRequest()
@@ -497,8 +484,11 @@ function animatedButtonListener() {
   var buttons = document.getElementsByClassName("animated")
   function pusher(e){
     var id = e.currentTarget.id
-    pushed(id)
-    getCmd(id)
+    var x = document.getElementById(id)
+    if (x.classList.contains("released")) {
+      pushed(id)
+      getCmd(id)
+    }
   }
   for(var i = 0; i<buttons.length; i++) {
       buttons[i].addEventListener(clickEventType, pusher, false)
