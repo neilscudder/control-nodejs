@@ -17,8 +17,10 @@ function authenticate() {
   $k = $_GET["k"];
   $key = $c->findOne(array("KPASS" => "{$k}"));
   if (empty($key['KPASS'])) {
+    echo "Access Denied";
     return false;
   } else {
+    echo "ok";
     return true;
   }
 }
@@ -145,17 +147,14 @@ if (isset($GETA)) {
     case "dn":
       authenticate() or die("access denied");
       $output = shell_exec("$MPC volume -5");
-      echo "ok";
     break;
     case "up":
       authenticate() or die("access denied");
       shell_exec("$MPC volume +5");
-      echo "ok";
     break;
     case "fw":
       authenticate() or die("access denied");
       shell_exec("$MPC next");
-      echo "ok";
     break;
     case "info":
       showInfo();

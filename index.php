@@ -388,21 +388,21 @@ var KPASS = document.getElementsByClassName("KPASS")[0].id
 
 function getCmd(id){ 
   var x = document.getElementById(id)
-  var xmlhttp = new XMLHttpRequest()
+  var xhr = new XMLHttpRequest()
   var params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xmlhttp.open("GET",params,true)
-  xmlhttp.send()
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.responseText === "ok") {
+  xhr.open("GET",params,true)
+  xhr.send()
+  xhr.onreadystatechange = function() {
+    if (xhr.responseText === "ok" && xhr.readyState === 4 && x.classList.contains("pushed")) {
       x.classList.add('released')
       x.classList.remove('pushed')
-    } else if (xmlhttp.responseText) {
-      alert(xmlhttp.responseText)
+    } else if (xhr.responseText && xhr.readyState === 4 && x.classList.contains("pushed")) {
+      alert(xhr.responseText)
       x.classList.add('failed')
       x.classList.remove('pushed')
     } else {
@@ -411,33 +411,33 @@ function getCmd(id){
   }
 }
 function postCmd(command,id) {
-  xmlhttp=new XMLHttpRequest();
-  xmlhttp.open("POST",controlScript,true);
+  xhr=new XMLHttpRequest();
+  xhr.open("POST",controlScript,true);
   params="a=" + command
     + "&b=" + id 
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  xmlhttp.setRequestHeader("Content-length", params.length);
-  xmlhttp.setRequestHeader("Connection", "close");
-  xmlhttp.send(params);
+  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Content-length", params.length);
+  xhr.setRequestHeader("Connection", "close");
+  xhr.send(params);
 }
 function autoRefresh(id) {
   setTimeout(function(){ autoRefresh(id) },3000)
-  var xmlhttp = new XMLHttpRequest()
+  var xhr = new XMLHttpRequest()
   var params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xmlhttp.open("GET",params,true)
-  xmlhttp.send()
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status==200) {
-      var CurrentInfo = xmlhttp.responseText;
+  xhr.open("GET",params,true)
+  xhr.send()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status==200) {
+      var CurrentInfo = xhr.responseText;
       if(CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var infoWin = document.getElementById(id)
         infoWin.innerHTML = CurrentInfo
