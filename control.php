@@ -144,15 +144,18 @@ if (isset($GETA)) {
   switch ($GETA) {
     case "dn":
       authenticate() or die("access denied");
-      shell_exec("$MPC volume -5");
+      $output = shell_exec("$MPC volume -5");
+      echo "ok";
     break;
     case "up":
       authenticate() or die("access denied");
       shell_exec("$MPC volume +5");
+      echo "ok";
     break;
     case "fw":
       authenticate() or die("access denied");
       shell_exec("$MPC next");
+      echo "ok";
     break;
     case "info":
       showInfo();

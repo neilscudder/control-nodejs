@@ -398,11 +398,15 @@ function getCmd(id){
   xmlhttp.open("GET",params,true)
   xmlhttp.send()
   xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      if (x.classList.contains("pushed")) {
-        x.classList.add('released')
-        x.classList.remove('pushed')
-      }  
+    if (xmlhttp.responseText === "ok") {
+      x.classList.add('released')
+      x.classList.remove('pushed')
+    } else if (xmlhttp.responseText) {
+      alert(xmlhttp.responseText)
+      x.classList.add('failed')
+      x.classList.remove('pushed')
+    } else {
+      // Nothing
     }
   }
 }
@@ -466,15 +470,6 @@ function animatedButtonListener() {
     var id = e.currentTarget.id
     pushed(id)
     getCmd(id)
-  }
-  function released(e){
-    var id = e.currentTarget.id
-    var x = document.getElementById(id)
-    if (x.classList.contains("pushed")) {
-      document.getElementById(id).classList.add('released')
-      document.getElementById(id).classList.remove('pushed')
-      getCmd(id)
-    }
   }
   for(var i = 0; i<buttons.length; i++) {
       buttons[i].addEventListener(clickEventType, pusher, false)
