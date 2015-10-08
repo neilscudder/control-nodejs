@@ -395,11 +395,14 @@ function getCmd(id){
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xmlhttp.open("GET",params,false)
+  xmlhttp.open("GET",params,true)
   xmlhttp.send()
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      
+      if (x.classList.contains("pushed")) {
+        x.classList.add('released')
+        x.classList.remove('pushed')
+      }  
     }
   }
 }
@@ -458,10 +461,11 @@ function pushed(id){
     document.getElementById(id).classList.remove('released')
 }
 function animatedButtonListener() {
-  var classname = document.getElementsByClassName("animated")
+  var buttons = document.getElementsByClassName("animated")
   function pusher(e){
     var id = e.currentTarget.id
     pushed(id)
+    getCmd(id)
   }
   function released(e){
     var id = e.currentTarget.id
@@ -472,10 +476,8 @@ function animatedButtonListener() {
       getCmd(id)
     }
   }
-  for(var i = 0; i<classname.length; i++) {
-      classname[i].addEventListener(clickEventType, pusher, false)
-      classname[i].addEventListener("animationend", released, false)
-      classname[i].addEventListener("webkitAnimationEnd", released, false)
+  for(var i = 0; i<buttons.length; i++) {
+      buttons[i].addEventListener(clickEventType, pusher, false)
   }
 }
 function playListener() {
