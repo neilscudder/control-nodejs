@@ -441,7 +441,7 @@ function getCmd(id){
 }
 
 function autoRefresh(id) {
-  setTimeout(function(){ autoRefresh(id) },3000)
+  setTimeout(function(){ autoRefresh(id) },1500)
   var xhr = new XMLHttpRequest()
   var params = controlScript
   params += "?a=" + id
