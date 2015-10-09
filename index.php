@@ -431,7 +431,6 @@ function getCmd(id){
       x.classList.add('released')
       x.classList.remove('pushed')
     } else if (xhr.responseText && xhr.readyState === 4 && x.classList.contains("pushed")) {
-//      alert(xhr.responseText)
       x.classList.add('denied')
       x.classList.remove('pushed')
     } else {
