@@ -107,8 +107,8 @@ if (isset($_GET["l"])) {
         </svg>
       </div>
       <div 
-        id="tog" 
-        class="animated quarter">
+        id="togBrowser" 
+        class="animated quarter released">
           <svg 
           class="toolbar"
           x="0px" 
@@ -233,7 +233,7 @@ iframe {
 #fw { 
   background-color: #dc322f;
 }
-#tog {  
+#togBrowser {  
   background-color: #d33682;
   color: #002b36;
   font-weight:800;

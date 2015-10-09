@@ -163,7 +163,9 @@ if (isset($GETA)) {
       authenticate() or die("access denied");
       insertNextTwo();
     break;
-
+    case "togBrowser":
+      authenticate() or die("access denied");
+    break;
     case "browser":
       authenticate() or die("access denied");
       showBrowser();
