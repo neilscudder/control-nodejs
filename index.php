@@ -485,12 +485,15 @@ function animatedButtonListener() {
   function pusher(e){
     var id = e.currentTarget.id
     var x = document.getElementById(id)
-    if (x.classList.contains("released")) {
+    if (x.classList.contains("released") && id.match(/tog/g)) {
+      pushed(id)
+      togBrowser(id)
+    } else if (x.classList.contains("released")) {
       pushed(id)
       getCmd(id)
     }
   }
-  for(var i = 0; i<buttons.length; i++) {
+  for(i = 0; i<buttons.length; i++) {
       buttons[i].addEventListener(clickEventType, pusher, false)
   }
 }
@@ -510,16 +513,17 @@ function playListener() {
   function confirmer(e) { 
     var id = e.currentTarget.id
     var x = document.getElementById(id)
+    var shapes
     if (x.classList.contains("pushed")) {
         x.classList.add('confirm')
-        var shapes = x.getElementsByClassName("playPath")
+        shapes = x.getElementsByClassName("playPath")
         shapes[0].style.fill = "#eee8d5"
         x.classList.remove('pushed')
     } else if (x.classList.contains("confirm")) {
         setTimeout(function(){ buttonTimeout(id) },2200)
     } else {
         x.classList.add('released')
-        var shapes = x.getElementsByClassName("playPath")
+        shapes = x.getElementsByClassName("playPath")
         shapes[0].style.fill = "#93A1A1"
     }
   }
