@@ -4,11 +4,21 @@ var https = require('https')
   , url = require('url')
 
 function mpdStatus() {
-  childProcess.exec('/usr/bin/mpc -p 1027 -h user@localhost', mpdCallback)
-  function mpdCallback(error, stdout, stderr) {
-    console.log(stdout)
-    return stdout
-  }
+  childProcess.exec('/usr/bin/mpc -p 1027 -h user@localhost', 
+    function(error, stdout, stderr) 
+    {
+      console.log(stdout)
+      return stdout
+    }
+  )
+}
+function volumeUp() {
+  childProcess.exec('/usr/bin/mpc -p 1027 -h user@localhost volume +5', 
+    function(error, stdout, stderr) 
+    {
+      console.log(stdout)
+    }
+  )
 }
 
 var options = {
@@ -21,6 +31,7 @@ https.createServer(options, function (req, res) {
   var query = url_parts.query
   switch(query['a']) {
     case 'up':
+      volumeUp()
       res.writeHead(200)
       res.write('up')
       res.end()
