@@ -1,10 +1,11 @@
 var https = require('https')
-var fs = require('fs')
-var childProcess = require('child_process')
+  , fs = require('fs')
+  , childProcess = require('child_process')
 
 function mpdStatus() {
   childProcess.exec('/usr/bin/mpc -p 1027 -h user@localhost', mpdCallback)
   function mpdCallback(error, stdout, stderr) {
+    console.log(stdout)
     return stdout
   }
 }
@@ -15,7 +16,8 @@ var options = {
 }
 
 https.createServer(options, function (req, res) {
+  var statusSnapshot = String(mpdStatus())
   res.writeHead(200)
-//  res.end(mpdStatus())
-  res.end("yo")
+  res.write(statusSnapshot)
+  res.end()
 }).listen(8000, "0.0.0.0")
