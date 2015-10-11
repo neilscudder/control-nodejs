@@ -45,19 +45,17 @@ https.createServer(options, function (req, res) {
   mpc += '@' + query['h'] 
   mpc += ' -p ' + query['m'] 
   mpc += ' '
+  res.statusCode = 200
   switch(query['a']) {
     case 'info':
       content = mpdStatus(mpc)
-      res.writeHead(200)
       res.write('info')
     break;
     case 'up':
       volumeUp(mpc)
-      res.writeHead(200)
       res.write('ok')
     break;
     default:
-      res.writeHead(200)
       res.write('default')
     break;
     res.end()
