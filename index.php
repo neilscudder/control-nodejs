@@ -452,7 +452,7 @@ function autoRefresh(id) {
   xhr.open("GET",params,true)
   xhr.send()
   xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status==200) {
+    if (xhr.readyState == 4 && xhr.status == 200) {
       var CurrentInfo = xhr.responseText;
       if(CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var infoWin = document.getElementById(id)

@@ -15,43 +15,48 @@ https.createServer(options, function (req, res) {
   mpc += ' -h ' + query['p']
   mpc += '@' + query['h'] 
   mpc += ' -p ' + query['m'] 
+  mpc += ' '
   res.statusCode = 200
   res.setHeader("Access-Control-Allow-Origin", "*")
   switch(query['a']) {
     case 'info':
-      var format = ' --format \
-       "<div class=\\"info-container\\">\
-          <h2>[[%title%]|[%file%]]</h2>\
-          <p><strong>Artist:</strong> [%artist%]</p>\
-          <p><strong>Album:</strong> [%album%]</p>\
-          <div class=\\"animated button released\\" id=\\"insertNextTwo\\">\
-            Insert Next Two\
-          </div>\
-        </div>" | head -n1'
+      var format = ' --format '
+      format += ' "<div class=\\"info-container\\">'
+      format += '   <h2>[[%title%]|[%file%]]</h2>'
+      format += '   <p><strong>Artist:</strong> [%artist%]</p>'
+      format += '   <p><strong>Album:</strong> [%album%]</p>'
+      format += '   <div class=\\"animated button released\\" id=\\"insertNextTwo\\">'
+      format += '     Insert Next Two'
+      format += '   </div>'
+      format += ' </div>" | head -n1'
       mpc += format
-      childProcess.exec(mpc, callback)
-      function callback(err, data){
+      childProcess.exec(mpc, function(err, data, stderr){
+//        res.setHeader("Content-Type", "text/html")
+//        res.setHeader("Content-Length", data.length)
         res.write(data)
         console.log(data)
-      }
+      })
     break;
     case 'up':
       mpc += ' volume +5'
-      childProcess.exec(mpc, callback)
-      function callback(err, data){
+      childProcess.exec(mpc, function(err,stdout,stderr){
         res.write('ok')
-      }
+      })
     break;
     case 'dn':
       mpc += ' volume -5'
-      childProcess.exec(mpc, callback)
-      function callback(err, data){
+      childProcess.exec(mpc, function(err,stdout,stderr){
         res.write('ok')
-      }
+      })
+    break;
+    case 'fw':
+      mpc += ' next'
+      childProcess.exec(mpc, function(err,stdout,stderr){
+        res.write('ok')
+      })
     break;
     default:
       res.write('default')
-    break;
   }
   res.end()
 }).listen(8000, "0.0.0.0")
