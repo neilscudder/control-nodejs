@@ -15,11 +15,10 @@ https.createServer(options, function (req, res) {
   mpc += ' -h ' + query['p']
   mpc += '@' + query['h'] 
   mpc += ' -p ' + query['m'] 
-  mpc += ' '
   res.statusCode = 200
   switch(query['a']) {
     case 'info':
-      var format = '--format \
+      var format = ' --format \
        "<div class=\\"info-container\\">\
           <h2>[[%title%]|[%file%]]</h2>\
           <p><strong>Artist:</strong> [%artist%]</p>\
@@ -36,7 +35,20 @@ https.createServer(options, function (req, res) {
       }
     break;
     case 'up':
-      res.write('ok')
+      mpc += ' volume +5'
+      childProcess.exec(mpc, callback)
+      function callback(err, data){
+        res.write('ok')
+        console.log(data)
+      }
+    break;
+    case 'down':
+      mpc += ' volume -5'
+      childProcess.exec(mpc, callback)
+      function callback(err, data){
+        res.write('ok')
+        console.log(data)
+      }
     break;
     default:
       res.write('default')
