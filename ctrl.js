@@ -6,20 +6,20 @@ var https = require('https')
 function mpdStatus(mpc) {
   var format
   format = '--format \
- "<div class=\\"info-container\\">\
-    <h2>[[%title%]|[%file%]]</h2>\
-    <p><strong>Artist:</strong> [%artist%]</p>\
-    <p><strong>Album:</strong> [%album%]</p>\
-    <div class=\\"animated button released\\" id=\\"insertNextTwo\\">\
-      Insert Next Two\
-    </div>\
-  </div>" | head -n1'
+   "<div class=\\"info-container\\">\
+      <h2>[[%title%]|[%file%]]</h2>\
+      <p><strong>Artist:</strong> [%artist%]</p>\
+      <p><strong>Album:</strong> [%album%]</p>\
+      <div class=\\"animated button released\\" id=\\"insertNextTwo\\">\
+        Insert Next Two\
+      </div>\
+    </div>" | head -n1'
   mpc += format
   childProcess.exec(mpc, 
     function(error, stdout, stderr) 
     {
       console.log(stdout)
-      return format
+      return stdout
     }
   )
 }
