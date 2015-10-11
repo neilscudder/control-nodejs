@@ -427,10 +427,10 @@ function getCmd(id){
   xhr.open("GET",params,true)
   xhr.send()
   xhr.onreadystatechange = function() {
-    if (xhr.responseText === "ok" && xhr.readyState === 4 && x.classList.contains("pushed")) {
+    if (xhr.status == 200 && xhr.readyState == 4 && x.classList.contains("pushed")) {
       x.classList.add('released')
       x.classList.remove('pushed')
-    } else if (xhr.responseText && xhr.readyState === 4 && x.classList.contains("pushed")) {
+    } else if (xhr.readyState == 4 && x.classList.contains("pushed")) {
 //      alert(xhr.responseText)
       x.classList.add('denied')
       x.classList.remove('pushed')

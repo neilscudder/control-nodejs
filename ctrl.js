@@ -16,6 +16,7 @@ https.createServer(options, function (req, res) {
   mpc += '@' + query['h'] 
   mpc += ' -p ' + query['m'] 
   res.statusCode = 200
+  res.setHeader("Access-Control-Allow-Origin", "*")
   switch(query['a']) {
     case 'info':
       var format = ' --format \
@@ -39,20 +40,18 @@ https.createServer(options, function (req, res) {
       childProcess.exec(mpc, callback)
       function callback(err, data){
         res.write('ok')
-        console.log(data)
       }
     break;
-    case 'down':
+    case 'dn':
       mpc += ' volume -5'
       childProcess.exec(mpc, callback)
       function callback(err, data){
         res.write('ok')
-        console.log(data)
       }
     break;
     default:
       res.write('default')
     break;
-    res.end()
   }
+  res.end()
 }).listen(8000, "0.0.0.0")
