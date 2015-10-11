@@ -4,11 +4,22 @@ var https = require('https')
   , url = require('url')
 
 function mpdStatus(mpc) {
-  childProcess.exec(mpc + '', 
+  var format
+  format = '--format '
+  format+= '"<div class=\\"info-container\\">'
+  format+= '  <h2>[[%title%]|[%file%]]</h2>'
+  format+= '  <p><strong>Artist:</strong> [%artist%]</p>'
+  format+= '  <p><strong>Album:</strong> [%album%]</p>'
+  format+= '  <div class=\\"animated button released\\" id=\\"insertNextTwo\\">'
+  format+= '    Insert Next Two'
+  format+= '  </div>'
+  format+= '</div>" | head -n1'
+  mpc += format
+  childProcess.exec(mpc, 
     function(error, stdout, stderr) 
     {
       console.log(stdout)
-      return stdout
+      return format
     }
   )
 }
@@ -36,7 +47,7 @@ https.createServer(options, function (req, res) {
   mpc += ' '
   switch(query['a']) {
     case 'info':
-      mpdStatus(mpc)
+      content = mpdStatus(mpc)
       res.writeHead(200)
       res.write('info')
       res.end()
