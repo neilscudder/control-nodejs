@@ -12,8 +12,8 @@ function mpdStatus() {
     }
   )
 }
-function volumeUp() {
-  childProcess.exec('/usr/bin/mpc -p 1027 -h user@localhost volume +5', 
+function volumeUp(mpc) {
+  childProcess.exec(mpc + 'volume +5', 
     function(error, stdout, stderr) 
     {
       console.log(stdout)
@@ -27,13 +27,16 @@ var options = {
 }
 
 https.createServer(options, function (req, res) {
-  var url_parts = url.parse(req.url, true);
+  var url_parts = url.parse(req.url, true)
   var query = url_parts.query
+  var mpc // executable with params
+  // TODO authenticate
+  mpc = '/usr/bin/mpc -h ' + query['p'] + '@' + query['h'] + ' -p ' + query['m'] + ' '
   switch(query['a']) {
     case 'up':
-      volumeUp()
+      volumeUp(mpc)
       res.writeHead(200)
-      res.write('up')
+      res.write('ok')
       res.end()
     break;
     default:
