@@ -36,7 +36,6 @@ https.createServer(options, function (req, res) {
       }
     break;
     case 'up':
-      volumeUp(mpc)
       res.write('ok')
     break;
     default:
