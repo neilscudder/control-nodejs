@@ -2,7 +2,7 @@ var https = require('https')
   , fs = require('fs')
   , childProcess = require('child_process')
   , url = require('url')
-
+var result
 var options = {
   key: fs.readFileSync('/etc/ssl/private/playnode.key'),
   cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
@@ -11,7 +11,7 @@ var options = {
 https.createServer(options, function (req, res) {
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
-  var mpc = '/usr/bin/mpc'  
+  var mpc = '/usr/bin/mpc'
   mpc += ' -h ' + query['p']
   mpc += '@' + query['h'] 
   mpc += ' -p ' + query['m'] 
@@ -30,33 +30,32 @@ https.createServer(options, function (req, res) {
       format += '   </div>'
       format += ' </div>" | head -n1'
       mpc += format
-      childProcess.exec(mpc, function(err, data, stderr){
-//        res.setHeader("Content-Type", "text/html")
-//        res.setHeader("Content-Length", data.length)
-        res.write(data)
-        console.log(data)
+      res.setHeader("Content-Type", "text/html")
+      childProcess.exec(mpc, function(err,stdout,stderr){
+        result = stdout
       })
     break;
     case 'up':
       mpc += ' volume +5'
       childProcess.exec(mpc, function(err,stdout,stderr){
-        res.write('ok')
+        result = 'ok'
       })
     break;
     case 'dn':
       mpc += ' volume -5'
       childProcess.exec(mpc, function(err,stdout,stderr){
-        res.write('ok')
+        result = 'ok'
       })
     break;
     case 'fw':
       mpc += ' next'
       childProcess.exec(mpc, function(err,stdout,stderr){
-        res.write('ok')
+        result = 'ok'
       })
     break;
     default:
-      res.write('default')
+        result = 'default'
   }
-  res.end()
+  console.log(result)
+  res.end(result,'utf8')
 }).listen(8000, "0.0.0.0")
