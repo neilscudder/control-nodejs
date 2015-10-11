@@ -29,9 +29,11 @@ var options = {
 https.createServer(options, function (req, res) {
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
-  var mpc // executable with params
-  // TODO authenticate
-  mpc = '/usr/bin/mpc -h ' + query['p'] + '@' + query['h'] + ' -p ' + query['m'] + ' '
+  var mpc = '/usr/bin/mpc'  
+  mpc += ' -h ' + query['p']
+  mpc += '@' + query['h'] 
+  mpc += ' -p ' + query['m'] 
+  mpc += ' '
   switch(query['a']) {
     case 'info':
       mpdStatus(mpc)
