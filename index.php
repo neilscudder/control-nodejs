@@ -407,7 +407,7 @@ path.confirm {
 
 
 <script language="javascript" type="text/javascript">
-var controlScript = "localhost:8000"
+var controlScript = "https://playnode.ca:8000/"
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id

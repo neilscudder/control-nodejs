@@ -3,8 +3,8 @@ var https = require('https')
   , childProcess = require('child_process')
   , url = require('url')
 
-function mpdStatus() {
-  childProcess.exec('/usr/bin/mpc -p 1027 -h user@localhost', 
+function mpdStatus(mpc) {
+  childProcess.exec(mpc + '', 
     function(error, stdout, stderr) 
     {
       console.log(stdout)
@@ -33,6 +33,12 @@ https.createServer(options, function (req, res) {
   // TODO authenticate
   mpc = '/usr/bin/mpc -h ' + query['p'] + '@' + query['h'] + ' -p ' + query['m'] + ' '
   switch(query['a']) {
+    case 'info':
+      mpdStatus(mpc)
+      res.writeHead(200)
+      res.write('info')
+      res.end()
+    break;
     case 'up':
       volumeUp(mpc)
       res.writeHead(200)
