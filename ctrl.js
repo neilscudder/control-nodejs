@@ -5,6 +5,7 @@ var https = require('https')
 
 function mpdStatus(mpc) {
   var format
+  var result
   format = '--format \
    "<div class=\\"info-container\\">\
       <h2>[[%title%]|[%file%]]</h2>\
@@ -18,10 +19,12 @@ function mpdStatus(mpc) {
   childProcess.exec(mpc, 
     function(error, stdout, stderr) 
     {
-      console.log(stdout)
-      return stdout
+      result = stdout
+      console.log(result)
     }
   )
+  console.log(result)
+  return result
 }
 function volumeUp(mpc) {
   childProcess.exec(mpc + 'volume +5', 
