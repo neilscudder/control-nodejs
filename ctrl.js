@@ -50,18 +50,16 @@ https.createServer(options, function (req, res) {
       content = mpdStatus(mpc)
       res.writeHead(200)
       res.write('info')
-      res.end()
     break;
     case 'up':
       volumeUp(mpc)
       res.writeHead(200)
       res.write('ok')
-      res.end()
     break;
     default:
       res.writeHead(200)
       res.write('default')
-      res.end()
     break;
+    res.end()
   }
 }).listen(8000, "0.0.0.0")
