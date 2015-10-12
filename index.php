@@ -442,18 +442,18 @@ function getCmd(id){
 
 function autoRefresh(id) {
   setTimeout(function(){ autoRefresh(id) },1500)
-  var xhr = new XMLHttpRequest()
+  var ahr = new XMLHttpRequest()
   var params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xhr.open("GET",params,true)
-  xhr.send()
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      var CurrentInfo = xhr.responseText;
+  ahr.open("GET",params,true)
+  ahr.send()
+  ahr.onreadystatechange = function() {
+    if (ahr.readyState == 4 && ahr.status == 200) {
+      var CurrentInfo = ahr.responseText;
       if(CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var infoWin = document.getElementById(id)
         infoWin.innerHTML = CurrentInfo

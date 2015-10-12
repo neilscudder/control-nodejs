@@ -38,19 +38,19 @@ https.createServer(options, function (req, res) {
     case 'up':
       mpc += ' volume +5'
       childProcess.exec(mpc, function(err,stdout,stderr){
-        result = 'ok'
+        result = 'Volume Up'
       })
     break;
     case 'dn':
       mpc += ' volume -5'
       childProcess.exec(mpc, function(err,stdout,stderr){
-        result = 'ok'
+        result = 'Volume Down'
       })
     break;
     case 'fw':
       mpc += ' next'
       childProcess.exec(mpc, function(err,stdout,stderr){
-        result = 'ok'
+        result = 'Next Track'
       })
     break;
     default:
