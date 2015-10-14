@@ -40,11 +40,13 @@ https.createServer(options, function (req, res) {
       theEnd()
   }
   function theEnd(err,stdout,stderr){
-    if (!err && stdout) {
-      console.log(stdout)
+    if (err) {
+      console.log(err)
+    } else if (stdout) {
       res.end(stdout,'utf8')
     } else {
       res.end
     }
+    if (stderr) console.log(stderr)
   }
 }).listen(8000, "0.0.0.0")
