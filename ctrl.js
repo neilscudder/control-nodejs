@@ -2,7 +2,6 @@ var https = require('https')
   , fs = require('fs')
   , childProcess = require('child_process')
   , url = require('url')
-var result
 var options = {
   key: fs.readFileSync('/etc/ssl/private/playnode.key'),
   cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
@@ -22,25 +21,30 @@ https.createServer(options, function (req, res) {
     case 'info':
       res.setHeader("Content-Type","text/html") 
       var cmd = './mpdStatus.sh ' + '"' + mpc + '"'
-      childProcess.exec(cmd, function(err,stdout,stderr){
-        result = stdout
-      })
+      childProcess.exec(cmd,theEnd)
     break;
     case 'up':
       mpc += ' volume +5'
-      childProcess.exec(mpc)
+      childProcess.exec(mpc,theEnd)
     break;
     case 'dn':
       mpc += ' volume -5'
-      childProcess.exec(mpc)
+      childProcess.exec(mpc,theEnd)
     break;
     case 'fw':
       mpc += ' next'
-      childProcess.exec(mpc)
+      childProcess.exec(mpc,theEnd)
     break;
     default:
-        result = 'default'
+      result = 'default'
+      theEnd()
   }
-  console.log(result)
-  res.end(result,'utf8')
+  function theEnd(err,stdout,stderr){
+    if (!err && stdout) {
+      console.log(stdout)
+      res.end(stdout,'utf8')
+    } else {
+      res.end
+    }
+  }
 }).listen(8000, "0.0.0.0")
