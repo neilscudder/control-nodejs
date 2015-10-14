@@ -20,38 +20,23 @@ https.createServer(options, function (req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*")
   switch(query['a']) {
     case 'info':
-      var format = ' --format '
-      format += ' "<div class=\\"info-container\\">'
-      format += '   <h2>[[%title%]|[%file%]]</h2>'
-      format += '   <p><strong>Artist:</strong> [%artist%]</p>'
-      format += '   <p><strong>Album:</strong> [%album%]</p>'
-      format += '   <div class=\\"animated button released\\" id=\\"insertNextTwo\\">'
-      format += '     Insert Next Two'
-      format += '   </div>'
-      format += ' </div>" | head -n1'
-      mpc += format
-      res.setHeader("Content-Type", "text/html")
-      childProcess.exec(mpc, function(err,stdout,stderr){
+      res.setHeader("Content-Type","text/html") 
+      var cmd = './mpdStatus.sh ' + '"' + mpc + '"'
+      childProcess.exec(cmd, function(err,stdout,stderr){
         result = stdout
       })
     break;
     case 'up':
       mpc += ' volume +5'
-      childProcess.exec(mpc, function(err,stdout,stderr){
-        result = 'Volume Up'
-      })
+      childProcess.exec(mpc)
     break;
     case 'dn':
       mpc += ' volume -5'
-      childProcess.exec(mpc, function(err,stdout,stderr){
-        result = 'Volume Down'
-      })
+      childProcess.exec(mpc)
     break;
     case 'fw':
       mpc += ' next'
-      childProcess.exec(mpc, function(err,stdout,stderr){
-        result = 'Next Track'
-      })
+      childProcess.exec(mpc)
     break;
     default:
         result = 'default'
