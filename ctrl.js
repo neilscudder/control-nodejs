@@ -20,16 +20,20 @@ https.createServer(options, function (req, res) {
   switch(query['a']) {
     case 'info':
       res.setHeader("Content-Type","text/html") 
-      var cmd = './mpdStatus.sh ' + '"' + mpc + '"'
+      var cmd = 'sh/mpdStatus.sh ' + '"' + mpc + '"'
       childProcess.exec(cmd,theEnd)
     break;
     case 'up':
       mpc += ' volume +5'
-      childProcess.exec(mpc,theEnd)
+      res.setHeader("Content-Type","text/html") 
+      var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
+      childProcess.exec(cmd,theEnd)
     break;
     case 'dn':
       mpc += ' volume -5'
-      childProcess.exec(mpc,theEnd)
+      res.setHeader("Content-Type","text/html") 
+      var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
+      childProcess.exec(cmd,theEnd)
     break;
     case 'fw':
       mpc += ' next'
