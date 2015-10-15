@@ -282,8 +282,8 @@ iframe {
   -webkit-transform: translate3d(0,0,0);
 }
 .heartbeat {
-  -webkit-animation-duration: 5s;
-  animation-duration: 5s;
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   transform: translate3d(0,0,0);
@@ -461,8 +461,8 @@ function getCmd(id){
 
 function autoRefresh(id) {
   var x = document.getElementById('info')
-  x.classList.remove('heartbeat')
-  x.classList.add('opaque')
+  x.classList.remove('opaque')
+  x.classList.add('heartbeat')
   
   setTimeout(function(){ autoRefresh(id) },1500)
   var ahr = new XMLHttpRequest()
@@ -484,8 +484,8 @@ function autoRefresh(id) {
         playListener()
         animatedButtonListener()
       }
-      x.classList.remove('opaque')
-      x.classList.add('heartbeat')
+      x.classList.remove('heartbeat')
+      x.classList.add('opaque')
     }
   }
 }
