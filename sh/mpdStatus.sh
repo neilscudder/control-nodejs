@@ -1,7 +1,7 @@
 #!/bin/sh
 MPC="$1"
 $MPC --format \
-"<div class=\"info-container\"> \
+"<div id=\"infotainer\" class=\"info-container\"> \
   <h2>[[%title%]|[%file%]]</h2> \
   <p><strong>Artist:</strong> [%artist%]</p> \
   <p><strong>Album:</strong> [%album%]</p> \

@@ -281,6 +281,17 @@ iframe {
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
 }
+.heartbeat {
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-animation-name: beater;
+  animation-name: beater;
+}
+.opaque { opacity: 1 }
 .pushed {
   -webkit-animation-name: pusher;
   animation-name: pusher;
@@ -308,6 +319,14 @@ path.confirm {
   height: 1.5em;
 }
 
+@-webkit-keyframes beater {
+  0% { opacity: 1 }
+  100% { opacity: 0}
+}
+@keyframes beater {
+  0% { opacity: 1 }
+  100% { opacity: 0}
+}
 @-webkit-keyframes pusher {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
@@ -441,6 +460,10 @@ function getCmd(id){
 }
 
 function autoRefresh(id) {
+  var x = document.getElementById('info')
+  x.classList.remove('heartbeat')
+  x.classList.add('opaque')
+  
   setTimeout(function(){ autoRefresh(id) },1500)
   var ahr = new XMLHttpRequest()
   var params = controlScript
@@ -454,13 +477,15 @@ function autoRefresh(id) {
   ahr.onreadystatechange = function() {
     if (ahr.readyState == 4 && ahr.status == 200) {
       var CurrentInfo = ahr.responseText;
-      if(CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
+      if (CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var infoWin = document.getElementById(id)
         infoWin.innerHTML = CurrentInfo
         window.PreviousInfo = CurrentInfo
         playListener()
         animatedButtonListener()
       }
+      x.classList.remove('opaque')
+      x.classList.add('heartbeat')
     }
   }
 }
