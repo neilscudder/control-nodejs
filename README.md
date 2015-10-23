@@ -10,7 +10,7 @@ Requests: 2<br>
 Loading time: 0.8ms
 
 ### Status
-This is a Proof-of-Concept application. Alpha stage. Still flushing out the broad strokes of key features. Contributors welcomed.
+This is a Proof-of-Concept application. Alpha stage. In process of conversion from php to nodejs. Contributors welcomed.
 
 ### Installation
 Install in web server root with shell access to mpc. This can be any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is secommended. Create a file called db.ini with your db credentials in this format:
