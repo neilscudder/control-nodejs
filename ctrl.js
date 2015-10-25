@@ -4,19 +4,15 @@ var https = require('https')
   , fs = require('fs')
   , childProcess = require('child_process')
   , url = require('url')
-// https://docs.mongodb.org/getting-started/node/client/
-var MongoClient = require('mongodb').MongoClient
-var assert = require('assert')
-var options = {
-  key: fs.readFileSync('/etc/ssl/private/playnode.key'),
-  cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
-}
-
-var mongourl = 'mongodb://webserver:webmunster@localhost/authority'
-
+  , MongoClient = require('mongodb').MongoClient
+  , assert = require('assert')
+  , options = {
+    key: fs.readFileSync('/etc/ssl/private/playnode.key'),
+    cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
+  }
 https.createServer(options, start).listen(8000, "0.0.0.0")
-
 function start(req, res) {
+  var mongourl = 'mongodb://webserver:webmunster@localhost/authority'
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
   MongoClient.connect(mongourl, function(err, db) {
@@ -25,7 +21,6 @@ function start(req, res) {
         db.close()
     })
   })
-
   var authenticate = function(db, key, callback) {
      var cursor =db.collection('playnodeca').find( { "KPASS": key } )
      cursor.each(function(err, doc) {
@@ -39,8 +34,6 @@ function start(req, res) {
      })
   }
 }
-
-
 function proceed(req, res) {
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
@@ -77,7 +70,6 @@ function proceed(req, res) {
       result = 'default'
       theEnd()
   }
-
   function theEnd(err,stdout,stderr){
     if (err) {
       console.log(err)
