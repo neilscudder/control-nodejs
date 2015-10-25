@@ -1,3 +1,5 @@
+// CTRL.JS 0.1 Copyright 2015 @neilscudder
+// Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 var https = require('https')
   , fs = require('fs')
   , childProcess = require('child_process')
