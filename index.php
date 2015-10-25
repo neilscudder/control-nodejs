@@ -281,6 +281,17 @@ iframe {
   transform: translate3d(0,0,0);
   -webkit-transform: translate3d(0,0,0);
 }
+.heartbeat {
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-animation-name: beater;
+  animation-name: beater;
+}
+.opaque { opacity: 1 }
 .pushed {
   -webkit-animation-name: pusher;
   animation-name: pusher;
@@ -308,6 +319,14 @@ path.confirm {
   height: 1.5em;
 }
 
+@-webkit-keyframes beater {
+  0% { opacity: 1 }
+  100% { opacity: 0}
+}
+@keyframes beater {
+  0% { opacity: 1 }
+  100% { opacity: 0}
+}
 @-webkit-keyframes pusher {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
@@ -407,7 +426,7 @@ path.confirm {
 
 
 <script language="javascript" type="text/javascript">
-var controlScript = "control.php"
+var controlScript = "https://playnode.ca:8000/"
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
@@ -427,10 +446,11 @@ function getCmd(id){
   xhr.open("GET",params,true)
   xhr.send()
   xhr.onreadystatechange = function() {
-    if (xhr.responseText === "ok" && xhr.readyState === 4 && x.classList.contains("pushed")) {
+    if (xhr.status == 200 && xhr.readyState == 4 && x.classList.contains("pushed")) {
       x.classList.add('released')
       x.classList.remove('pushed')
-    } else if (xhr.responseText && xhr.readyState === 4 && x.classList.contains("pushed")) {
+    } else if (xhr.readyState == 4 && x.classList.contains("pushed")) {
+//      alert(xhr.responseText)
       x.classList.add('denied')
       x.classList.remove('pushed')
     } else {
@@ -440,26 +460,32 @@ function getCmd(id){
 }
 
 function autoRefresh(id) {
+  var x = document.getElementById('info')
+  x.classList.remove('opaque')
+  x.classList.add('heartbeat')
+  
   setTimeout(function(){ autoRefresh(id) },1500)
-  var xhr = new XMLHttpRequest()
+  var ahr = new XMLHttpRequest()
   var params = controlScript
   params += "?a=" + id
     + "&m=" + MPDPORT 
     + "&h=" + MPDHOST
     + "&p=" + PASSWORD
     + "&k=" + KPASS;
-  xhr.open("GET",params,true)
-  xhr.send()
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status==200) {
-      var CurrentInfo = xhr.responseText;
-      if(CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
+  ahr.open("GET",params,true)
+  ahr.send()
+  ahr.onreadystatechange = function() {
+    if (ahr.readyState == 4 && ahr.status == 200) {
+      var CurrentInfo = ahr.responseText;
+      if (CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var infoWin = document.getElementById(id)
         infoWin.innerHTML = CurrentInfo
         window.PreviousInfo = CurrentInfo
         playListener()
         animatedButtonListener()
       }
+      x.classList.remove('heartbeat')
+      x.classList.add('opaque')
     }
   }
 }
