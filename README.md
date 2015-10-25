@@ -10,7 +10,7 @@ Requests: 2<br>
 Loading time: 0.8ms
 
 ### Status
-This is a Proof-of-Concept application. Alpha stage. Still flushing out the broad strokes of key features. Contributors welcomed.
+This is a Proof-of-Concept application. Alpha stage. In process of conversion from php to nodejs. Contributors welcomed.
 
 ### Installation
 Install in web server root with shell access to mpc. This can be any server with network access to mpd. Ensure your web server has write permissions to the 'cache' subdirectory. SSL is secommended. Create a file called db.ini with your db credentials in this format:
@@ -69,10 +69,8 @@ k=[KPASS]<br>
 Intended for a multi-user environment, where controls with varying permissions may be granted and revoked by a separate web based control panel. This control is part of the project at [www.playnode.ca](https://playnode.ca) providing a platform for DJs to serve background music in commercial establishments.
 
 ###Authentication Ideas:
-- Unique hash and user email must also be used to authenticate the temporary link URL.
-- A new URL generator php page will produce a temporary control URL together with a reset link for that control, which immediately generates the two links again.
+- The URL generator php page will produce a temporary control URL together with a reset link for that control, which immediately generates the two links again.
 - Each URL is associated with a real user by email address.
-- The control URL will be shortened and obfuscated.
 - This provides an easy way to distribute control to many staff. Poor security improved by fast key revocation and reissue, bolstered with server-side monitoring for abuse.
 
 A bartender can be given control over the background music, and she may share it with a friend, who may share it again. This situation may be acceptable, but the moment it isn't the bartender can click the second link, revoking access for the first one, and start again with a clean slate.
