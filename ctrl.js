@@ -1,4 +1,4 @@
-// CTRL.JS 0.1 Copyright 2015 @neilscudder
+// CTRL.JS 0.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 var https = require('https')
   , fs = require('fs')
@@ -7,34 +7,34 @@ var https = require('https')
   , MongoClient = require('mongodb').MongoClient
   , assert = require('assert')
   , options = {
-    key: fs.readFileSync('/etc/ssl/private/playnode.key'),
-    cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
+      key: fs.readFileSync('/etc/ssl/private/playnode.key'),
+      cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
   }
-https.createServer(options, start).listen(8000, "0.0.0.0")
-function start(req, res) {
+https.createServer(options, authenticate).listen(8000, "0.0.0.0")
+function authenticate(req, res) {
   var mongourl = 'mongodb://webserver:webmunster@localhost/authority'
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
   MongoClient.connect(mongourl, function(err, db) {
     assert.equal(null, err)
-    authenticate(db, query['k'] , function() {
+    lookupKey(db, query['k'] , function() {
         db.close()
     })
   })
-  var authenticate = function(db, key, callback) {
+  var lookupKey = function(db, key, callback) {
      var cursor =db.collection('playnodeca').find( { "KPASS": key } )
      cursor.each(function(err, doc) {
         assert.equal(err, null)
         if (doc != null) {
            console.dir(doc)
-           proceed(req, res)
+           processRequest(req, res)
         } else {
            callback()
         }
      })
   }
 }
-function proceed(req, res) {
+function processRequest(req, res) {
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
   var mpc = '/usr/bin/mpc'
@@ -48,29 +48,29 @@ function proceed(req, res) {
     case 'info':
       res.setHeader("Content-Type","text/html") 
       var cmd = 'sh/mpdStatus.sh ' + '"' + mpc + '"'
-      childProcess.exec(cmd,theEnd)
+      childProcess.exec(cmd,returnData)
     break;
     case 'up':
       mpc += ' volume +5'
       res.setHeader("Content-Type","text/html") 
       var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
-       childProcess.exec(cmd,theEnd)
+       childProcess.exec(cmd,returnData)
     break;
     case 'dn':
       mpc += ' volume -5'
       res.setHeader("Content-Type","text/html") 
       var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
-      childProcess.exec(cmd,theEnd)
+      childProcess.exec(cmd,returnData)
     break;
     case 'fw':
       mpc += ' next'
-      childProcess.exec(mpc,theEnd)
+      childProcess.exec(mpc,returnData)
     break;
     default:
       result = 'default'
-      theEnd()
+      returnData()
   }
-  function theEnd(err,stdout,stderr){
+  function returnData(err,stdout,stderr){
     if (err) {
       console.log(err)
     } else if (stdout) {
