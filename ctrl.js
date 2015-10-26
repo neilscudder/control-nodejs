@@ -1,5 +1,6 @@
 // CTRL.JS 0.2 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
+
 var https = require('https')
   , fs = require('fs')
   , childProcess = require('child_process')
@@ -10,7 +11,9 @@ var https = require('https')
       key: fs.readFileSync('/etc/ssl/private/playnode.key'),
       cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
   }
+
 https.createServer(options, authenticate).listen(8000, "0.0.0.0")
+
 function authenticate(req, res) {
   var mongourl = 'mongodb://webserver:webmunster@localhost/authority'
   var url_parts = url.parse(req.url, true)
