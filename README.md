@@ -1,6 +1,8 @@
 # control
 A remote control for music systems where physical access to the audio equipment is obstructed. Intended for use in conjunction with the [paradigm connector](https://github.com/neilscudder/paradigm) to provide control from mobile data network devices over LAN-based music players. A high speed mobile web interface for use in the background music industry, compatible with old phones and congested networks.
 
+NOTE: Conversion to nodejs in progress. Documentation is innaccurate.
+
 'Control' is a client interface for the [music player daemon](https://github.com/MaxKellermann/MPD), dependant on on php, mongodb and [mpc](http://git.musicpd.org/cgit/master/mpc.git/). Uses [Solarized Palette](https://github.com/altercation/solarized).
 
 An authentication framework provisions password-less login URLs. An end user is provided a 'Control URL' with embedded credentials granting them access to certain controls. For each 'Control URL' there is a matching 'Reset URL', which will re-generate both links. See notes on authentication below.
