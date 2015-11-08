@@ -8,8 +8,8 @@ var https = require('https')
   , MongoClient = require('mongodb').MongoClient
   , assert = require('assert')
   , options = {
-      key: fs.readFileSync('/etc/ssl/private/playnode.key'),
-      cert: fs.readFileSync('/etc/ssl/certs/playnode.pem')
+      key: fs.readFileSync('../.ssl/private/playnode.key'),
+      cert: fs.readFileSync('../.ssl/playnode.pem')
   }
 
 https.createServer(options, authenticate).listen(8000, "0.0.0.0")
