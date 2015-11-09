@@ -19,9 +19,8 @@ https.createServer(options, function(){
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
 
-  function authenticate() {
+  function authenticate(cmd) {
     var mongourl = 'mongodb://webserver:webmunster@localhost/authority'
-    var well
     MongoClient.connect(mongourl, function(err, db) {
       assert.equal(null, err)
       lookupKey(db, query['k'] , function() {
@@ -33,14 +32,12 @@ https.createServer(options, function(){
        cursor.each(function(err, doc) {
           assert.equal(err, null)
           if (doc != null) {
-               well = true
+               childProcess.exec(cmd,returnData)
           } else {
                res.end("Access Denied",'utf8')
-               well = false
           }
        })
     }
-    return well
   }
 
   function gui() {
@@ -67,23 +64,23 @@ https.createServer(options, function(){
       case 'info':
 	res.setHeader("Content-Type","text/html")
 	var cmd = 'sh/mpdStatus.sh ' + '"' + mpc + '"'
-	if (authenticate()) childProcess.exec(cmd,returnData)
+	childProcess.exec(cmd,returnData)
       break;
       case 'up':
 	mpc += ' volume +5'
 	res.setHeader("Content-Type","text/html")
 	var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
-	if (authenticate()) childProcess.exec(cmd,returnData)
+        authenticate(cmd)
       break;
       case 'dn':
 	mpc += ' volume -5'
 	res.setHeader("Content-Type","text/html")
 	var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
-	if (authenticate()) childProcess.exec(cmd,returnData)
+	authenticate(cmd)
       break;
       case 'fw':
 	mpc += ' next'
-	if (authenticate()) childProcess.exec(mpc,returnData)
+	authenticate(cmd)
       break;
       default:
 	result = 'No match case'
