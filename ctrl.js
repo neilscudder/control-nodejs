@@ -8,12 +8,14 @@ var https = require('https')
   , MongoClient = require('mongodb').MongoClient
   , assert = require('assert')
   , jade = require('jade')
-  , options = {
+
+var options = {
       key: fs.readFileSync('../.ssl/private/playnode.key'),
       cert: fs.readFileSync('../.ssl/playnode.pem')
-  }
+    }
+  , port = 443
 
-https.createServer(options, authenticate).listen(443, "0.0.0.0")
+https.createServer(options, authenticate).listen(port, "0.0.0.0")
 
 function router(req, res) {
   // First step to replace authenticate
@@ -28,9 +30,9 @@ function gui(req, res) {
   var fn = jade.compile('index.jade')
   var htmlOutput = fn({
     control: {
-      mpdport: 'Forbes Lindesay',
-      mpdhost: '@ForbesLindesay',
-      mpdpass: 'forbeslindesay.co.uk'
+      mpdport: query['m'],
+      mpdhost: query['h'],
+      mpdpass: query['p']
     }
   })
 }
