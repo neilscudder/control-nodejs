@@ -40,7 +40,7 @@ https.createServer(options, function(){
     }
   }
 
-  function gui() {
+  function showGUI() {
     // Assemble the html and return it
     var fn = jade.compile('index.jade')
     var htmlOutput = fn({
@@ -52,7 +52,7 @@ https.createServer(options, function(){
     })
   }
 
-  function processRequest() {
+  function processCommand() {
     var mpc = '/usr/bin/mpc'
     mpc += ' -h ' + query['p']
     mpc += '@' + query['h']
@@ -97,5 +97,10 @@ https.createServer(options, function(){
       if (stderr) console.log(stderr)
     } 
   } 
+  if (query['a']) {
+    processCommand()
+  } else {
+    showGUI()
+  }
 }).listen(serverListenPort, "0.0.0.0")
 
