@@ -7,12 +7,42 @@ var https = require('https')
   , url = require('url')
   , MongoClient = require('mongodb').MongoClient
   , assert = require('assert')
+  , jade = require('jade')
   , options = {
       key: fs.readFileSync('../.ssl/private/playnode.key'),
       cert: fs.readFileSync('../.ssl/playnode.pem')
   }
 
+var fn = jade.compile(jadeTemplate);
+var htmlOutput = fn({
+  maintainer: {
+    name: 'Forbes Lindesay',
+    twitter: '@ForbesLindesay',
+    blog: 'forbeslindesay.co.uk'
+  }
+});
+
 https.createServer(options, authenticate).listen(8000, "0.0.0.0")
+
+function router(req, res) {
+  // First step to replace authenticate
+  var url_parts = url.parse(req.url, true)
+  var query = url_parts.query
+}
+
+function gui(req, res) {
+  var url_parts = url.parse(req.url, true)
+  var query = url_parts.query
+  // Assemble the html and return it
+  var fn = jade.compile('index.jade')
+  var htmlOutput = fn({
+    control: {
+      mpdport: 'Forbes Lindesay',
+      mpdhost: '@ForbesLindesay',
+      mpdpass: 'forbeslindesay.co.uk'
+    }
+  })
+}
 
 function authenticate(req, res) {
   var mongourl = 'mongodb://webserver:webmunster@localhost/authority'
