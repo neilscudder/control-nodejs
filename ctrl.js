@@ -13,16 +13,7 @@ var https = require('https')
       cert: fs.readFileSync('../.ssl/playnode.pem')
   }
 
-var fn = jade.compile(jadeTemplate);
-var htmlOutput = fn({
-  maintainer: {
-    name: 'Forbes Lindesay',
-    twitter: '@ForbesLindesay',
-    blog: 'forbeslindesay.co.uk'
-  }
-});
-
-https.createServer(options, authenticate).listen(8000, "0.0.0.0")
+https.createServer(options, authenticate).listen(443, "0.0.0.0")
 
 function router(req, res) {
   // First step to replace authenticate
