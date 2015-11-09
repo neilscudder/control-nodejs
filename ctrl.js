@@ -47,7 +47,9 @@ https.createServer(options, function(){
       control: {
         mpdport: query['m'],
         mpdhost: query['h'],
-        mpdpass: query['p']
+        mpdpass: query['p'],
+        label: query['l'],
+        key: query['k']
       }
     })
   }
