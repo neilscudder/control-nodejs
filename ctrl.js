@@ -1,4 +1,4 @@
-// CTRL.JS 0.2 Copyright 2015 @neilscudder
+// CTRL.JS 0.4.0 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 var https = require('https')
