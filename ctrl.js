@@ -15,7 +15,7 @@ var options = {
     }
   , serverListenPort = 443
 
-https.createServer(options, function(){
+https.createServer(options, function(req,res){
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
 
