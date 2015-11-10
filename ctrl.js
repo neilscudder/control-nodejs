@@ -8,6 +8,7 @@ var https = require('https')
   , MongoClient = require('mongodb').MongoClient
   , assert = require('assert')
   , jade = require('jade')
+  , path = require('path')
 
 var options = {
       key: fs.readFileSync('../.ssl/private/playnode.key'),
@@ -16,6 +17,7 @@ var options = {
   , serverListenPort = 443
 
 https.createServer(options, function(req,res){
+  console.log('Server responding on port ' + serverListenPort)
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
 
@@ -42,15 +44,25 @@ https.createServer(options, function(req,res){
 
   function showGUI() {
     // Assemble the html and return it
-    var fn = jade.compile('index.jade')
-    var htmlOutput = fn({
-      control: {
-        mpdport: query['m'],
-        mpdhost: query['h'],
-        mpdpass: query['p'],
-        label: query['l'],
-        key: query['k']
+    fs.readFile('index.jade', 'utf8', function (err,data) {
+      if (err) {
+        return console.log(err)
       }
+      console.log('Returning the GUI')
+      var fn = jade.compile(data, {
+        filename: path.join(__dirname, 'index.jade'),
+        pretty:   true
+      })
+      var htmlOutput = fn({
+        control: {
+          mpdport: query['m'],
+          mpdhost: query['h'],
+          mpdpass: query['p'],
+          label: query['l'],
+          key: query['k']
+        }
+      })
+      res.end(htmlOutput,'utf8')
     })
   }
 
@@ -100,8 +112,10 @@ https.createServer(options, function(req,res){
     } 
   } 
   if (query['a']) {
+    console.log('Process command: ' + query['a'])
     processCommand()
   } else {
+    console.log('Show GUI')
     showGUI()
   }
 }).listen(serverListenPort, "0.0.0.0")
