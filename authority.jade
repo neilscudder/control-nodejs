@@ -1,0 +1,47 @@
+html
+  head
+    title Playnode Control Authority
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    style(type='text/css').
+      body{
+      background-color: #002b36;
+      font-family: sans-serif;
+      color: #93a1a1;
+      }
+      input{
+      font-size: 1.3em;
+      color: #002b36;
+      background-color: #eee8d5;
+      width: 90%;
+      }
+      h4{
+      margin: 5px 0 5px 0;
+      }
+      a{
+      color: #eee8d5;
+      }
+  body
+    form(
+        action='authority/', 
+        method='post', 
+        accept-charset='UTF-8', 
+        enctype='application/x-www-form-urlencoded', 
+        autocomplete='off', 
+        novalidate=''
+      )
+      h4 Playnode label:
+      input(type='text', name='LABEL', value='Office')
+      h4 User email:
+      input(type='text', name='EMAIL', value='dude@my.car')
+      h4 MPD port:
+      input(type='text', name='MPDPORT', value='1027')
+      h4 MPD host:
+      input(type='text', name='MPDHOST', value='localhost')
+      h4 MPD password:
+      input(type='text', name='MPDPASS', value='user')
+      h4 Server:
+      input(type='text', name='CONTROLSERVER', value='https://playnode.ca/')
+      br
+      br
+      input(type='submit', value='Submit')
+
