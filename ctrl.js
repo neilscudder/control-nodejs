@@ -54,7 +54,17 @@ https.createServer(options, function(req,res){
     }
   }
 
-  function authority(){
+  function parsePost(req, callback) {
+    var data = ''
+    req.on('data', function(chunk) {
+      data += chunk
+    })
+    req.on('end', function() {
+      callback(data)
+    })
+  }
+
+  function authority(data){
     console.log('Authority') 
     // Assemble the html and return it
     fs.readFile('authority.jade', 'utf8', function (err,data) {
@@ -151,12 +161,12 @@ https.createServer(options, function(req,res){
   if (query['a']) {
     console.log('Process command: ' + query['a'])
     processCommand()
-  } else if ( req.url == '/authority') {
+  } else if (req.url == '/authority') {
     console.log('Authority Vanilla')
     authority()
-  } else if (request.method == 'POST'){
+  } else if (req.method == 'POST'){
     console.log('Authority data POST')
-    authority()
+    parsePost(authority)
   } else {
     console.log('Show GUI')
     showGUI()
