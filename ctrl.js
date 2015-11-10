@@ -55,7 +55,28 @@ https.createServer(options, function(req,res){
   }
 
   function authority(){
-     
+    console.log('Authority') 
+    // Assemble the html and return it
+    fs.readFile('authority.jade', 'utf8', function (err,data) {
+      if (err) {
+        return console.log(err)
+      }
+      console.log('Rendering the authority')
+      var fn = jade.compile(data, {
+        filename: path.join(__dirname, 'authority.jade'),
+        pretty:   true
+      })
+      var htmlOutput = fn({
+        control: {
+          mpdport: query['m'],
+          mpdhost: query['h'],
+          mpdpass: query['p'],
+          label: query['l'],
+          key: query['k']
+        }
+      })
+      res.end(htmlOutput,'utf8')
+    })
   }
 
   function showGUI() {
@@ -130,8 +151,11 @@ https.createServer(options, function(req,res){
   if (query['a']) {
     console.log('Process command: ' + query['a'])
     processCommand()
-  } else if ( req.url == 'authority') {
-    console.log('Authority')
+  } else if ( req.url == '/authority') {
+    console.log('Authority Vanilla')
+    authority()
+  } else if (request.method == 'POST'){
+    console.log('Authority data POST')
     authority()
   } else {
     console.log('Show GUI')
