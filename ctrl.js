@@ -1,7 +1,7 @@
 // CTRL.JS 0.4.0 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
-var http2 = require('http2')
+var https = require('https')
   , fs = require('fs')
   , childProcess = require('child_process')
   , url = require('url')
@@ -20,12 +20,11 @@ var options = {
     }
   , serverListenPort = 443
 console.log('ahem')
-http2.createServer(options, function(req,res){
-  console.log(tls.getCiphers())
+https.createServer(options, function(req,res){
   if (process.getuid && process.setuid && (process.getuid() == 0)) {
     console.log('Current uid: ' + process.getuid());
     try {
-    //  process.setuid(1000);
+      process.setuid(1000);
       console.log('New uid: ' + process.getuid());
     }
     catch (err) {
