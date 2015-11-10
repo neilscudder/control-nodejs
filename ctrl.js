@@ -17,6 +17,18 @@ var options = {
   , serverListenPort = 443
 
 https.createServer(options, function(req,res){
+
+  if (process.getuid && process.setuid && (process.getuid() == 0)) {
+    console.log('Current uid: ' + process.getuid());
+    try {
+      process.setuid(1000);
+      console.log('New uid: ' + process.getuid());
+    }
+    catch (err) {
+      console.log('Failed to set uid: ' + err);
+    }
+  }
+
   console.log('Server responding on port ' + serverListenPort)
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
@@ -40,6 +52,10 @@ https.createServer(options, function(req,res){
           }
        })
     }
+  }
+
+  function authority(){
+     
   }
 
   function showGUI() {
@@ -114,6 +130,9 @@ https.createServer(options, function(req,res){
   if (query['a']) {
     console.log('Process command: ' + query['a'])
     processCommand()
+  } else if ( req.url == 'authority') {
+    console.log('Authority')
+    authority()
   } else {
     console.log('Show GUI')
     showGUI()
