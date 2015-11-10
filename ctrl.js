@@ -84,12 +84,9 @@ https.createServer(options, function(req,res){
         pretty:   true
       })
       var htmlOutput = fn({
-        control: {
-          mpdport: query['m'],
-          mpdhost: query['h'],
-          mpdpass: query['p'],
-          label: query['l'],
-          key: query['k']
+        url: {
+          control: controlURL,
+          reset: resetURL
         }
       })
       res.end(htmlOutput,'utf8')
