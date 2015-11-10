@@ -1,8 +1,27 @@
 {
-  "name" : "ctrl",
-  "version" : "0.4.0",
-  "description" : "Control for mpc, a client for mpd",
-  "dependencies" : {
-    "mongodb" : "~2.0.48"
+  "name": "ctrl",
+  "version": "0.4.0",
+  "description": "Control for mpc, a client for mpd",
+  "dependencies": {
+    "bunyan": "^1.5.1",
+    "mongodb": "~2.0.48"
+  },
+  "main": "ctrl.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neilscudder/control.git"
+  },
+  "keywords": [
+    "mpd",
+    "client"
+  ],
+  "author": "@neilscudder",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/neilscudder/control/issues"
   }
 }

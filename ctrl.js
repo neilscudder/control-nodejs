@@ -1,7 +1,7 @@
 // CTRL.JS 0.4.0 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
-var https = require('https')
+var http2 = require('http2')
   , fs = require('fs')
   , childProcess = require('child_process')
   , url = require('url')
@@ -10,19 +10,22 @@ var https = require('https')
   , jade = require('jade')
   , path = require('path')
   , uuid = require('node-uuid')
+  , bunyan = require('bunyan')
 
+var log = bunyan.createLogger({name:'server'})
 var options = {
+      log: log,
       key: fs.readFileSync('../.ssl/private/playnode.key'),
-      cert: fs.readFileSync('../.ssl/playnode.pem')
+      cert: fs.readFileSync('../.ssl/playnode.pem'),
     }
   , serverListenPort = 443
-
-https.createServer(options, function(req,res){
-
+console.log('ahem')
+http2.createServer(options, function(req,res){
+  console.log(tls.getCiphers())
   if (process.getuid && process.setuid && (process.getuid() == 0)) {
     console.log('Current uid: ' + process.getuid());
     try {
-      process.setuid(1000);
+    //  process.setuid(1000);
       console.log('New uid: ' + process.getuid());
     }
     catch (err) {
