@@ -9,6 +9,7 @@ var https = require('https')
   , assert = require('assert')
   , jade = require('jade')
   , path = require('path')
+  , uuid = require('node-uuid')
 
 var options = {
       key: fs.readFileSync('../.ssl/private/playnode.key'),
@@ -60,16 +61,18 @@ https.createServer(options, function(req,res){
       data += chunk
     })
     req.on('end', function() {
-      var qs = require('querystring');
-      var post = qs.parse(data);
-      console.log(post);
-      console.log(post.LABEL)
-      callback(post)
+//      var qs = require('querystring');
+//      var post = qs.parse(data);
+      console.log(data);
+//      console.log(post.LABEL)
+      callback(data)
     })
   }
 
   function authority(data){
-    console.log('Authority') 
+    controlURL = data + '&k=' + uuid.v4()
+    resetURL = data + '&k=' + uuid.v4()
+    console.log('Authority: ' + controlURL) 
     // Assemble the html and return it
     fs.readFile('authority.jade', 'utf8', function (err,data) {
       if (err) {
