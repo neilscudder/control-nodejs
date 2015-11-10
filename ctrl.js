@@ -54,13 +54,17 @@ https.createServer(options, function(req,res){
     }
   }
 
-  function parsePost(req, callback) {
+  function parsePost(callback) {
     var data = ''
     req.on('data', function(chunk) {
       data += chunk
     })
     req.on('end', function() {
-      callback(data)
+      var qs = require('querystring');
+      var post = qs.parse(data);
+      console.log(post);
+      console.log(post.LABEL)
+      callback(post)
     })
   }
 
