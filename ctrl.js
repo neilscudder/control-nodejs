@@ -12,7 +12,6 @@ var https = require('https')
   , uuid = require('node-uuid')
   , querystring = require('querystring')
 
-var log = bunyan.createLogger({name:'server'})
 var options = {
       key: fs.readFileSync('../.ssl/private/playnode.key'),
       cert: fs.readFileSync('../.ssl/playnode.pem'),
@@ -63,15 +62,35 @@ https.createServer(options, function(req,res){
       data += chunk
     })
     req.on('end', function() {
-      var post = qs.parse(data)
-      console.log(Post data parsed)
-      callback(post)
+      var obj = querystring.parse(data)
+      var readable = JSON.stringify(obj, null, 4)
+      console.log('Post data parsed ' + readable)
+      callback(obj)
     })
   }
 
-  function authority(data){
-    controlURL = data + '&k=' + uuid.v4()
-    resetURL = data + '&k=' + uuid.v4()
+  function authorize(data) {
+    var controlURL
+      , resetURL
+    controlURL = data.CONTROLSERVER
+    controlURL += '?p='
+    controlURL += data.MPDPASS
+    controlURL += '&h='
+    controlURL += data.MPDHOST
+    controlURL += '&m='
+    controlURL += data.MPDPORT
+    controlURL += '&l='
+    controlURL += data.LABEL
+    controlURL += '&k='
+    resetURL = controlURL
+    resetURL += uuid.v4()
+    controlURL += uuid.v4()
+    console.log(controlURL + ' ' + resetURL)
+  }
+
+  function authority(){
+    var controlURL = uuid.v4()
+    var resetURL = uuid.v4()
     console.log('Authority: ' + controlURL) 
     // Assemble the html and return it
     fs.readFile('authority.jade', 'utf8', function (err,data) {
@@ -170,7 +189,7 @@ https.createServer(options, function(req,res){
     authority()
   } else if (req.method == 'POST'){
     console.log('Authority data POST')
-    parsePost(authority)
+    parsePost(authorize)
   } else {
     console.log('Show GUI')
     showGUI()
