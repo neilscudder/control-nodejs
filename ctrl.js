@@ -72,6 +72,7 @@ https.createServer(options, function(req,res){
   function authorize(data) {
     var controlURL
       , resetURL
+    // TODO validate data here
     controlURL = data.CONTROLSERVER
     controlURL += '?p='
     controlURL += data.MPDPASS
@@ -85,12 +86,10 @@ https.createServer(options, function(req,res){
     resetURL = controlURL
     resetURL += uuid.v4()
     controlURL += uuid.v4()
-    console.log(controlURL + ' ' + resetURL)
+    authority(controlURL,resetURL)
   }
 
-  function authority(){
-    var controlURL = uuid.v4()
-    var resetURL = uuid.v4()
+  function authority(controlURL,resetURL){
     console.log('Authority: ' + controlURL) 
     // Assemble the html and return it
     fs.readFile('authority.jade', 'utf8', function (err,data) {
