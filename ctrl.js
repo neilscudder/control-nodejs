@@ -10,7 +10,7 @@ var https = require('https')
   , jade = require('jade')
   , path = require('path')
   , uuid = require('node-uuid')
-  , qs = require('querystring')
+  , querystring = require('querystring')
 
 var log = bunyan.createLogger({name:'server'})
 var options = {
@@ -63,11 +63,9 @@ https.createServer(options, function(req,res){
       data += chunk
     })
     req.on('end', function() {
-//      var qs = require('querystring');
-//      var post = qs.parse(data);
-      console.log(data);
-//      console.log(post.LABEL)
-      callback(data)
+      var post = qs.parse(data)
+      console.log(Post data parsed)
+      callback(post)
     })
   }
 
