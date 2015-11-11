@@ -10,16 +10,16 @@ var https = require('https')
   , jade = require('jade')
   , path = require('path')
   , uuid = require('node-uuid')
-  , bunyan = require('bunyan')
+  , qs = require('querystring')
 
 var log = bunyan.createLogger({name:'server'})
 var options = {
-      log: log,
       key: fs.readFileSync('../.ssl/private/playnode.key'),
       cert: fs.readFileSync('../.ssl/playnode.pem'),
     }
   , serverListenPort = 443
-console.log('ahem')
+
+console.log('Starting https server...')
 https.createServer(options, function(req,res){
   if (process.getuid && process.setuid && (process.getuid() == 0)) {
     console.log('Current uid: ' + process.getuid());
