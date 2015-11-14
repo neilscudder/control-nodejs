@@ -1,4 +1,4 @@
-controlScript = "https://playnode.ca:8000/"
+controlScript = "https://playnode.ca/"
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id

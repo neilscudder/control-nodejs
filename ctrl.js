@@ -12,6 +12,7 @@ var https = require('https')
   , uuid = require('node-uuid')
   , querystring = require('querystring')
 
+var mongourl = 'mongodb://localhost/authority'
 var options = {
       key: fs.readFileSync('../.ssl/private/playnode.key'),
       cert: fs.readFileSync('../.ssl/playnode.pem'),
@@ -36,7 +37,6 @@ https.createServer(options, function(req,res){
   var query = url_parts.query
 
   function authenticate(cmd) {
-    var mongourl = 'mongodb://webserver:webmunster@localhost/authority'
     MongoClient.connect(mongourl, function(err, db) {
       assert.equal(null, err)
       lookupKey(db, query['k'] , function() {
@@ -86,6 +86,24 @@ https.createServer(options, function(req,res){
     resetURL = controlURL
     resetURL += uuid.v4()
     controlURL += uuid.v4()
+    // CHEAT: setting oldResetURL:
+    var oldResetURL = resetURL
+    // TODO upsert data into database
+    MongoClient.connect(mongourl, function(err, db) {
+      assert.equal(null, err)
+      upsertKeys(db,controlURL,resetURL ,function() {
+          db.close()
+      })
+    }) 
+    var upsertKeys = function(db, key, callback) {
+       var collection = db.collection('playnodeca')
+       collection.update({rurl:oldResetURL},{curl:controlURL,rurl:resetURL},{upsert:true},function upsertCB(err) {
+         assert.equal(null, err)
+       })
+    }   
+
+    // TODO add user email parameter to URL
+    // TODO send links to data.EMAIL
     authority(controlURL,resetURL)
   }
 
