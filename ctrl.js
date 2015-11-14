@@ -39,18 +39,19 @@ https.createServer(options, function(req,res){
   function authenticate(cmd) {
     MongoClient.connect(mongourl, function(err, db) {
       assert.equal(null, err)
-      lookupKey(db, query['k'] , function() {
+      lookupKey(db, query['k'], function() {
           db.close()
       })
     }) 
     var lookupKey = function(db, key, callback) {
-       var cursor =db.collection('playnodeca').find( { "KPASS": key } )
+       var cursor =db.collection('playnodeca').find( { 'control': key } )
        cursor.each(function(err, doc) {
           assert.equal(err, null)
           if (doc != null) {
                childProcess.exec(cmd,returnData)
           } else {
-               res.end("Access Denied",'utf8')
+               console.log('Access Denied ' + key )
+               res.end('Access Denied','utf8')
           }
        })
     }
@@ -72,6 +73,8 @@ https.createServer(options, function(req,res){
   function authorize(data) {
     var controlURL
       , resetURL
+      , rkey
+      , ckey
     // TODO validate data here
     controlURL = data.CONTROLSERVER
     controlURL += '?p='
@@ -84,20 +87,21 @@ https.createServer(options, function(req,res){
     controlURL += data.LABEL
     controlURL += '&k='
     resetURL = controlURL
-    resetURL += uuid.v4()
-    controlURL += uuid.v4()
-    // CHEAT: setting oldResetURL:
-    var oldResetURL = resetURL
-    // TODO upsert data into database
+    rkey = uuid.v4()
+    ckey = uuid.v4()
+    resetURL += rkey
+    controlURL += ckey
+    // CHEAT: setting oldRKey:
+    var oldRKey = rkey
     MongoClient.connect(mongourl, function(err, db) {
       assert.equal(null, err)
-      upsertKeys(db,controlURL,resetURL ,function() {
+      upsertKeys(db,function() {
           db.close()
       })
     }) 
-    var upsertKeys = function(db, key, callback) {
+    var upsertKeys = function(db,callback) {
        var collection = db.collection('playnodeca')
-       collection.update({rurl:oldResetURL},{curl:controlURL,rurl:resetURL},{upsert:true},function upsertCB(err) {
+       collection.update({reset:rkey},{reset:rkey,control:ckey},{upsert:true},function upsertCB(err) {
          assert.equal(null, err)
        })
     }   
