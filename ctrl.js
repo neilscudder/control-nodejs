@@ -48,6 +48,7 @@ https.createServer(options, function(req,res){
        cursor.each(function(err, doc) {
           assert.equal(err, null)
           if (doc != null) {
+               console.log('Access Granted')
                childProcess.exec(cmd,returnData)
           } else {
                console.log('Access Denied ' + key )
@@ -174,34 +175,36 @@ https.createServer(options, function(req,res){
       case 'up':
 	mpc += ' volume +5'
 	res.setHeader("Content-Type","text/html")
-	var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
+	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
         authenticate(cmd)
       break;
       case 'dn':
 	mpc += ' volume -5'
 	res.setHeader("Content-Type","text/html")
-	var cmd = 'sh/volume.sh ' + '"' + mpc + '"'
+	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
 	authenticate(cmd)
       break;
       case 'fw':
 	mpc += ' next'
+	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
 	authenticate(cmd)
       break;
       default:
 	result = 'No match case'
 	returnData()
-    }   
-    function returnData(err,stdout,stderr){
-      if (err) {
-	console.log(err)
-      } else if (stdout) {
-	res.end(stdout,'utf8')
-      } else {
-	res.end
-       }
-      if (stderr) console.log(stderr)
-    } 
+    }
+  }
+  function returnData(err,stdout,stderr){
+    if (err) {
+      console.log(err)
+    } else if (stdout) {
+      res.end(stdout,'utf8')
+    } else {
+      res.end
+    }
+    if (stderr) console.log(stderr)
   } 
+  
   if (query['a']) {
     console.log('Process command: ' + query['a'])
     processCommand()
