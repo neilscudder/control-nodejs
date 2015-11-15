@@ -12,16 +12,17 @@ var https = require('https')
   , uuid = require('node-uuid')
   , querystring = require('querystring')
 
-var mongourl = 'mongodb://localhost/authority'
+// TODO - Move these settings out...somewhere
 var options = {
       key: fs.readFileSync('../.ssl/private/playnode.key'),
       cert: fs.readFileSync('../.ssl/playnode.pem'),
     }
   , serverListenPort = 443
+  , mongourl = 'mongodb://localhost/authority'
 
 console.log('Starting https server...')
 https.createServer(options, function(req,res){
-  if (process.getuid && process.setuid && (process.getuid() == 0)) {
+  if (process.setuid && (process.getuid() == 0)) {
     console.log('Current uid: ' + process.getuid());
     try {
       process.setuid(1000);
@@ -31,7 +32,6 @@ https.createServer(options, function(req,res){
       console.log('Failed to set uid: ' + err);
     }
   }
-
   console.log('Server responding on port ' + serverListenPort)
   var url_parts = url.parse(req.url, true)
   var query = url_parts.query
@@ -106,15 +106,11 @@ https.createServer(options, function(req,res){
          assert.equal(null, err)
        })
     }   
-
-    // TODO add user email parameter to URL
-    // TODO send links to data.EMAIL
     authority(controlURL,resetURL)
   }
 
   function authority(controlURL,resetURL){
     console.log('Authority: ' + controlURL) 
-    // Assemble the html and return it
     fs.readFile('authority.jade', 'utf8', function (err,data) {
       if (err) {
         return console.log(err)
@@ -134,13 +130,12 @@ https.createServer(options, function(req,res){
     })
   }
 
-  function showGUI() {
-    // Assemble the html and return it
+  function showControlGUI() {
     fs.readFile('index.jade', 'utf8', function (err,data) {
       if (err) {
         return console.log(err)
       }
-      console.log('Returning the GUI')
+      console.log('Showing the Control GUI')
       var fn = jade.compile(data, {
         filename: path.join(__dirname, 'index.jade'),
         pretty:   true
@@ -216,7 +211,7 @@ https.createServer(options, function(req,res){
     parsePost(authorize)
   } else {
     console.log('Show GUI')
-    showGUI()
+    showControlGUI()
   }
 }).listen(serverListenPort, "0.0.0.0")
 
