@@ -1,6 +1,7 @@
 // CTRL.JS 0.4.0 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
+require('dotenv').load()
 var https = require('https')
   , fs = require('fs')
   , childProcess = require('child_process')
@@ -14,11 +15,11 @@ var https = require('https')
 
 // TODO - Move these settings out...somewhere
 var options = {
-      key: fs.readFileSync('../.ssl/private/playnode.key'),
-      cert: fs.readFileSync('../.ssl/playnode.pem'),
+      key: fs.readFileSync(process.env.SSL_KEY),
+      cert: fs.readFileSync(process.env.SSL_CRT),
     }
-  , serverListenPort = 443
-  , mongourl = 'mongodb://localhost/authority'
+  , serverListenPort = process.env.PORT
+  , mongourl = process.env.MONGOURL
 
 console.log('Starting https server...')
 https.createServer(options, function(req,res){
