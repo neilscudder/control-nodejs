@@ -185,6 +185,11 @@ https.createServer(options, function(req,res){
 	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
 	authenticate(cmd)
       break;
+      case 'random':
+	mpc += ' random'
+	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
+	authenticate(cmd)
+      break;
       default:
 	result = 'No match case'
 	returnData()
