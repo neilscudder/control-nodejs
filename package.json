@@ -6,7 +6,8 @@
     "bunyan": "^1.5.1",
     "http2": "^3.2.0",
     "jade": "^1.11.0",
-    "mongodb": "^2.0.48"
+    "mongodb": "^2.0.48",
+    "node-static": "^0.7.7"
   },
   "main": "ctrl.js",
   "devDependencies": {},

@@ -12,14 +12,18 @@ var https = require('https')
   , path = require('path')
   , uuid = require('node-uuid')
   , querystring = require('querystring')
+  , static = require('node-static')
 
-// TODO - Move these settings out...somewhere
 var options = {
       key: fs.readFileSync(process.env.SSL_KEY),
       cert: fs.readFileSync(process.env.SSL_CRT),
     }
   , serverListenPort = process.env.PORT
   , mongourl = process.env.MONGOURL
+  , file = new static.Server( './res', {
+      cache: 3600,
+      gzip: true
+    } )
 
 console.log('Starting https server...')
 https.createServer(options, function(req,res){
@@ -215,6 +219,8 @@ https.createServer(options, function(req,res){
   } else if (req.method == 'POST'){
     console.log('Authority data POST')
     parsePost(authorize)
+  } else if (req.url.indexOf('/res') > -1) {
+    file.serve(req,res)
   } else {
     console.log('Show GUI')
     showControlGUI()
