@@ -21,8 +21,7 @@ var options = {
   , serverListenPort = process.env.PORT
   , mongourl = process.env.MONGOURL
   , file = new static.Server( './res', {
-      cache: 3600,
-      gzip: true
+      cache: 0,
     } )
 
 console.log('Starting https server...')
@@ -220,7 +219,9 @@ https.createServer(options, function(req,res){
     console.log('Authority data POST')
     parsePost(authorize)
   } else if (req.url.indexOf('/res') > -1) {
+    console.log('serving ' + req.url)
     file.serve(req,res)
+    res.end()
   } else {
     console.log('Show GUI')
     showControlGUI()
