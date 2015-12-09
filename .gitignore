@@ -1,4 +1,5 @@
 .env
+mpd
 cache
 res/db.ini
 node_modules

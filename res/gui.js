@@ -1,4 +1,4 @@
-controlScript = "https://playnode.ca/"
+controlScript = "https://localhost:8080/"
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
@@ -11,10 +11,10 @@ function getCmd(id){
   var xhr = new XMLHttpRequest()
   var params = controlScript
   params += "?a=" + id
-    + "&m=" + MPDPORT
-    + "&h=" + MPDHOST
-    + "&p=" + PASSWORD
-    + "&k=" + KPASS;
+    + "&MPDPORT=" + MPDPORT
+    + "&MPDHOST=" + MPDHOST
+    + "&PASSWORD=" + PASSWORD
+    + "&KPASS=" + KPASS;
   xhr.open("GET",params,true)
   xhr.send()
   xhr.onreadystatechange = function() {
@@ -40,10 +40,10 @@ function autoRefresh(id) {
   var ahr = new XMLHttpRequest()
   var params = controlScript
   params += "?a=" + id
-    + "&m=" + MPDPORT
-    + "&h=" + MPDHOST
-    + "&p=" + PASSWORD
-    + "&k=" + KPASS;
+    + "&MPDPORT=" + MPDPORT
+    + "&MPDHOST=" + MPDHOST
+    + "&PASSWORD=" + PASSWORD
+    + "&KPASS=" + KPASS;
   ahr.open("GET",params,true)
   ahr.send()
   ahr.onreadystatechange = function() {

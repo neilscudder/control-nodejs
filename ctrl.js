@@ -1,4 +1,4 @@
-// CTRL.JS 0.4.0 Copyright 2015 @neilscudder
+// CTRL.JS 0.4.1 Copyright 2015 @neilscudder
 // Licenced under the GNU GPL <http://www.gnu.org/licenses/>
 
 require('dotenv').load()
@@ -81,21 +81,19 @@ https.createServer(options, function(req,res){
       , rkey
       , ckey
     // TODO validate data here
-    controlURL = data.CONTROLSERVER
-    controlURL += '?p='
-    controlURL += data.MPDPASS
-    controlURL += '&h='
-    controlURL += data.MPDHOST
-    controlURL += '&m='
-    controlURL += data.MPDPORT
-    controlURL += '&l='
-    controlURL += data.LABEL
-    controlURL += '&k='
+    controlURL = data.CONTROLSERVER + '/?'
+    if (data.MPDPASS !== '' && data.MPDHOST !== '') controlURL += 'MPDPASS=' + data.MPDPASS + '&MPDHOST=' + data.MPDHOST
+    if (data.MPDHOST !== '') controlURL += '&MPDHOST=' + data.MPDHOST
+    if (data.MPDPORT !== '') controlURL += '&MPDPORT=' + data.MPDPORT
+    if (data.LABEL !== '') controlURL += '&LABEL=' + data.LABEL
+    if (data.EMAIL !== '') controlURL += '&EMAIL=' + data.EMAIL
+    controlURL += '&KPASS='
     resetURL = controlURL
     rkey = uuid.v4()
     ckey = uuid.v4()
     resetURL += rkey
     controlURL += ckey
+    console.log(controlURL) 
     // CHEAT: setting oldRKey:
     var oldRKey = rkey
     MongoClient.connect(mongourl, function(err, db) {
@@ -146,11 +144,11 @@ https.createServer(options, function(req,res){
       })
       var htmlOutput = fn({
         control: {
-          mpdport: query['m'],
-          mpdhost: query['h'],
-          mpdpass: query['p'],
-          label: query['l'],
-          key: query['k']
+          mpdport: query['MPDPORT'],
+          mpdhost: query['MPDHOST'],
+          mpdpass: query['MPDPASS'],
+          label: query['LABEL'],
+          key: query['KPASS']
         }
       })
       res.end(htmlOutput,'utf8')
@@ -159,43 +157,43 @@ https.createServer(options, function(req,res){
 
   function processCommand() {
     var mpc = '/usr/bin/mpc'
-    mpc += ' -h ' + query['p']
-    mpc += '@' + query['h']
-    mpc += ' -p ' + query['m']
+    mpc += ' -h ' + query['MPDPASS']
+    mpc += '@' + query['MPDHOST']
+    mpc += ' -p ' + query['MPDPORT']
     mpc += ' '
     res.statusCode = 200
     res.setHeader("Access-Control-Allow-Origin", "*")
     switch(query['a']) {
       case 'info':
-	res.setHeader("Content-Type","text/html")
-	var cmd = 'sh/mpdStatus.sh ' + '"' + mpc + '"'
-	childProcess.exec(cmd,returnData)
+      	res.setHeader("Content-Type","text/html")
+      	var cmd = 'sh/mpdStatus.sh ' + '"' + mpc + '"'
+      	childProcess.exec(cmd,returnData)
       break;
       case 'up':
-	mpc += ' volume +5'
-	res.setHeader("Content-Type","text/html")
-	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
+      	mpc += ' volume +5'
+      	res.setHeader("Content-Type","text/html")
+      	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
         authenticate(cmd)
       break;
       case 'dn':
-	mpc += ' volume -5'
-	res.setHeader("Content-Type","text/html")
-	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
-	authenticate(cmd)
+      	mpc += ' volume -5'
+      	res.setHeader("Content-Type","text/html")
+      	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
+      	authenticate(cmd)
       break;
       case 'fw':
-	mpc += ' next'
-	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
-	authenticate(cmd)
+      	mpc += ' next'
+      	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
+      	authenticate(cmd)
       break;
       case 'random':
-	mpc += ' random'
-	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
-	authenticate(cmd)
+      	mpc += ' random'
+      	var cmd = 'sh/cmd.sh ' + '"' + mpc + '"'
+      	authenticate(cmd)
       break;
       default:
-	result = 'No match case'
-	returnData()
+      	result = 'No match case'
+      	returnData()
     }
   }
   function returnData(err,stdout,stderr){
