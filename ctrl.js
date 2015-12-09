@@ -83,7 +83,7 @@ https.createServer(options, function(req,res){
     // TODO validate data here
     controlURL = data.CONTROLSERVER + '/?'
     if (data.MPDPASS !== '' && data.MPDHOST !== '') controlURL += 'MPDPASS=' + data.MPDPASS + '&MPDHOST=' + data.MPDHOST
-    if (data.MPDHOST !== '') controlURL += '&MPDHOST=' + data.MPDHOST
+    if (data.MPDPASS == '' && data.MPDHOST !== '') controlURL += '&MPDHOST=' + data.MPDHOST
     if (data.MPDPORT !== '') controlURL += '&MPDPORT=' + data.MPDPORT
     if (data.LABEL !== '') controlURL += '&LABEL=' + data.LABEL
     if (data.EMAIL !== '') controlURL += '&EMAIL=' + data.EMAIL
@@ -144,11 +144,11 @@ https.createServer(options, function(req,res){
       })
       var htmlOutput = fn({
         control: {
-          mpdport: query['MPDPORT'],
-          mpdhost: query['MPDHOST'],
-          mpdpass: query['MPDPASS'],
-          label: query['LABEL'],
-          key: query['KPASS']
+          MPDPORT: query['MPDPORT'],
+          MPDHOST: query['MPDHOST'],
+          MPDPASS: query['MPDPASS'],
+          LABEL: query['LABEL'],
+          KPASS: query['KPASS']
         }
       })
       res.end(htmlOutput,'utf8')
@@ -156,6 +156,7 @@ https.createServer(options, function(req,res){
   }
 
   function processCommand() {
+    console.log(query)
     var mpc = '/usr/bin/mpc'
     mpc += ' -h ' + query['MPDPASS']
     mpc += '@' + query['MPDHOST']
