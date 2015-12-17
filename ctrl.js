@@ -43,7 +43,7 @@ https.createServer(options, function(req,res){
   function authenticate(cmd) {
     MongoClient.connect(mongourl, function(err, db) {
       assert.equal(null, err)
-      lookupKey(db, query['k'], function() {
+      lookupKey(db, query['KPASS'], function() {
           db.close()
       })
     }) 
@@ -157,13 +157,18 @@ https.createServer(options, function(req,res){
 
   function processCommand() {
     console.log(query)
-    var mpc = '/usr/bin/mpc'
-    mpc += ' -h ' + query['MPDPASS']
-    mpc += '@' + query['MPDHOST']
-    mpc += ' -p ' + query['MPDPORT']
+    var mpc, pass, host, port
+    pass = query['MPDPASS']
+    host = query['MPDHOST']
+    port = query['MPDPORT']
+    mpc = '/usr/bin/mpc'
+    if (pass && host) mpc += ' -h ' + pass + '@' + host
+    if (host && !pass) mpc += ' -h' + host
+    if (port) mpc += ' -p ' + port
     mpc += ' '
     res.statusCode = 200
     res.setHeader("Access-Control-Allow-Origin", "*")
+    console.log(query['a'])
     switch(query['a']) {
       case 'info':
       	res.setHeader("Content-Type","text/html")
