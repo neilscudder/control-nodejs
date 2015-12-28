@@ -1,4 +1,4 @@
-controlScript = "https://playnode.ca/"
+var controlScript = "https://playnode.ca/"
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
@@ -6,16 +6,18 @@ var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
 var MPDPASS = document.getElementsByClassName("MPDPASS")[0].id
 var KPASS = document.getElementsByClassName("KPASS")[0].id
 
+params = controlScript 
+  + "?MPDPORT=" + MPDPORT
+  + "&MPDHOST=" + MPDHOST
+  + "&MPDPASS=" + MPDPASS
+  + "&KPASS=" + KPASS;
+
 function getCmd(id){
   var x = document.getElementById(id)
   var xhr = new XMLHttpRequest()
-  var params = controlScript
-  params += "?a=" + id
-    + "&MPDPORT=" + MPDPORT
-    + "&MPDHOST=" + MPDHOST
-    + "&MPDPASS=" + MPDPASS
-    + "&KPASS=" + KPASS;
-  xhr.open("GET",params,true)
+  var localParams = params
+  localParams += "&a=" + id
+  xhr.open("GET",localParams,true)
   xhr.send()
   xhr.onreadystatechange = function() {
     if (xhr.status == 200 && xhr.readyState == 4 && x.classList.contains("pushed")) {
@@ -37,18 +39,14 @@ function autoRefresh(id) {
   x.classList.add('heartbeat')
 
   setTimeout(function(){ autoRefresh(id) },1500)
-  var ahr = new XMLHttpRequest()
-  var params = controlScript
-  params += "?a=" + id
-    + "&MPDPORT=" + MPDPORT
-    + "&MPDHOST=" + MPDHOST
-    + "&MPDPASS=" + MPDPASS
-    + "&KPASS=" + KPASS;
-  ahr.open("GET",params,true)
-  ahr.send()
-  ahr.onreadystatechange = function() {
-    if (ahr.readyState == 4 && ahr.status == 200) {
-      var CurrentInfo = ahr.responseText;
+  var xhr = new XMLHttpRequest()
+  var localParams = params
+  localParams += "&a=" + id
+  xhr.open("GET",localParams,true)
+  xhr.send()
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var CurrentInfo = xhr.responseText;
       if (CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var infoWin = document.getElementById(id)
         infoWin.innerHTML = CurrentInfo
