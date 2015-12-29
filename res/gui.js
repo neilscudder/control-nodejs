@@ -47,7 +47,7 @@ function autoRefresh(id) {
       if (CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
         var div = document.getElementById(id)
         div.innerHTML = CurrentInfo
-        window.PreviousInfo = CurrentInfo
+        PreviousInfo = CurrentInfo
         playListener()
         animatedButtonListener()
       } 
@@ -90,13 +90,15 @@ function animatedButtonListener() {
   }
 }
 function playListener() {
+  // For a play button in the browser view that no longer exists
+  // Keeping here for development of future browser
   var playButton = document.getElementsByClassName("play")
   function otherPusher(e) {
     var nid = e.currentTarget.id
     var x = document.getElementById(nid)
     if (x.classList.contains("confirm")) {
       postCmd("play",nid)
-      window.location.href = "index.php?MPDPORT=" + window.MPDPORT + "&LABEL=" + window.LABEL
+      window.location.href = "index.php?MPDPORT=" + MPDPORT + "&LABEL=" + LABEL
     } else {
       x.classList.add('pushed')
       x.classList.remove('released')
