@@ -15,8 +15,7 @@ params = API
 function getCmd(id){
   var x = document.getElementById(id)
   var xhr = new XMLHttpRequest()
-  var localParams = params
-  localParams += "&a=" + id
+  var localParams = params + "&a=" + id
   xhr.open("GET",localParams,true)
   xhr.send()
   xhr.onreadystatechange = function() {
@@ -40,8 +39,7 @@ function autoRefresh(id) {
 
   setTimeout(function(){ autoRefresh(id) },1500)
   var xhr = new XMLHttpRequest()
-  var localParams = params
-  localParams += "&a=" + id
+  var localParams = params + "&a=" + id
   xhr.open("GET",localParams,true)
   xhr.send()
   xhr.onreadystatechange = function() {
