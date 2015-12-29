@@ -45,8 +45,8 @@ function autoRefresh(id) {
     if (xhr.readyState == 4 && xhr.status == 200) {
       var CurrentInfo = xhr.responseText;
       if (CurrentInfo !== PreviousInfo && !isEmpty(CurrentInfo)) {
-        var infoWin = document.getElementById(id)
-        infoWin.innerHTML = CurrentInfo
+        var div = document.getElementById(id)
+        div.innerHTML = CurrentInfo
         window.PreviousInfo = CurrentInfo
         playListener()
         animatedButtonListener()
