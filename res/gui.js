@@ -1,12 +1,12 @@
-var controlScript = "https://playnode.ca/"
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
+var API = document.getElementsByClassName("MPDPORT")[0].id
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
 var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
 var MPDPASS = document.getElementsByClassName("MPDPASS")[0].id
 var KPASS = document.getElementsByClassName("KPASS")[0].id
 
-params = controlScript 
+params = API 
   + "?MPDPORT=" + MPDPORT
   + "&MPDHOST=" + MPDHOST
   + "&MPDPASS=" + MPDPASS
