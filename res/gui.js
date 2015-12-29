@@ -1,6 +1,6 @@
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
-var API = document.getElementsByClassName("MPDPORT")[0].id
+var API = document.getElementsByClassName("API")[0].id
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
 var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
 var MPDPASS = document.getElementsByClassName("MPDPASS")[0].id
@@ -23,7 +23,6 @@ function getCmd(id){
       x.classList.add('released')
       x.classList.remove('pushed')
     } else if (xhr.readyState == 4 && x.classList.contains("pushed")) {
-//      alert(xhr.responseText)
       x.classList.add('denied')
       x.classList.remove('pushed')
     } else {

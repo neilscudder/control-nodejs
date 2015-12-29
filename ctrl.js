@@ -18,6 +18,7 @@ var options = {
       key: fs.readFileSync(process.env.SSL_KEY),
       cert: fs.readFileSync(process.env.SSL_CRT),
     }
+  , apiUrl = process.env.API
   , serverListenPort = process.env.PORT
   , mongourl = process.env.MONGOURL
   , file = new static.Server( './res', {
@@ -87,6 +88,7 @@ https.createServer(options, function(req,res){
     if (data.MPDPORT !== '') controlURL += '&MPDPORT=' + data.MPDPORT
     if (data.LABEL !== '') controlURL += '&LABEL=' + data.LABEL
     if (data.EMAIL !== '') controlURL += '&EMAIL=' + data.EMAIL
+    if (apiUrl !== '') controlURL += '&API=' + apiUrl
     controlURL += '&KPASS='
     resetURL = controlURL
     rkey = uuid.v4()
@@ -144,6 +146,7 @@ https.createServer(options, function(req,res){
       })
       var htmlOutput = fn({
         control: {
+          API: query['API'],
           MPDPORT: query['MPDPORT'],
           MPDHOST: query['MPDHOST'],
           MPDPASS: query['MPDPASS'],
