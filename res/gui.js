@@ -1,12 +1,13 @@
 var clickEventType = ((document.ontouchstart!==null)?'click':'touchstart')
 var PreviousInfo
-var API = document.getElementsByClassName("API")[0].id
+var APIURL = document.getElementsByClassName("APIURL")[0].id
+var APIALT = document.getElementsByClassName("APIALT")[0].id
 var MPDPORT = document.getElementsByClassName("MPDPORT")[0].id
 var MPDHOST = document.getElementsByClassName("MPDHOST")[0].id
 var MPDPASS = document.getElementsByClassName("MPDPASS")[0].id
 var KPASS = document.getElementsByClassName("KPASS")[0].id
-
-params = API 
+// TODO fallback to APIALT if necessary
+params = APIURL 
   + "?MPDPORT=" + MPDPORT
   + "&MPDHOST=" + MPDHOST
   + "&MPDPASS=" + MPDPASS
