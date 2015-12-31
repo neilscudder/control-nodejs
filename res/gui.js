@@ -90,46 +90,4 @@ function animatedButtonListener() {
       buttons[i].addEventListener(clickEventType, pusher, false)
   }
 }
-function playListener() {
-  // For a play button in the browser view that no longer exists
-  // Keeping here for development of future browser
-  var playButton = document.getElementsByClassName("play")
-  function otherPusher(e) {
-    var nid = e.currentTarget.id
-    var x = document.getElementById(nid)
-    if (x.classList.contains("confirm")) {
-      postCmd("play",nid)
-      window.location.href = "index.php?MPDPORT=" + MPDPORT + "&LABEL=" + LABEL
-    } else {
-      x.classList.add('pushed')
-      x.classList.remove('released')
-    }
-  }
-  function confirmer(e) { 
-    var id = e.currentTarget.id
-    var x = document.getElementById(id)
-    var shapes
-    if (x.classList.contains("pushed")) {
-        x.classList.add('confirm')
-        shapes = x.getElementsByClassName("playPath")
-        shapes[0].style.fill = "#eee8d5"
-        x.classList.remove('pushed')
-    } else if (x.classList.contains("confirm")) {
-        setTimeout(function(){ buttonTimeout(id) },2200)
-    } else {
-        x.classList.add('released')
-        shapes = x.getElementsByClassName("playPath")
-        shapes[0].style.fill = "#93A1A1"
-    }
-  }
-  function buttonTimeout(id) {
-    document.getElementById(id).classList.remove("confirm")
-    document.getElementById(id).classList.add('released')
-  }
-  for(var i=0; i<playButton.length; i++) {
-      playButton[i].addEventListener(clickEventType, otherPusher, false)
-      playButton[i].addEventListener("animationend", confirmer, false)
-      playButton[i].addEventListener("webkitAnimationEnd", confirmer, false)
-  }
-}
 initialise()
