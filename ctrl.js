@@ -177,6 +177,7 @@ https.createServer(options, function(req,res){
     console.log(query['a'])
     switch(query['a']) {
       case 'info':
+        // To refresh the DIV with id = info
       	res.setHeader("Content-Type","text/html")
       	var cmd = 'sh/mpdStatus.sh ' + '"' + mpc + '"'
       	childProcess.exec(cmd,returnData)
