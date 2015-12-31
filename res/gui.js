@@ -13,7 +13,7 @@ params = APIURL
   + "&MPDPASS=" + MPDPASS
   + "&KPASS=" + KPASS;
 
-function getCmd(id){
+function sendCmd(id){
   var x = document.getElementById(id)
   var xhr = new XMLHttpRequest()
   var localParams = params + "&a=" + id
@@ -83,7 +83,7 @@ function animatedButtonListener() {
       togBrowser(id)
     } else if (x.classList.contains("released")) {
       pushed(id)
-      getCmd(id)
+      sendCmd(id)
     }
   }
   for(i = 0; i<buttons.length; i++) {
