@@ -1,3 +1,5 @@
+This repo has been abandoned in favour of a new version written in go. 😀
+
 # control
 A remote control for music systems where physical access to the audio equipment is obstructed. Intended for use in conjunction with the [paradigm connector](https://github.com/neilscudder/paradigm) to provide control from mobile data network devices over LAN-based music players. A high speed mobile web interface for use in the background music industry, compatible with old phones and congested networks.
 
